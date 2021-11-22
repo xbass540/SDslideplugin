@@ -1,0 +1,60 @@
+
+---Downloaded files---
+The import files for: Solify Demo Import were successfully downloaded!
+Initial max execution time = 1200
+Files info:
+Site URL = http://solify.local
+Data file = /home/xbass/Local Sites/solify/app/public/wp-content/uploads/2021/04/demo-content-import-file_2021-04-14__11-48-18.xml
+Widget file = /home/xbass/Local Sites/solify/app/public/wp-content/uploads/2021/04/demo-widgets-import-file_2021-04-14__11-48-18.json
+Customizer file = /home/xbass/Local Sites/solify/app/public/wp-content/uploads/2021/04/demo-customizer-import-file_2021-04-14__11-48-18.dat
+Redux files:
+not defined!
+
+------
+New AJAX call!
+
+
+------
+New AJAX call!
+[ERROR] Failed to import "womens 1 2" (Media)
+
+
+---Importing widgets---
+Product Page Sidebar : 
+
+AAPF Filter Single - No Title - Imported
+AAPF Filter Single - No Title - Imported
+
+Footer  Sidebar : 
+
+Custom HTML - Footer 1 - Imported
+Custom HTML - Footer 2 - Imported
+Custom HTML - Footer 3 - Imported
+
+Top Footer Sidebar : 
+
+Custom HTML - Top Footer 1 - Imported
+Custom HTML - Top Footer 2 - Imported
+Custom HTML - Top Footer 3 - Imported
+Custom HTML - Top Footer 4 - Imported
+Custom HTML - Top Footer 5 - Imported
+
+Copyright Sidebar : 
+
+Custom HTML - No Title - Imported
+
+Custom Widget Area - #1 : 
+
+YITH WooCommerce Ajax Product Search - No Title - Imported
+
+widgets_for_shortcodes : Sidebar does not exist in theme (moving widget to Inactive)
+
+AAPF Filters Group - filters - Imported to Inactive
+
+
+
+---Importing customizer settings---
+Customizer settings import finished!
+
+---ocdi/after_import---
+

@@ -1,0 +1,33 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+ .section-title{
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    font-size: 17px;
+    margin: 0 -10px;
+    padding: 8px;
+    background-color: #5e6871;
+    color: #ffffff;
+}
+.xoo-main{
+    background-color: #ffffff;
+    padding: 0 10px;
+    width: 80%;
+}
+.xoo-container {
+    margin-top: 12px;
+}
+input[name="xoo_wsc_gl_options[sc-shipping-text]"]{
+    width: 500px;
+}
+table.form-table{
+    margin-bottom: 20px;
+}
+
+select.xoo-wsc-bk-icon{
+    font-family: Woo-Side-Cart!important;
+}

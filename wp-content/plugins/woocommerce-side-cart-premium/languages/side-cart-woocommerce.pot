@@ -1,0 +1,394 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-10-12 23:53+0530\n"
+"PO-Revision-Date: 2018-06-01 11:23+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-xoo-wsc-admin.php:88
+msgid "Woo Side Cart"
+msgstr ""
+
+#: admin/class-xoo-wsc-general-settings.php:67
+#: admin/settings/class-xoo-wsc-general-settings.php:87
+msgid "Auto Open"
+msgstr ""
+
+#: admin/class-xoo-wsc-general-settings.php:75
+#: admin/settings/class-xoo-wsc-general-settings.php:155
+msgid "Head Title"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-advanced-settings.php:67
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-advanced-settings.php:75
+msgid "Trigger Class"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:95
+msgid "Ajax Add to Cart"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:103
+msgid "Loading Icon"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:111
+msgid "Update Quantity"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:119
+msgid "Total Sales"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:128
+msgid "Notification"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:137
+msgid "Show Shipping & Tax"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:146
+msgid "Show Coupon"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:163
+msgid "Subtotal"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:171
+msgid "Shipping Text"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:179
+msgid "Cart Button Text"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:187
+msgid "Checkout Button Text"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:195
+msgid "Continue Button Text"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:203
+msgid "Cotinue Button URL"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:211
+msgid "Empty Cart Button"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:219
+msgid "Cart Is Empty Text"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:228
+msgid "Product Price"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:236
+msgid "Product total"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:251
+msgid "Enable Basket"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:259
+msgid "Basket on mobile"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:267
+msgid "Hide Basket Pages"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:275
+msgid "Product Count"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:283
+msgid "Count Type"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:291
+msgid "FlyTo Cart Animation"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:307
+msgid "Enable"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:316
+msgid "Enable on mobile devices"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:324
+msgid "Type"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:332
+msgid "Number of suggested products"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:344
+msgid "Title"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:548
+#: public/partials/xoo-wsc-markup.php:23
+msgid "Your Cart"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:565
+#: public/partials/xoo-wsc-footer.php:10 public/partials/xoo-wsc-markup.php:33
+msgid "Subtotal:"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:582
+#: public/partials/xoo-wsc-footer.php:11 public/partials/xoo-wsc-markup.php:34
+msgid "To find out your shipping cost , Please proceed to checkout."
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:599
+#: public/partials/xoo-wsc-footer.php:12 public/partials/xoo-wsc-markup.php:35
+msgid "View Cart"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:615
+#: public/partials/xoo-wsc-footer.php:13 public/partials/xoo-wsc-markup.php:36
+msgid "Checkout"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:632
+#: public/partials/xoo-wsc-footer.php:14 public/partials/xoo-wsc-markup.php:37
+msgid "Continue Shopping"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:667
+msgid "Empty Cart"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:683
+#: public/partials/xoo-wsc-content.php:8
+msgid "Your cart is empty."
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-general-settings.php:949
+#: public/class-xoo-wsc-cart-data.php:261
+msgid "Products you may like"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:100
+#: admin/settings/class-xoo-wsc-style-settings.php:171
+#: admin/settings/class-xoo-wsc-style-settings.php:259
+#: admin/settings/class-xoo-wsc-style-settings.php:398
+msgid "Background Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:108
+#: admin/settings/class-xoo-wsc-style-settings.php:179
+msgid "Font Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:116
+#: admin/settings/class-xoo-wsc-style-settings.php:187
+msgid "Font Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:124
+msgid "Border Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:132
+msgid "Border Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:140
+msgid "Padding"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:148
+msgid "Close Cart Icon Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:163
+msgid "Container Width"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:195
+msgid "Product Image Width"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:203
+msgid "Remove Text Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:211
+msgid "Product Title Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:219
+msgid "Product Title Font Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:227
+msgid "Product Row Border Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:235
+msgid "Product Row Border Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:244
+msgid "Empty Cart Image"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:267
+msgid "Buttons Margin"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:276
+msgid "Button Theme Styling"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:285
+msgid "Button Bg Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:293
+msgid "Button Text Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:301
+msgid "Button Padding"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:316
+msgid "Basket Position"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:325
+msgid "Custom Basket Icon"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:334
+msgid "Basket Icon"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:342
+msgid "Basket Background Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:350
+msgid "Basket Icon Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:358
+msgid "Basket Icon Size"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:366
+msgid "Count Background Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:374
+msgid "Count Text Color"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:390
+msgid "Position"
+msgstr ""
+
+#: admin/settings/class-xoo-wsc-style-settings.php:406
+msgid "Image Width"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:127
+msgid "Something went wrong"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:174
+msgid "Item added"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:178
+msgid "Item updated"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:183
+msgid "Item removed"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:184
+msgid "Undo?"
+msgstr ""
+
+#: public/class-xoo-wsc-cart-data.php:188
+msgid "Item added back"
+msgstr ""
+
+#: public/partials/global/xoo-wsc-total-sales.php:11
+msgid "shoppers have bought this"
+msgstr ""
+
+#: public/partials/xoo-wsc-content.php:105
+msgid "Price:"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:44
+msgid "Tax"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:51
+msgid "Shipping"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:58
+msgid "Discount"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:65
+msgid "Total"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:78
+msgid "Apply a promo code"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:82
+msgid "Enter your promo code"
+msgstr ""
+
+#: public/partials/xoo-wsc-footer.php:83
+msgid "APPLY"
+msgstr ""
+
+#: public/partials/xoo-wsc-shortcode.php:25
+msgid "item"
+msgstr ""
+
+#: public/partials/xoo-wsc-shortcode.php:25
+msgid "items"
+msgstr ""
+
+#: xoo-wsc.php:98
+msgid ""
+"WooCommerce Side Cart is enabled but not effective. It requires WooCommerce "
+"in order to work."
+msgstr ""

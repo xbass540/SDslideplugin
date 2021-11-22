@@ -1,0 +1,71 @@
+@font-face {
+  font-family: 'Woo-Side-Cart';
+  src:  url('Woo-Side-Cart.eot?5hikwy');
+  src:  url('Woo-Side-Cart.eot?5hikwy#iefix') format('embedded-opentype'),
+    url('Woo-Side-Cart.ttf?5hikwy') format('truetype'),
+    url('Woo-Side-Cart.woff?5hikwy') format('woff'),
+    url('Woo-Side-Cart.svg?5hikwy#Woo-Side-Cart') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="xoo-wsc-icon-"], [class*=" xoo-wsc-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Woo-Side-Cart' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.xoo-wsc-icon-cross:before {
+  content: "\e909";
+}
+.xoo-wsc-icon-arrow-long-right:before {
+  content: "\e900";
+}
+.xoo-wsc-icon-basket5:before {
+  content: "\e901";
+}
+.xoo-wsc-icon-basket4:before {
+  content: "\e902";
+}
+.xoo-wsc-icon-basket6:before {
+  content: "\e903";
+}
+.xoo-wsc-icon-basket1:before {
+  content: "\e904";
+}
+.xoo-wsc-icon-basket2:before {
+  content: "\e905";
+}
+.xoo-wsc-icon-basket3:before {
+  content: "\e906";
+}
+.xoo-wsc-icon-trash1:before {
+  content: "\e907";
+}
+.xoo-wsc-icon-trash:before {
+  content: "\e908";
+}
+.xoo-wsc-icon-spinner:before {
+  content: "\e97a";
+}
+.xoo-wsc-icon-spinner2:before {
+  content: "\e97b";
+}
+.xoo-wsc-icon-trash2:before {
+  content: "\e9ad";
+}
+.xoo-wsc-icon-checkmark:before {
+  content: "\ea10";
+}
+.xoo-wsc-icon-check_circle:before {
+  content: "\e90a";
+}

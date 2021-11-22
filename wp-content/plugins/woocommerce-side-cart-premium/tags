@@ -1,0 +1,642 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+$.fn.lightSlider	lib/lightslider/js/lightslider.js	/^    };$/;"	f
+$el.destroy	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.getCurrentSlideCount	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.getTotalSlideCount	lib/lightslider/js/lightslider.js	/^        }; $/;"	f
+$el.goToNextSlide	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.goToPrevSlide	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.goToSlide	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.mode	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.pause	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.play	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+$el.refresh	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+XOO_WSC_PATH	xoo-wsc.php	/^define("XOO_WSC_PATH",plugin_dir_path(__FILE__));$/;"	d
+XOO_WSC_URL	xoo-wsc.php	/^define("XOO_WSC_URL", plugins_url('\/',__FILE__));$/;"	d
+__construct	admin/class-xoo-wsc-admin.php	/^	public function __construct( $xoo_wsc, $version ) {$/;"	f
+__construct	admin/class-xoo-wsc-general-settings.php	/^	public function __construct( $xoo_wsc ) {$/;"	f
+__construct	admin/settings/class-xoo-wsc-advanced-settings.php	/^	public function __construct( $xoo_wsc ) {$/;"	f
+__construct	admin/settings/class-xoo-wsc-general-settings.php	/^	public function __construct( $xoo_wsc ) {$/;"	f
+__construct	admin/settings/class-xoo-wsc-style-settings.php	/^	public function __construct( $xoo_wsc ) {$/;"	f
+__construct	includes/class-xoo-wsc-loader.php	/^	public function __construct() {$/;"	f
+__construct	includes/class-xoo-wsc.php	/^	public function __construct() {$/;"	f
+__construct	public/class-xoo-wsc-cart-data.php	/^	public function __construct( $xoo_wsc ) {$/;"	f
+__construct	public/class-xoo-wsc-public.php	/^	public function __construct( $xoo_wsc, $version ) {$/;"	f
+_product	public/partials/xoo-wsc-content.php	/^			$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );$/;"	v
+action	public/class-xoo-wsc-cart-data.php	/^			$this->action = $new_qty === 0 ? 'remove' : 'update';$/;"	v
+action	public/class-xoo-wsc-cart-data.php	/^			$this->action = 'undo';$/;"	v
+action	public/class-xoo-wsc-cart-data.php	/^		$this->action = 'add';$/;"	v
+action	public/class-xoo-wsc-cart-data.php	/^	public $action;$/;"	v
+actions	includes/class-xoo-wsc-loader.php	/^		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );$/;"	v
+actions	includes/class-xoo-wsc-loader.php	/^		$this->actions = array();$/;"	v
+actions	includes/class-xoo-wsc-loader.php	/^	protected $actions;$/;"	v
+actions	public/class-xoo-wsc-public.php	/^		$actions = array($/;"	v
+activate	includes/class-xoo-wsc-activator.php	/^	public static function activate() {$/;"	f
+activate_xoo_wsc	xoo-wsc.php	/^function activate_xoo_wsc() {$/;"	f
+active	admin/class-xoo-wsc-admin.php	/^			$active = $current_tab == $tab_key ? 'nav-tab-active' : '';$/;"	v
+active	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+adaptiveHeight	lib/lightslider/js/lightslider.js	/^        rtl: false,$/;"	p	class:defaults
+add	includes/class-xoo-wsc-loader.php	/^	private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args ) {$/;"	f
+addClass	lib/lightslider/js/lightslider.js	/^        slideMargin: 10,$/;"	p	class:defaults
+add_action	includes/class-xoo-wsc-loader.php	/^	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {$/;"	f
+add_filter	includes/class-xoo-wsc-loader.php	/^	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {$/;"	f
+add_settings_link	admin/class-xoo-wsc-admin.php	/^	function add_settings_link( $links ) {$/;"	f
+added_to_cart	public/class-xoo-wsc-public.php	/^			$added_to_cart = false;$/;"	v
+added_to_cart	public/class-xoo-wsc-public.php	/^			$added_to_cart = true;$/;"	v
+admin_menu	admin/class-xoo-wsc-admin.php	/^	public function admin_menu() {$/;"	f
+ajax_atc	public/class-xoo-wsc-public.php	/^		$ajax_atc 	 = isset( $gl_options['sc-ajax-atc']) ? $gl_options['sc-ajax-atc'] : 1;$/;"	v
+apply_coupon_nonce	public/class-xoo-wsc-public.php	/^			$apply_coupon_nonce = wp_create_nonce('apply-coupon');$/;"	v
+args	admin/class-xoo-wsc-admin.php	/^		$args = array($/;"	v
+args	public/class-xoo-wsc-cart-data.php	/^		$args = apply_filters( 'xoo_wsc_suggested_product_args', $args );$/;"	v
+args	public/class-xoo-wsc-cart-data.php	/^		$args = array($/;"	v
+args	public/partials/xoo-wsc-content.php	/^										$args = array($/;"	v
+args	public/partials/xoo-wsc-suggested-products.php	/^$args = array($/;"	v
+args	public/xoo-wsc-functions.php	/^	$args = array($/;"	v
+args_content	public/class-xoo-wsc-cart-data.php	/^		$args_content = array($/;"	v
+atc_icons	public/class-xoo-wsc-public.php	/^		$atc_icons = isset( $gl_options['sc-atc-icons']) ? $gl_options['sc-atc-icons'] : 1;$/;"	v
+attributes	public/partials/xoo-wsc-content.php	/^				$attributes = '';$/;"	v
+auto	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+auto	lib/lightslider/js/lightslider.js	/^        speed: 400, \/\/ms'$/;"	p	class:defaults
+autoWidth	lib/lightslider/js/lightslider.js	/^        item: 3,$/;"	p	class:defaults
+auto_open_cart	public/class-xoo-wsc-public.php	/^		$auto_open_cart = isset( $gl_options['sc-auto-open']) ? $gl_options['sc-auto-open'] : 1;$/;"	v
+auto_open_sc	admin/class-xoo-wsc-general-settings.php	/^	public function auto_open_sc() {$/;"	f
+av_options	public/class-xoo-wsc-public.php	/^		$av_options = get_option('xoo-wsc-av-options');$/;"	v
+bk_bbgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_bbgc() {$/;"	f
+bk_bbgc	public/class-xoo-wsc-public.php	/^		$bk_bbgc 	= isset( $options['bk-bbgc']) ? $options['bk-bbgc'] : '#ffffff'; \/\/ Basket Background Color$/;"	v
+bk_bfc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_bfc() {$/;"	f
+bk_bfc	public/class-xoo-wsc-public.php	/^		$bk_bfc 	= isset( $options['bk-bfc']) ? $options['bk-bfc'] : '#000000'; \/\/ basket Icon Color$/;"	v
+bk_bfs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_bfs() {$/;"	f
+bk_bfs	public/class-xoo-wsc-public.php	/^		$bk_bfs 	= isset( $options['bk-bfs']) ? $options['bk-bfs'] : 35; \/\/ Basket Icon size$/;"	v
+bk_bit	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_bit() {$/;"	f
+bk_bit	public/partials/xoo-wsc-markup.php	/^	$bk_bit	= isset( $sy_options['bk-bit']) ? $sy_options['bk-bit'] : 'xoo-wsc-icon-basket1'; \/\/ Basket Icon Type$/;"	v
+bk_bit	public/partials/xoo-wsc-shortcode.php	/^	$bk_bit	= isset( $sy_options['bk-bit']) ? $sy_options['bk-bit'] : 'xoo-wsc-icon-basket1'; \/\/ Basket Icon Type$/;"	v
+bk_cbgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_cbgc() {$/;"	f
+bk_cbgc	public/class-xoo-wsc-public.php	/^		$bk_cbgc 	= isset( $options['bk-cbgc']) ? $options['bk-cbgc'] : '#cc0086'; \/\/ Count background Color$/;"	v
+bk_cfc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_cfc() {$/;"	f
+bk_cfc	public/class-xoo-wsc-public.php	/^		$bk_cfc 	= isset( $options['bk-cfc']) ? $options['bk-cfc'] : '#ffffff'; \/\/ Count font color$/;"	v
+bk_count_type	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_count_type() {$/;"	f
+bk_cubi	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_cubi() {$/;"	f
+bk_cubi	public/partials/xoo-wsc-markup.php	/^$bk_cubi 		    = isset( $sy_options['bk-cubi']) ? $sy_options['bk-cubi'] : ''; \/\/ Custom basket icon$/;"	v
+bk_cubi	public/partials/xoo-wsc-shortcode.php	/^$bk_cubi 	= isset( $sy_options['bk-cubi']) ? $sy_options['bk-cubi'] : ''; \/\/ Custom basket icon$/;"	v
+bk_flyto_anim	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_flyto_anim() {$/;"	f
+bk_hide_basket_pages	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_hide_basket_pages() {$/;"	f
+bk_options_section	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_options_section() {$/;"	f
+bk_options_section	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_options_section() {$/;"	f
+bk_pos	admin/settings/class-xoo-wsc-style-settings.php	/^	public function bk_pos() {$/;"	f
+bk_pos	public/class-xoo-wsc-public.php	/^		$bk_pos 	= isset( $options['bk-pos']) ? $options['bk-pos'] : 'bottom_fixed'; \/\/ Basket Position$/;"	v
+bk_pos_dir	public/class-xoo-wsc-public.php	/^				$bk_pos_dir  = 'bottom';$/;"	v
+bk_pos_dir	public/class-xoo-wsc-public.php	/^				$bk_pos_dir  = 'top';$/;"	v
+bk_pos_type	public/class-xoo-wsc-public.php	/^				$bk_pos_type = 'absolute';$/;"	v
+bk_pos_type	public/class-xoo-wsc-public.php	/^				$bk_pos_type = 'fixed';$/;"	v
+bk_show	public/class-xoo-wsc-public.php	/^		$bk_show  	= isset( $gl_options['bk-show-basket']) ? $gl_options['bk-show-basket'] : 'always_show'; \/\/Show Basket$/;"	v
+bk_show_basket	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_show_basket() {$/;"	f
+bk_show_basket_mobile	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_show_basket_mobile() {$/;"	f
+bk_show_bkcount	admin/settings/class-xoo-wsc-general-settings.php	/^	public function bk_show_bkcount() {$/;"	f
+build	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+bundled_child	public/partials/xoo-wsc-content.php	/^				$bundled_child  = isset($cart_item['bundled_by']);$/;"	v
+bundled_class	public/partials/xoo-wsc-content.php	/^					$bundled_class = 'xoo-wsc-bundled-child';$/;"	v
+bundled_class	public/partials/xoo-wsc-content.php	/^					$bundled_class = 'xoo-wsc-bundled-parent';$/;"	v
+bundled_class	public/partials/xoo-wsc-content.php	/^					$bundled_class = null;$/;"	v
+bundled_parent	public/partials/xoo-wsc-content.php	/^				$bundled_parent = isset($cart_item['bundled_items']);$/;"	v
+cart	public/class-xoo-wsc-cart-data.php	/^		$cart 		 = WC()->cart->get_cart();$/;"	v
+cart_content	public/class-xoo-wsc-cart-data.php	/^		$cart_content = $this->get_cart_content();$/;"	v
+cart_data	public/class-xoo-wsc-cart-data.php	/^		$cart_data 	= WC()->cart->get_cart(); $/;"	v
+cart_footer	public/class-xoo-wsc-cart-data.php	/^		$cart_footer = $this->get_cart_footer_content();$/;"	v
+cart_is_empty	public/class-xoo-wsc-cart-data.php	/^		$cart_is_empty = WC()->cart->is_empty();$/;"	v
+cart_items_total	public/partials/xoo-wsc-shortcode.php	/^$cart_items_total = wc_price(WC()->cart->subtotal);$/;"	v
+cart_key	public/class-xoo-wsc-cart-data.php	/^				$cart_key = sanitize_text_field($_POST['cart_key']);$/;"	v
+cart_key	public/class-xoo-wsc-cart-data.php	/^		$cart_key = sanitize_text_field($_POST['cart_key']);$/;"	v
+cart_rand	public/class-xoo-wsc-cart-data.php	/^				$cart_rand = shuffle($cart);$/;"	v
+cart_redirect	public/class-xoo-wsc-public.php	/^		$cart_redirect  = isset( $gl_options['sc-cart-redirect']) ? $gl_options['sc-cart-redirect'] : 0;$/;"	v
+cart_subtotal	public/class-xoo-wsc-cart-data.php	/^		$cart_subtotal = wc_price(WC()->cart->subtotal);$/;"	v
+cart_success	public/class-xoo-wsc-cart-data.php	/^		$cart_success = $new_qty === 0 ? WC()->cart->remove_cart_item($cart_key) : WC()->cart->set_quantity($cart_key,$new_qty);$/;"	v
+cart_success	public/class-xoo-wsc-cart-data.php	/^		$cart_success = WC()->cart->restore_cart_item($cart_key);$/;"	v
+cart_txt	public/partials/xoo-wsc-footer.php	/^$cart_txt 			= isset($options['sc-cart-text']) ? $options['sc-cart-text'] : __("View Cart",'side-cart-woocommerce'); \/\/Cart Text$/;"	v
+cart_txt	public/partials/xoo-wsc-markup.php	/^$cart_txt 			= isset($options['sc-cart-text']) ? $options['sc-cart-text'] : __("View Cart",'side-cart-woocommerce'); \/\/Cart Text$/;"	v
+chk_txt	public/partials/xoo-wsc-footer.php	/^$chk_txt 			= isset($options['sc-checkout-text']) ? $options['sc-checkout-text']: __("Checkout",'side-cart-woocommerce'); \/\/Checkout Text$/;"	v
+chk_txt	public/partials/xoo-wsc-markup.php	/^$chk_txt 			= isset($options['sc-checkout-text']) ? $options['sc-checkout-text']: __("Checkout",'side-cart-woocommerce'); \/\/Checkout Text$/;"	v
+cont_btn_url	public/partials/xoo-wsc-footer.php	/^$cont_btn_url 		= isset($options['sc-cont-btn-url']) ? $options['sc-cont-btn-url'] : "#"; \/\/Continue button url$/;"	v
+cont_height	public/class-xoo-wsc-public.php	/^		$cont_height = isset( $options['scb-ch']) ? $options['scb-ch'] : 'full_screen';$/;"	v
+cont_height	public/class-xoo-wsc-public.php	/^		$cont_height = isset( $sy_options['scb-ch']) ? $sy_options['scb-ch'] : 'full_screen';$/;"	v
+cont_open	public/class-xoo-wsc-public.php	/^		$cont_open 	 = isset( $options['scb-open']) ? $options['scb-open'] : 'right';$/;"	v
+cont_txt	public/partials/xoo-wsc-footer.php	/^$cont_txt 			= isset($options['sc-continue-text']) ? $options['sc-continue-text'] :__( "Continue Shopping",'side-cart-woocommerce'); \/\/Continue Text$/;"	v
+cont_txt	public/partials/xoo-wsc-markup.php	/^$cont_txt 			= isset($options['sc-continue-text']) ? $options['sc-continue-text'] :__( "Continue Shopping",'side-cart-woocommerce'); \/\/Continue Text$/;"	v
+controls	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+controls	lib/lightslider/js/lightslider.js	/^        keyPress: false,$/;"	p	class:defaults
+count_type	public/class-xoo-wsc-cart-data.php	/^		$count_type = isset( $options['bk-count-type']) ? $options['bk-count-type'] : 'qty_count'; \/\/Count Type$/;"	v
+count_type	public/partials/xoo-wsc-markup.php	/^$count_type 		= isset( $options['bk-count-type']) ? $options['bk-count-type'] : 'qty_count'; \/\/Count Type$/;"	v
+count_type	public/partials/xoo-wsc-shortcode.php	/^$count_type = isset( $options['bk-count-type']) ? $options['bk-count-type'] : 'qty_count'; \/\/Count Type$/;"	v
+count_value	public/class-xoo-wsc-cart-data.php	/^			$count_value = WC()->cart->get_cart_contents_count();$/;"	v
+count_value	public/class-xoo-wsc-cart-data.php	/^			$count_value = count(WC()->cart->get_cart());$/;"	v
+count_value	public/partials/xoo-wsc-markup.php	/^					$count_value = WC()->cart->get_cart_contents_count();$/;"	v
+count_value	public/partials/xoo-wsc-markup.php	/^					$count_value = count(WC()->cart->get_cart());$/;"	v
+count_value	public/partials/xoo-wsc-shortcode.php	/^	$count_value = WC()->cart->get_cart_contents_count();$/;"	v
+count_value	public/partials/xoo-wsc-shortcode.php	/^	$count_value = count(WC()->cart->get_cart());$/;"	v
+create_nonces	public/class-xoo-wsc-public.php	/^	public function create_nonces(){$/;"	f
+cssEasing	lib/lightslider/js/lightslider.js	/^        useCSS: true,$/;"	p	class:defaults
+currentPagerPosition	lib/lightslider/js/lightslider.js	/^        thumbMargin: 5,$/;"	p	class:defaults
+current_tab	admin/class-xoo-wsc-admin.php	/^		$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';$/;"	v
+custom_btn_class	public/class-xoo-wsc-public.php	/^		$custom_btn_class = isset( $av_options['custom-btn-class']) ? $av_options['custom-btn-class'] : '';$/;"	v
+custom_css	admin/settings/class-xoo-wsc-advanced-settings.php	/^	public function custom_css() {$/;"	f
+deactivate	includes/class-xoo-wsc-deactivator.php	/^	public static function deactivate() {$/;"	f
+deactivate_xoo_wsc	xoo-wsc.php	/^function deactivate_xoo_wsc() {$/;"	f
+default_btn_classes	public/partials/xoo-wsc-footer.php	/^$default_btn_classes = $theme_button_styling != 'false' ? 'button btn' : '';$/;"	v
+define_admin_hooks	includes/class-xoo-wsc.php	/^	private function define_admin_hooks() {$/;"	f
+define_public_hooks	includes/class-xoo-wsc.php	/^	private function define_public_hooks() {$/;"	f
+display_plugin_admin_page	admin/class-xoo-wsc-admin.php	/^	public function display_plugin_admin_page(){	$/;"	f
+doCss	lib/lightslider/js/lightslider.js	/^        plugin = {$/;"	m	class:plugin
+domain	includes/class-xoo-wsc-i18n.php	/^		$domain = 'side-cart-woocommerce';$/;"	v
+easing	lib/lightslider/js/lightslider.js	/^        cssEasing: 'ease', \/\/'cubic-bezier(0.25, 0, 0.25, 1)',$/;"	p	class:defaults
+empty_cart_img	public/partials/xoo-wsc-content.php	/^$empty_cart_img = isset( $sy_options['scb-empimg']) ? $sy_options['scb-empimg'] : null;$/;"	v
+empty_cart_txt	public/partials/xoo-wsc-content.php	/^$empty_cart_txt = isset( $options['sc-empty-text']) ? $options['sc-empty-text'] : __('Your cart is empty.','side-cart-woocommerce');$/;"	v
+enable	public/class-xoo-wsc-cart-data.php	/^		$enable = isset( $gl_options['sp-enable']) ? $gl_options['sp-enable'] : 1;$/;"	v
+enable	xoo-wsc.php	/^	$enable = isset( $gl_options['sp-enable']) ? $gl_options['sp-enable'] : 1;$/;"	v
+enableDrag	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+enableDrag	lib/lightslider/js/lightslider.js	/^        enableTouch: true,$/;"	p	class:defaults
+enableTouch	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+enableTouch	lib/lightslider/js/lightslider.js	/^        currentPagerPosition: 'middle',$/;"	p	class:defaults
+enable_mobile	public/class-xoo-wsc-cart-data.php	/^		$enable_mobile = isset( $gl_options['sp-enable-mobile']) ? $gl_options['sp-enable-mobile'] : 0;$/;"	v
+enable_mobile	xoo-wsc.php	/^	$enable_mobile = isset( $gl_options['sp-enable-mobile']) ? $gl_options['sp-enable-mobile'] : 0;$/;"	v
+enqueue_scripts	admin/class-xoo-wsc-admin.php	/^	public function enqueue_scripts($hook) {$/;"	f
+enqueue_scripts	public/class-xoo-wsc-public.php	/^	public function enqueue_scripts() {$/;"	f
+enqueue_styles	admin/class-xoo-wsc-admin.php	/^	public function enqueue_styles($hook) {$/;"	f
+enqueue_styles	public/class-xoo-wsc-public.php	/^	public function enqueue_styles() {$/;"	f
+error	public/class-xoo-wsc-cart-data.php	/^		$error = wc_get_notices( 'error' );$/;"	v
+exclude_ids	public/class-xoo-wsc-cart-data.php	/^		$exclude_ids = array();$/;"	v
+fade	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+filters	includes/class-xoo-wsc-loader.php	/^		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );$/;"	v
+filters	includes/class-xoo-wsc-loader.php	/^		$this->filters = array();$/;"	v
+filters	includes/class-xoo-wsc-loader.php	/^	protected $filters;$/;"	v
+flyto_anim	public/class-xoo-wsc-public.php	/^		$flyto_anim = isset( $gl_options['bk-flyto-anim']) ? $gl_options['bk-flyto-anim'] : 1;$/;"	v
+fn.flyto	lib/fly-to-cart/assets/js/flyto.js	/^;(function ($, window, document, undefined) {$/;"	f
+fn.flyto	lib/fly-to-cart/assets/js/flyto.min.js	/^\/*!$/;"	f
+fn.flyto	lib/fly-to-cart/flyto.min.js	/^\/*!$/;"	f
+freeMove	lib/lightslider/js/lightslider.js	/^        enableDrag: true,$/;"	p	class:defaults
+gC	lib/lightslider/js/lightslider.js	/^                    var gC = function (next) {$/;"	f	function:var
+gallery	lib/lightslider/js/lightslider.js	/^        pager: true,$/;"	p	class:defaults
+galleryMargin	lib/lightslider/js/lightslider.js	/^        gallery: false,$/;"	p	class:defaults
+get_cart	includes/class-xoo-wsc.php	/^			$get_cart	   = new xoo_wsc_Cart_Data($this->get_xoo_wsc());$/;"	v
+get_cart_content	public/class-xoo-wsc-cart-data.php	/^	public function get_cart_content(){$/;"	f
+get_cart_footer_content	public/class-xoo-wsc-cart-data.php	/^	public function get_cart_footer_content(){$/;"	f
+get_cart_markup	public/class-xoo-wsc-cart-data.php	/^	public function get_cart_markup(){$/;"	f
+get_loader	includes/class-xoo-wsc.php	/^	public function get_loader() {$/;"	f
+get_notice	public/class-xoo-wsc-cart-data.php	/^	public function get_notice(){$/;"	f
+get_section_markup	admin/class-xoo-wsc-admin.php	/^	public function get_section_markup($title){	$/;"	f
+get_suggested_products	public/class-xoo-wsc-cart-data.php	/^	public static function get_suggested_products(){$/;"	f
+get_version	includes/class-xoo-wsc.php	/^	public function get_version() {$/;"	f
+get_xoo_wsc	includes/class-xoo-wsc.php	/^	public function get_xoo_wsc() {$/;"	f
+gl_options	public/class-xoo-wsc-cart-data.php	/^		$gl_options = get_option('xoo-wsc-gl-options');$/;"	v
+gl_options	public/class-xoo-wsc-public.php	/^		$gl_options 	= get_option('xoo-wsc-gl-options');$/;"	v
+gl_options	public/class-xoo-wsc-public.php	/^		$gl_options = get_option('xoo-wsc-gl-options');$/;"	v
+gl_options	public/xoo-wsc-functions.php	/^	$gl_options = get_option('xoo-wsc-gl-options');$/;"	v
+gl_options	xoo-wsc.php	/^	$gl_options = get_option('xoo-wsc-gl-options');$/;"	v
+group	admin/class-xoo-wsc-general-settings.php	/^		$this->group = $xoo_wsc.'_gl';$/;"	v
+group	admin/class-xoo-wsc-general-settings.php	/^	private $group;$/;"	v
+group	admin/settings/class-xoo-wsc-advanced-settings.php	/^		$this->group = $xoo_wsc.'-av';$/;"	v
+group	admin/settings/class-xoo-wsc-advanced-settings.php	/^	private $group;$/;"	v
+group	admin/settings/class-xoo-wsc-general-settings.php	/^		$this->group = $xoo_wsc.'-gl';$/;"	v
+group	admin/settings/class-xoo-wsc-general-settings.php	/^	private $group;$/;"	v
+group	admin/settings/class-xoo-wsc-style-settings.php	/^		$this->group = $xoo_wsc.'-sy';$/;"	v
+group	admin/settings/class-xoo-wsc-style-settings.php	/^	private $group;$/;"	v
+has_discount	public/partials/xoo-wsc-footer.php	/^$has_discount = WC()->cart->has_discount();$/;"	v
+has_shipping	public/partials/xoo-wsc-footer.php	/^$has_shipping = WC()->cart->needs_shipping() && WC()->cart->show_shipping();$/;"	v
+head_title	public/partials/xoo-wsc-header.php	/^$head_title = isset($options['sc-head-text']) ? $options['sc-head-text']: __("Your Cart",'side-cart-woocommerce'); \/\/Head Title$/;"	v
+head_title	public/partials/xoo-wsc-markup.php	/^$head_title 		= isset($options['sc-head-text']) ? $options['sc-head-text']: __("Your Cart",'side-cart-woocommerce'); \/\/Head Title$/;"	v
+head_txt_sc	admin/class-xoo-wsc-general-settings.php	/^	public function head_txt_sc() {$/;"	f
+hide_basket	public/partials/xoo-wsc-markup.php	/^							$hide_basket = true;$/;"	v
+hide_basket	public/partials/xoo-wsc-markup.php	/^						$hide_basket = true;$/;"	v
+hide_basket	public/partials/xoo-wsc-markup.php	/^				$hide_basket = true;$/;"	v
+hide_basket	public/partials/xoo-wsc-markup.php	/^			$hide_basket = false;$/;"	v
+hide_basket_pages	public/partials/xoo-wsc-markup.php	/^$hide_basket_pages 	= trim(isset( $options['bk-hide-basket-pages']) ? $options['bk-hide-basket-pages'] : ''); \/\/Hide basket on pages$/;"	v
+html	public/class-xoo-wsc-cart-data.php	/^		$html = '';$/;"	v
+html	public/partials/xoo-wsc-shortcode.php	/^$html  = '<a class="xoo-wsc-sc-cont">';$/;"	v
+html	xoo-wsc.php	/^	$html = ob_get_clean();$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-count-type]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-flyto-anim]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-hide-basket-pages]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-show-basket-mobile]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-show-basket]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[bk-show-bkcount]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-ajax-atc]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-atc-icons]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-auto-open]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-notify]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-show-coupon]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-show-pec]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-show-price]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-show-ptotal]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-show-shptax]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-total-sales]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sc-update-qty]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sp-count]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sp-enable-mobile]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sp-enable]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sp-title]';$/;"	v
+id	admin/settings/class-xoo-wsc-general-settings.php	/^		$id 		= $this->group.'-options[sp-type]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-bbgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-bfc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-bfs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-bit]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-cbgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-cfc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-cubi]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[bk-pos]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-bgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-ch]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-cw]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-empimg]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-fc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-fs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-imgw]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-open]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-prbc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-prbs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-ptfc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-ptfs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scb-rfc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-bgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-bm]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-btn-bgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-btn-pd]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-btn-tc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[scf-btn-ts]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-bc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-bgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-bs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-cis]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-fc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-fs]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sch-ps]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sp-bgc]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sp-imgw]';$/;"	v
+id	admin/settings/class-xoo-wsc-style-settings.php	/^		$id 		= $this->group.'-options[sp-pos]';$/;"	v
+init	lib/lightslider/js/lightslider.js	/^                refresh = {$/;"	m	class:refresh
+initialStyle	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+inline_style	public/class-xoo-wsc-public.php	/^		$inline_style = '';$/;"	v
+input_html	public/partials/global/xoo-wsc-quantity-increment.php	/^$input_html = '<input type="number" class="xoo-wsc-qty" max="'.esc_attr( 0 < $max_value ? $max_value : '' ).'" min="'.esc_attr($min_value).'" step="'.esc_attr( $step ).'" value="'.$input_value.'" pattern="'.esc_attr( $pattern ).'" >';$/;"	v
+input_value	public/partials/global/xoo-wsc-quantity-increment.php	/^$input_value = !isset($input_value) ? $min_value : $input_value;$/;"	v
+item	lib/lightslider/js/lightslider.js	/^    var defaults = {$/;"	p	class:defaults
+items_count	public/class-xoo-wsc-cart-data.php	/^		$items_count = count($suggested_products) !== 0 ? count($suggested_products)  : $items_count;$/;"	v
+items_count	public/class-xoo-wsc-cart-data.php	/^		$items_count = isset( $gl_options['sp-count']) ? $gl_options['sp-count'] : 5;$/;"	v
+items_txt	public/partials/xoo-wsc-shortcode.php	/^$items_txt = $count_value === 1 ? __('item','side-cart-woocommerce') : __('items','side-cart-woocommerce');$/;"	v
+js_data	public/class-xoo-wsc-cart-data.php	/^			$js_data =  array($/;"	v
+keyPress	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+keyPress	lib/lightslider/js/lightslider.js	/^        pause: 2000,$/;"	p	class:defaults
+last_cart_item	public/class-xoo-wsc-cart-data.php	/^				$last_cart_item = end($cart);$/;"	v
+load_dependencies	includes/class-xoo-wsc.php	/^	private function load_dependencies() {$/;"	f
+load_plugin_textdomain	includes/class-xoo-wsc-i18n.php	/^	public function load_plugin_textdomain() {$/;"	f
+loader	includes/class-xoo-wsc.php	/^		$this->loader = new xoo_wsc_Loader();$/;"	v
+loader	includes/class-xoo-wsc.php	/^	protected $loader;$/;"	v
+locale	includes/class-xoo-wsc-i18n.php	/^		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );$/;"	v
+loop	lib/lightslider/js/lightslider.js	/^        pauseOnHover: false,$/;"	p	class:defaults
+max_value	public/partials/global/xoo-wsc-quantity-increment.php	/^$max_value = apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product );$/;"	v
+min_value	public/partials/global/xoo-wsc-quantity-increment.php	/^$min_value = apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product );$/;"	v
+mode	lib/lightslider/js/lightslider.js	/^        addClass: '',$/;"	p	class:defaults
+move	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+mylinks	admin/class-xoo-wsc-admin.php	/^		$mylinks = array($/;"	v
+new_input	admin/class-xoo-wsc-admin.php	/^		$new_input = array();$/;"	v
+new_qty	public/class-xoo-wsc-cart-data.php	/^		$new_qty = (int) $_POST['new_qty'];$/;"	v
+nextHtml	lib/lightslider/js/lightslider.js	/^        prevHtml: '',$/;"	p	class:defaults
+nonces	public/class-xoo-wsc-public.php	/^		$nonces = array();$/;"	v
+notice	public/class-xoo-wsc-cart-data.php	/^				$notice = __('Item added back','side-cart-woocommerce');$/;"	v
+notice	public/class-xoo-wsc-cart-data.php	/^				$notice = __('Item added','side-cart-woocommerce');$/;"	v
+notice	public/class-xoo-wsc-cart-data.php	/^				$notice = __('Item removed','side-cart-woocommerce');$/;"	v
+notice	public/class-xoo-wsc-cart-data.php	/^				$notice = __('Item updated','side-cart-woocommerce');$/;"	v
+notification	public/class-xoo-wsc-cart-data.php	/^		$notification = isset( $options['sc-notify']) ? $options['sc-notify'] : 1; \/\/ Notification$/;"	v
+on_add_to_cart	public/class-xoo-wsc-cart-data.php	/^	public function on_add_to_cart(){$/;"	f
+option	admin/class-xoo-wsc-general-settings.php	/^			$option = $options['auto-open-sc'];$/;"	v
+option	admin/class-xoo-wsc-general-settings.php	/^			$option = $options['head-txt-sc'];$/;"	v
+option	admin/class-xoo-wsc-general-settings.php	/^		$option 	= 0;$/;"	v
+option	admin/settings/class-xoo-wsc-advanced-settings.php	/^		$option 	= isset( $options['custom-css']) ? $options['custom-css'] : '';$/;"	v
+option	admin/settings/class-xoo-wsc-advanced-settings.php	/^		$option 	= isset( $options['trigger-class']) ? $options['trigger-class'] : '';$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-count-type']) ? $options['bk-count-type'] : 'qty_count';$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-flyto-anim']) ? $options['bk-flyto-anim'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-hide-basket-pages']) ? $options['bk-hide-basket-pages'] : '';$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-show-basket']) ? $options['bk-show-basket'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-show-basket-mobile']) ? $options['bk-show-basket-mobile'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['bk-show-bkcount']) ? $options['bk-show-bkcount'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-ajax-atc']) ? $options['sc-ajax-atc'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-atc-icons']) ? $options['sc-atc-icons'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-auto-open']) ? $options['sc-auto-open'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-cart-text']) ? $options['sc-cart-text'] : __('View Cart','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-checkout-text']) ? $options['sc-checkout-text'] : __('Checkout','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-cont-btn-url']) ? $options['sc-cont-btn-url'] : "#";$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-continue-text']) ? $options['sc-continue-text'] : __('Continue Shopping','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-empty-cart-text']) ? $options['sc-empty-cart-text'] : __('Empty Cart','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-empty-text']) ? $options['sc-empty-text'] : __('Your cart is empty.','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-head-text']) ? $options['sc-head-text'] : __('Your Cart','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-notify']) ? $options['sc-notify'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-shipping-text']) ? $options['sc-shipping-text'] : __('To find out your shipping cost , Please proceed to checkout.','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-show-coupon']) ? $options['sc-show-coupon'] : 'always_show';$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-show-pec']) ? $options['sc-show-pec'] : 0;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-show-price']) ? $options['sc-show-price'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-show-ptotal']) ? $options['sc-show-ptotal'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-show-shptax']) ? $options['sc-show-shptax'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-subtotal-text']) ? $options['sc-subtotal-text'] : __('Subtotal:','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-total-sales']) ? $options['sc-total-sales'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sc-update-qty']) ? $options['sc-update-qty'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sp-count']) ? $options['sp-count'] : 5;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sp-enable']) ? $options['sp-enable'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sp-enable-mobile']) ? $options['sp-enable-mobile'] : 0;$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sp-title']) ? $options['sp-title'] :  __('Products you may like','side-cart-woocommerce');$/;"	v
+option	admin/settings/class-xoo-wsc-general-settings.php	/^		$option 	= isset( $options['sp-type']) ? $options['sp-type'] : 'cross_sells';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= !empty( $options['scb-ch']) ? $options['scb-ch'] : 'full_screen';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= !empty( $options['scb-cw']) ? $options['scb-cw'] : 300;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= !empty( $options['scb-open']) ? $options['scb-open'] : 'right';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-bbgc']) ? $options['bk-bbgc'] : '#ffffff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-bfc']) ? $options['bk-bfc'] : '#000000';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-bfs']) ? $options['bk-bfs'] : 35;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-bit']) ? $options['bk-bit'] : 'xoo-wsc-icon-basket1';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-cbgc']) ? $options['bk-cbgc'] : '#cc0086';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-cfc']) ? $options['bk-cfc'] : '#ffffff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-cubi']) ? $options['bk-cubi'] : '';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['bk-pos']) ? $options['bk-pos'] : 'bottom_fixed';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-bgc']) ? $options['scb-bgc'] : '#ffffff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-empimg']) ? $options['scb-empimg'] : '';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-fc']) ? $options['scb-fc'] : '#000000';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-fs']) ? $options['scb-fs'] : 14;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-imgw']) ? $options['scb-imgw'] : 35;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-prbc']) ? $options['scb-prbc'] : '#eeeeee';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-prbs']) ? $options['scb-prbs'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-ptfc']) ? $options['scb-ptfc'] : '#000000';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-ptfs']) ? $options['scb-ptfs'] : 16;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scb-rfc']) ? $options['scb-rfc'] : '#000000';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-bgc']) ? $options['scf-bgc'] : '#ffffff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-bm']) ? $options['scf-bm'] : 4;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-btn-bgc']) ? $options['scf-btn-bgc'] : '#777';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-btn-pd']) ? $options['scf-btn-pd'] : '5';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-btn-tc']) ? $options['scf-btn-tc'] : '#fff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['scf-btn-ts']) ? $options['scf-btn-ts'] : 'false';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-bc']) ? $options['sch-bc'] : '#eeeeee';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-bgc']) ? $options['sch-bgc'] : '#ffffff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-bs']) ? $options['sch-bs'] : 1;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-cis']) ? $options['sch-cis'] : 20;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-fc']) ? $options['sch-fc'] : '#000000';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-fs']) ? $options['sch-fs'] : 20;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sch-ps']) ? $options['sch-ps'] : '10px 20px';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sp-bgc']) ? $options['sp-bgc'] : '#fff';$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sp-imgw']) ? $options['sp-imgw'] : 75;$/;"	v
+option	admin/settings/class-xoo-wsc-style-settings.php	/^		$option 	= isset( $options['sp-pos']) ? $options['sp-pos'] : '';$/;"	v
+options	admin/class-xoo-wsc-general-settings.php	/^		$options 	= get_option( $this->group . '_options' );$/;"	v
+options	admin/settings/class-xoo-wsc-advanced-settings.php	/^		$options 	= get_option( $this->group . '-options' );$/;"	v
+options	admin/settings/class-xoo-wsc-general-settings.php	/^		$options 	= get_option( $this->group . '-options' );$/;"	v
+options	admin/settings/class-xoo-wsc-style-settings.php	/^		$options 	= get_option( $this->group . '-options' );$/;"	v
+options	public/class-xoo-wsc-cart-data.php	/^		$options 	= get_option('xoo-wsc-gl-options');$/;"	v
+options	public/class-xoo-wsc-cart-data.php	/^		$options = get_option('xoo-wsc-gl-options');$/;"	v
+options	public/class-xoo-wsc-public.php	/^		$options = get_option('xoo-wsc-sy-options');$/;"	v
+options	public/partials/xoo-wsc-markup.php	/^$options 	= get_option('xoo-wsc-gl-options');$/;"	v
+options	public/partials/xoo-wsc-shortcode.php	/^$options 	= get_option('xoo-wsc-gl-options');$/;"	v
+options_section	admin/settings/class-xoo-wsc-advanced-settings.php	/^	public function options_section() {} $/;"	f
+pager	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+pager	lib/lightslider/js/lightslider.js	/^        thumbItem: 10,$/;"	p	class:defaults
+pattern	public/partials/global/xoo-wsc-quantity-increment.php	/^$pattern   = apply_filters( 'woocommerce_quantity_input_pattern', has_filter( 'woocommerce_stock_amount', 'intval' ) ? '[0-9]*' : '' );$/;"	v
+pause	lib/lightslider/js/lightslider.js	/^        slideEndAnimation: true,$/;"	p	class:defaults
+pauseOnHover	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+pauseOnHover	lib/lightslider/js/lightslider.js	/^        auto: false,$/;"	p	class:defaults
+pc_handler	public/xoo-wsc-functions.php	/^	$pc_handler = new WC_Gateway_PPEC_Cart_Handler();$/;"	v
+pec	public/class-xoo-wsc-public.php	/^		$pec 		 = isset( $gl_options['sc-show-pec']) ? $gl_options['sc-show-pec'] : 0;$/;"	v
+pec	public/xoo-wsc-functions.php	/^	$pec = isset( $gl_options['sc-show-pec']) ? $gl_options['sc-show-pec'] : 0;$/;"	v
+plugin	xoo-wsc.php	/^	$plugin = new xoo_wsc();$/;"	v
+plugin_admin	includes/class-xoo-wsc.php	/^		$plugin_admin = new xoo_wsc_Admin( $this->get_xoo_wsc(), $this->get_version() );$/;"	v
+plugin_i18n	includes/class-xoo-wsc.php	/^		$plugin_i18n = new xoo_wsc_i18n();$/;"	v
+plugin_public	includes/class-xoo-wsc.php	/^		$plugin_public = new xoo_wsc_Public( $this->get_xoo_wsc(), $this->get_version() );$/;"	v
+plugin_settings_tabs	admin/class-xoo-wsc-admin.php	/^	public $plugin_settings_tabs = array();$/;"	v
+prevHtml	lib/lightslider/js/lightslider.js	/^        controls: true,$/;"	p	class:defaults
+prevent_cart_redirect	public/class-xoo-wsc-public.php	/^	public function prevent_cart_redirect($value){$/;"	f
+product	public/class-xoo-wsc-cart-data.php	/^					$product = wc_get_product($product_id);$/;"	v
+product_id	public/class-xoo-wsc-cart-data.php	/^					$product_id = $cart_item['variation_id'] ? $cart_item['variation_id'] : $cart_item['product_id'];$/;"	v
+product_id	public/class-xoo-wsc-cart-data.php	/^				$product_id 	= $last_cart_item['product_id'];$/;"	v
+product_id	public/partials/xoo-wsc-content.php	/^			$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );$/;"	v
+product_link	public/partials/xoo-wsc-suggested-products.php	/^				$product_link = $product->get_permalink();$/;"	v
+product_name	public/partials/xoo-wsc-content.php	/^				$product_name =  apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s<\/a>', esc_url( $product_permalink ), $_product->get_title() ), $cart_item, $cart_item_key );$/;"	v
+product_permalink	public/partials/xoo-wsc-content.php	/^				$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );$/;"	v
+product_price	public/partials/xoo-wsc-content.php	/^				$product_price = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );$/;"	v
+product_subtotal	public/partials/xoo-wsc-content.php	/^				$product_subtotal = apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );$/;"	v
+products	public/partials/xoo-wsc-suggested-products.php	/^$products = new WP_Query( $args );$/;"	v
+refresh.calL	lib/lightslider/js/lightslider.js	/^                };$/;"	f
+refresh.calSW	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+refresh.calSlide	lib/lightslider/js/lightslider.js	/^                var $this = this;$/;"	f
+refresh.calWidth	lib/lightslider/js/lightslider.js	/^        };$/;"	f
+refresh.chbreakpoint	lib/lightslider/js/lightslider.js	/^        var refresh = {};$/;"	f
+refresh.clone	lib/lightslider/js/lightslider.js	/^                    refresh.calSW();$/;"	f
+refresh.createPager	lib/lightslider/js/lightslider.js	/^                var $this = this;$/;"	f
+refresh.init	lib/lightslider/js/lightslider.js	/^        plugin.build();$/;"	f
+refresh.sSW	lib/lightslider/js/lightslider.js	/^                }$/;"	f
+related_products	public/class-xoo-wsc-cart-data.php	/^					$related_products 	= wc_get_related_products($product_id,$items_count,$exclude_ids);$/;"	v
+remove_coupon_nonce	public/class-xoo-wsc-public.php	/^			$remove_coupon_nonce = $apply_coupon_nonce = false;$/;"	v
+remove_coupon_nonce	public/class-xoo-wsc-public.php	/^			$remove_coupon_nonce = wp_create_nonce('remove-coupon');$/;"	v
+render_tabs	admin/class-xoo-wsc-admin.php	/^	function render_tabs() {$/;"	f
+resetSlide	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+responsive	lib/lightslider/js/lightslider.js	/^        swipeThreshold: 40,$/;"	p	class:defaults
+rtl	lib/lightslider/js/lightslider.js	/^        nextHtml: '',$/;"	p	class:defaults
+run	includes/class-xoo-wsc-loader.php	/^	public function run() {$/;"	f
+run	includes/class-xoo-wsc.php	/^	public function run() {$/;"	f
+run_xoo_wsc	xoo-wsc.php	/^function run_xoo_wsc() {$/;"	f
+sc_ajax_atc	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_ajax_atc() {$/;"	f
+sc_atc_icons	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_atc_icons() {$/;"	f
+sc_auto_open	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_auto_open() {$/;"	f
+sc_cart_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_cart_text() {$/;"	f
+sc_checkout_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_checkout_text() {$/;"	f
+sc_cont_btn_url	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_cont_btn_url() {$/;"	f
+sc_continue_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_continue_text() {$/;"	f
+sc_empty_cart_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_empty_cart_text() {$/;"	f
+sc_empty_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_empty_text() {$/;"	f
+sc_head_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_head_text() {$/;"	f
+sc_notify	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_notify() {$/;"	f
+sc_options_section	admin/class-xoo-wsc-general-settings.php	/^	public function sc_options_section() {$/;"	f
+sc_options_section	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_options_section() {$/;"	f
+sc_shipping_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_shipping_text() {$/;"	f
+sc_show_coupon	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_show_coupon() {$/;"	f
+sc_show_pec	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_show_pec() {$/;"	f
+sc_show_price	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_show_price() {$/;"	f
+sc_show_ptotal	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_show_ptotal() {$/;"	f
+sc_show_shptax	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_show_shptax() {$/;"	f
+sc_subtotal_text	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_subtotal_text() {$/;"	f
+sc_total_sales	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_total_sales() {$/;"	f
+sc_update_qty	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sc_update_qty() {$/;"	f
+scb_bgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_bgc() {$/;"	f
+scb_bgc	public/class-xoo-wsc-public.php	/^		$scb_bgc 	= isset( $options['scb-bgc']) ? $options['scb-bgc'] : '#ffffff'; \/\/ BG Color$/;"	v
+scb_btn_ts	public/class-xoo-wsc-public.php	/^		$scb_btn_ts	 = isset( $options['scf-btn-ts']) ? $options['scf-btn-ts']: 'false'; \/\/default button styling$/;"	v
+scb_ch	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_ch() {$/;"	f
+scb_cw	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_cw() {$/;"	f
+scb_cw	public/class-xoo-wsc-public.php	/^		$scb_cw		= !empty( $options['scb-cw']) ? $options['scb-cw'] : 300; \/\/ Container Width$/;"	v
+scb_empimg	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_empimg() {$/;"	f
+scb_fc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_fc() {$/;"	f
+scb_fc	public/class-xoo-wsc-public.php	/^		$scb_fc 	= isset( $options['scb-fc']) ? $options['scb-fc'] : '#000000'; \/\/ Text Color$/;"	v
+scb_fs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_fs() {$/;"	f
+scb_fs	public/class-xoo-wsc-public.php	/^		$scb_fs 	= isset( $options['scb-fs']) ? $options['scb-fs'] : 14; \/\/ Font Size$/;"	v
+scb_imgw	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_imgw() {$/;"	f
+scb_imgw	public/class-xoo-wsc-public.php	/^		$scb_imgw 	= isset( $options['scb-imgw']) ? $options['scb-imgw'] : 35; \/\/ Product Images width$/;"	v
+scb_open	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_open() {$/;"	f
+scb_options_section	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_options_section() {$/;"	f
+scb_prbc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_prbc() {$/;"	f
+scb_prbc	public/class-xoo-wsc-public.php	/^		$scb_prbc 	= isset( $options['scb-prbc']) ? $options['scb-prbc'] : '#eeeeee'; \/\/ Product row border color$/;"	v
+scb_prbs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_prbs() {$/;"	f
+scb_prbs	public/class-xoo-wsc-public.php	/^		$scb_prbs 	= isset( $options['scb-prbs']) ? $options['scb-prbs'] : 1; \/\/ Product row border size$/;"	v
+scb_ptfc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_ptfc() {$/;"	f
+scb_ptfc	public/class-xoo-wsc-public.php	/^		$scb_ptfc 	= isset( $options['scb-ptfc']) ? $options['scb-ptfc'] : '#000000'; \/\/ Product Title Color$/;"	v
+scb_ptfs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_ptfs() {$/;"	f
+scb_ptfs	public/class-xoo-wsc-public.php	/^		$scb_ptfs 	= isset( $options['scb-ptfs']) ? $options['scb-ptfs'] : 16; \/\/ Product title Font Size$/;"	v
+scb_rfc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scb_rfc() {$/;"	f
+scb_rfc	public/class-xoo-wsc-public.php	/^		$scb_rfc 	= isset( $options['scb-rfc']) ? $options['scb-rfc'] : '#000000'; \/\/ Remove Text color$/;"	v
+scb_sumw	public/class-xoo-wsc-public.php	/^		$scb_sumw   = 100-($scb_imgw+5);$/;"	v
+scf_bgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_bgc() {$/;"	f
+scf_bgc	public/class-xoo-wsc-public.php	/^		$scf_bgc 	 = isset( $options['scf-bgc']) ? $options['scf-bgc'] : '#ffffff';\/\/BG Color$/;"	v
+scf_bm	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_bm() {$/;"	f
+scf_bm	public/class-xoo-wsc-public.php	/^		$scf_bm 	 = isset( $options['scf-bm']) ? $options['scf-bm'] : 4; \/\/ buttons margin$/;"	v
+scf_btn_bgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_btn_bgc() {$/;"	f
+scf_btn_bgc	public/class-xoo-wsc-public.php	/^			$scf_btn_bgc = isset( $options['scf-btn-bgc']) ? $options['scf-btn-bgc'] : '#777'; \/\/ button background color$/;"	v
+scf_btn_pd	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_btn_pd() {$/;"	f
+scf_btn_pd	public/class-xoo-wsc-public.php	/^			$scf_btn_pd  = isset( $options['scf-btn-pd']) ? $options['scf-btn-pd'] : '5'; \/\/ button padding top bottom$/;"	v
+scf_btn_tc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_btn_tc() {$/;"	f
+scf_btn_tc	public/class-xoo-wsc-public.php	/^			$scf_btn_tc  = isset( $options['scf-btn-tc']) ? $options['scf-btn-tc'] : '#fff'; \/\/ button text color$/;"	v
+scf_btn_ts	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_btn_ts() {$/;"	f
+scf_options_section	admin/settings/class-xoo-wsc-style-settings.php	/^	public function scf_options_section() {$/;"	f
+sch_bc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_bc() {$/;"	f
+sch_bc	public/class-xoo-wsc-public.php	/^		$sch_bc 	= isset( $options['sch-bc']) ? $options['sch-bc'] : '#eeeeee'; \/\/ Border color$/;"	v
+sch_bgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_bgc() {$/;"	f
+sch_bgc	public/class-xoo-wsc-public.php	/^		$sch_bgc 	= isset( $options['sch-bgc']) ? $options['sch-bgc'] : '#ffffff'; \/\/ BG Color$/;"	v
+sch_bs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_bs() {$/;"	f
+sch_bs	public/class-xoo-wsc-public.php	/^		$sch_bs 	= isset( $options['sch-bs']) ? $options['sch-bs'] : 1; \/\/ Border size$/;"	v
+sch_cis	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_cis() {$/;"	f
+sch_cis	public/class-xoo-wsc-public.php	/^		$sch_cis	= isset( $options['sch-cis']) ? $options['sch-cis'] : 20; \/\/ Close Cart Icon size$/;"	v
+sch_fc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_fc() {$/;"	f
+sch_fc	public/class-xoo-wsc-public.php	/^		$sch_fc 	= isset( $options['sch-fc']) ? $options['sch-fc'] : '#000000'; \/\/ Text Color$/;"	v
+sch_fs	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_fs() {$/;"	f
+sch_fs	public/class-xoo-wsc-public.php	/^		$sch_fs 	= isset( $options['sch-fs']) ? $options['sch-fs'] : 20; \/\/ Font Size$/;"	v
+sch_options_section	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_options_section() {$/;"	f
+sch_ps	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sch_ps() {$/;"	f
+sch_ps	public/class-xoo-wsc-public.php	/^		$sch_ps 	= isset( $options['sch-ps']) ? $options['sch-ps'] : '10px 20px'; \/\/ Padding$/;"	v
+setCss	lib/lightslider/js/lightslider.js	/^                var setCss = function () {$/;"	f	function:setHeight
+setHeight	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+set_ajax_fragments	public/class-xoo-wsc-cart-data.php	/^	public function set_ajax_fragments($fragments){$/;"	f
+set_locale	includes/class-xoo-wsc.php	/^	private function set_locale() {$/;"	f
+settings_api_init	admin/class-xoo-wsc-general-settings.php	/^	public function settings_api_init(){$/;"	f
+settings_api_init	admin/settings/class-xoo-wsc-advanced-settings.php	/^	public function settings_api_init(){$/;"	f
+settings_api_init	admin/settings/class-xoo-wsc-general-settings.php	/^	public function settings_api_init(){$/;"	f
+settings_api_init	admin/settings/class-xoo-wsc-style-settings.php	/^	public function settings_api_init(){$/;"	f
+settings_init_advanced	includes/class-xoo-wsc.php	/^		$settings_init_advanced = new xoo_wsc_Advanced_Settings( $this->get_xoo_wsc() ); \/\/ Initialize Advanced Settings$/;"	v
+settings_init_general	includes/class-xoo-wsc.php	/^		$settings_init_general = new xoo_wsc_General_Settings( $this->get_xoo_wsc() ); \/\/ Initialize General Settings$/;"	v
+settings_init_style	includes/class-xoo-wsc.php	/^		$settings_init_style = new xoo_wsc_Style_Settings( $this->get_xoo_wsc() ); \/\/ Initialize Style Settings$/;"	v
+settings_sanitize	admin/class-xoo-wsc-admin.php	/^	public function settings_sanitize( $input ) {$/;"	f
+shipping_txt	public/partials/xoo-wsc-footer.php	/^$shipping_txt 		= isset($options['sc-shipping-text']) ? $options['sc-shipping-text']: __("To find out your shipping cost , Please proceed to checkout.",'side-cart-woocommerce'); \/\/ Shipping Text$/;"	v
+shipping_txt	public/partials/xoo-wsc-markup.php	/^$shipping_txt 		= isset($options['sc-shipping-text']) ? $options['sc-shipping-text']: __("To find out your shipping cost , Please proceed to checkout.",'side-cart-woocommerce'); \/\/ Shipping Text$/;"	v
+show_basket	public/class-xoo-wsc-public.php	/^		$show_basket = isset( $gl_options['bk-show-basket']) ? $gl_options['bk-show-basket'] : 'always_show'; \/\/Show Basket$/;"	v
+show_basket	public/partials/xoo-wsc-markup.php	/^$show_basket		= isset( $options['bk-show-basket']) ? $options['bk-show-basket'] : 'always_show'; \/\/Show Basket$/;"	v
+show_basket_mobile	public/partials/xoo-wsc-markup.php	/^$show_basket_mobile	= isset( $options['bk-show-basket-mobile']) ? $options['bk-show-basket-mobile'] : 1; \/\/Show Basket on mobile device$/;"	v
+show_basket_style	public/partials/xoo-wsc-markup.php	/^			$show_basket_style = $hide_basket === true ? 'display:none;' : '';$/;"	v
+show_count	public/class-xoo-wsc-cart-data.php	/^		$show_count = isset( $options['bk-show-bkcount']) ? $options['bk-show-bkcount'] : 1;$/;"	v
+show_count	public/partials/xoo-wsc-markup.php	/^$show_count 		= isset( $options['bk-show-bkcount']) ? $options['bk-show-bkcount'] : 1; \/\/Show Count$/;"	v
+show_coupon	public/partials/xoo-wsc-footer.php	/^$show_coupon 		= isset($options['sc-show-coupon']) ? $options['sc-show-coupon']: 'always_show'; \/\/Show coupon $/;"	v
+show_notification	public/partials/xoo-wsc-header.php	/^$show_notification 	= isset( $options['sc-notify']) ? $options['sc-notify'] : 1; \/\/Show Notification$/;"	v
+show_notification	public/partials/xoo-wsc-markup.php	/^$show_notification 	= isset( $options['sc-notify']) ? $options['sc-notify'] : 1; \/\/Show Notification$/;"	v
+show_price	public/partials/xoo-wsc-content.php	/^		$show_price 	 = isset( $options['sc-show-price']) ? $options['sc-show-price'] : 1;$/;"	v
+show_ptotal	public/partials/xoo-wsc-content.php	/^		$show_ptotal 	 = isset( $options['sc-show-ptotal']) ? $options['sc-show-ptotal'] : 1;$/;"	v
+show_shptax	public/partials/xoo-wsc-footer.php	/^$show_shptax		= isset($options['sc-show-shptax']) ? $options['sc-show-shptax']: 1; \/\/Show shipping tax$/;"	v
+slide	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+slideEndAnimation	lib/lightslider/js/lightslider.js	/^        loop: false,$/;"	p	class:defaults
+slideMargin	lib/lightslider/js/lightslider.js	/^        slideMove: 1,$/;"	p	class:defaults
+slideMove	lib/lightslider/js/lightslider.js	/^        autoWidth: false,$/;"	p	class:defaults
+slideThumb	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+slideValue	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+sp_bgc	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sp_bgc() {$/;"	f
+sp_bgc	public/class-xoo-wsc-public.php	/^		$sp_bgc		= isset( $options['sp-bgc']) ? $options['sp-bgc'] : '#fff'; \/\/ Thumbnail size$/;"	v
+sp_count	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_count() {$/;"	f
+sp_enable	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_enable() {$/;"	f
+sp_enable_mobile	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_enable_mobile() {$/;"	f
+sp_enabled	public/class-xoo-wsc-public.php	/^		$sp_enabled = xoo_wsc_suggested_products_enabled();$/;"	v
+sp_imgw	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sp_imgw() {$/;"	f
+sp_imgw	public/class-xoo-wsc-public.php	/^		$sp_imgw	= isset( $options['sp-imgw']) ? $options['sp-imgw'] : 75; \/\/ Thumbnail size$/;"	v
+sp_options_section	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_options_section() {$/;"	f
+sp_options_section	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sp_options_section() {$/;"	f
+sp_pos	admin/settings/class-xoo-wsc-style-settings.php	/^	public function sp_pos() {$/;"	f
+sp_pos	public/partials/xoo-wsc-markup.php	/^$sp_pos = isset( $sy_options['sp-pos']) ? $sy_options['sp-pos'] : 'above_totals'; \/\/ Suggested Product Option$/;"	v
+sp_title	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_title() {$/;"	f
+sp_type	admin/settings/class-xoo-wsc-general-settings.php	/^	public function sp_type() {$/;"	f
+speed	lib/lightslider/js/lightslider.js	/^        easing: 'linear', \/\/'for jquery animation',\/\/$/;"	p	class:defaults
+step	public/partials/global/xoo-wsc-quantity-increment.php	/^$step      = apply_filters( 'woocommerce_quantity_input_step', 1, $product );$/;"	v
+subtotal_txt	public/partials/xoo-wsc-footer.php	/^$subtotal_txt 		= isset($options['sc-subtotal-text']) ? $options['sc-subtotal-text']: __("Subtotal:",'side-cart-woocommerce'); \/\/Subtotal Text$/;"	v
+subtotal_txt	public/partials/xoo-wsc-markup.php	/^$subtotal_txt 		= isset($options['sc-subtotal-text']) ? $options['sc-subtotal-text']: __("Subtotal:",'side-cart-woocommerce'); \/\/Subtotal Text$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^					$suggested_products = $last_cart_item['data']->get_upsell_ids();$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^					$suggested_products = $product->get_upsell_ids();$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^					$suggested_products = array_merge($suggested_products,$related_products);$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^				$suggested_products = WC()->cart->get_cross_sells();$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^		$suggested_products = $this->get_suggested_products();$/;"	v
+suggested_products	public/class-xoo-wsc-cart-data.php	/^		$suggested_products = array();$/;"	v
+support	lib/lightslider/js/lightslider.js	/^                var support = function () {$/;"	f	function:doCss
+swipeThreshold	lib/lightslider/js/lightslider.js	/^        freeMove: true,$/;"	p	class:defaults
+sy_options	public/class-xoo-wsc-cart-data.php	/^		$sy_options = get_option('xoo-wsc-sy-options');$/;"	v
+sy_options	public/class-xoo-wsc-public.php	/^		$sy_options = get_option('xoo-wsc-sy-options');$/;"	v
+sy_options	public/partials/xoo-wsc-markup.php	/^$sy_options = get_option('xoo-wsc-sy-options');$/;"	v
+sy_options	public/partials/xoo-wsc-shortcode.php	/^$sy_options = get_option('xoo-wsc-sy-options');\/\/Style options$/;"	v
+tab	admin/partials/xoo-wsc-admin-display.php	/^		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';$/;"	v
+tax_enabled	public/partials/xoo-wsc-footer.php	/^$tax_enabled  = wc_tax_enabled() && WC()->cart->get_cart_tax() !== '';$/;"	v
+template_functions	public/class-xoo-wsc-public.php	/^	public function template_functions(){$/;"	f
+theme_button_styling	public/partials/xoo-wsc-footer.php	/^$theme_button_styling = isset($sy_options['scf-btn-ts']) ? $sy_options['scf-btn-ts']: 'false'; \/\/default button styling$/;"	v
+thumbItem	lib/lightslider/js/lightslider.js	/^        vThumbWidth: 100,$/;"	p	class:defaults
+thumbMargin	lib/lightslider/js/lightslider.js	/^        galleryMargin: 5,$/;"	p	class:defaults
+thumbnail	public/partials/xoo-wsc-content.php	/^				$thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );$/;"	v
+title	public/class-xoo-wsc-cart-data.php	/^		$title  	 = isset( $gl_options['sp-title']) ? $gl_options['sp-title'] :  __('Products you may like','side-cart-woocommerce');$/;"	v
+total_sales	public/class-xoo-wsc-public.php	/^		$total_sales 	= isset( $gl_options['sc-total-sales']) ? $gl_options['sc-total-sales'] : 1;$/;"	v
+total_sales	public/partials/global/xoo-wsc-total-sales.php	/^$total_sales = $_product->get_total_sales();$/;"	v
+touchEnd	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+touchMove	lib/lightslider/js/lightslider.js	/^            },$/;"	m	class:plugin
+trigger_class	admin/settings/class-xoo-wsc-advanced-settings.php	/^	public function trigger_class() {$/;"	f
+trigger_class	public/class-xoo-wsc-public.php	/^		$trigger_class = isset($av_options['trigger-class']) ? $av_options['trigger-class'] : null;$/;"	v
+type	public/class-xoo-wsc-cart-data.php	/^		$type 		 = isset( $gl_options['sp-type']) ? $gl_options['sp-type'] : 'cross_sells';$/;"	v
+uid	public/class-xoo-wsc-public.php	/^		$uid = apply_filters( 'nonce_user_logged_out', 0, false );$/;"	v
+undo_item	public/class-xoo-wsc-cart-data.php	/^	public function undo_item(){$/;"	f
+update_cart_ajax	public/class-xoo-wsc-cart-data.php	/^	public function update_cart_ajax(){$/;"	f
+update_quantity	public/partials/xoo-wsc-content.php	/^		$update_quantity = isset( $options['sc-update-qty']) ? $options['sc-update-qty'] : 1;$/;"	v
+upload_image_markup	admin/class-xoo-wsc-admin.php	/^	public function upload_image_markup($id,$value){$/;"	f
+useCSS	lib/lightslider/js/lightslider.js	/^        mode: 'slide',$/;"	p	class:defaults
+vThumbWidth	lib/lightslider/js/lightslider.js	/^        verticalHeight: 500,$/;"	p	class:defaults
+variation_id	public/class-xoo-wsc-cart-data.php	/^				$variation_id 	= $last_cart_item['variation_id'];$/;"	v
+version	admin/class-xoo-wsc-admin.php	/^		$this->version = $version;$/;"	v
+version	admin/class-xoo-wsc-admin.php	/^	private $version;$/;"	v
+version	includes/class-xoo-wsc.php	/^		$this->version = '1.0.5';$/;"	v
+version	includes/class-xoo-wsc.php	/^	protected $version;$/;"	v
+version	public/class-xoo-wsc-public.php	/^		$this->version = $version;$/;"	v
+version	public/class-xoo-wsc-public.php	/^	private $version;$/;"	v
+vertical	lib/lightslider/js/lightslider.js	/^        adaptiveHeight: false,$/;"	p	class:defaults
+verticalHeight	lib/lightslider/js/lightslider.js	/^        vertical: false,$/;"	p	class:defaults
+xoo_wsc	admin/class-xoo-wsc-admin.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	admin/class-xoo-wsc-admin.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	admin/class-xoo-wsc-general-settings.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	admin/class-xoo-wsc-general-settings.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-advanced-settings.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-advanced-settings.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-general-settings.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-general-settings.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-style-settings.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	admin/settings/class-xoo-wsc-style-settings.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	includes/class-xoo-wsc.php	/^		$this->xoo_wsc = 'xoo-wsc';$/;"	v
+xoo_wsc	includes/class-xoo-wsc.php	/^	protected $xoo_wsc;$/;"	v
+xoo_wsc	includes/class-xoo-wsc.php	/^class xoo_wsc {$/;"	c
+xoo_wsc	public/class-xoo-wsc-cart-data.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	public/class-xoo-wsc-cart-data.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc	public/class-xoo-wsc-public.php	/^		$this->xoo_wsc = $xoo_wsc;$/;"	v
+xoo_wsc	public/class-xoo-wsc-public.php	/^	private $xoo_wsc;$/;"	v
+xoo_wsc_Activator	includes/class-xoo-wsc-activator.php	/^class xoo_wsc_Activator {$/;"	c
+xoo_wsc_Admin	admin/class-xoo-wsc-admin.php	/^class xoo_wsc_Admin {$/;"	c
+xoo_wsc_Advanced_Settings	admin/settings/class-xoo-wsc-advanced-settings.php	/^class xoo_wsc_Advanced_Settings extends xoo_wsc_Admin {$/;"	c
+xoo_wsc_Cart_Data	public/class-xoo-wsc-cart-data.php	/^class xoo_wsc_Cart_Data{$/;"	c
+xoo_wsc_Deactivator	includes/class-xoo-wsc-deactivator.php	/^class xoo_wsc_Deactivator {$/;"	c
+xoo_wsc_General_Settings	admin/class-xoo-wsc-general-settings.php	/^class xoo_wsc_General_Settings extends xoo_wsc_Admin {$/;"	c
+xoo_wsc_General_Settings	admin/settings/class-xoo-wsc-general-settings.php	/^class xoo_wsc_General_Settings extends xoo_wsc_Admin {$/;"	c
+xoo_wsc_Loader	includes/class-xoo-wsc-loader.php	/^class xoo_wsc_Loader {$/;"	c
+xoo_wsc_Public	public/class-xoo-wsc-public.php	/^class xoo_wsc_Public {$/;"	c
+xoo_wsc_Style_Settings	admin/settings/class-xoo-wsc-style-settings.php	/^class xoo_wsc_Style_Settings extends xoo_wsc_Admin {$/;"	c
+xoo_wsc_add_to_cart_ajax	public/class-xoo-wsc-cart-data.php	/^	public function xoo_wsc_add_to_cart_ajax(){$/;"	f
+xoo_wsc_cart_shortcode_func	xoo-wsc.php	/^function xoo_wsc_cart_shortcode_func(){$/;"	f
+xoo_wsc_i18n	includes/class-xoo-wsc-i18n.php	/^class xoo_wsc_i18n {$/;"	c
+xoo_wsc_init	xoo-wsc.php	/^function xoo_wsc_init(){$/;"	f
+xoo_wsc_install_wc_notice	xoo-wsc.php	/^function xoo_wsc_install_wc_notice(){$/;"	f
+xoo_wsc_paypal_checkout	public/xoo-wsc-functions.php	/^function xoo_wsc_paypal_checkout(){$/;"	f
+xoo_wsc_sp_title	xoo-wsc.php	/^function xoo_wsc_sp_title(){$/;"	f
+xoo_wsc_suggested_products_enabled	xoo-wsc.php	/^function xoo_wsc_suggested_products_enabled(){$/;"	f
+xoo_wsc_total_sales_display	public/xoo-wsc-functions.php	/^function xoo_wsc_total_sales_display($_product){$/;"	f

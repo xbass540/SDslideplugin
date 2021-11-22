@@ -1,0 +1,514 @@
+# Copyright (C) 2021 StoreApps
+# This file is distributed under the same license as the WooCommerce Stock Manager plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Stock Manager 2.5.7\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-stock-manager\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-04-03T11:16:52+05:30\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.1.0\n"
+"X-Domain: woocommerce-stock-manager\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Stock Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.storeapps.org/woocommerce-plugins/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Manage product's stock and price in your WooCommerce store."
+msgstr ""
+
+#. Author of the plugin
+msgid "StoreApps"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.storeapps.org/"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:169
+#: admin/includes/wcm-class-table.php:541
+msgid "No shipping class"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:175
+msgid "Taxable"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:176
+msgid "Shipping only"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:177
+msgctxt "Tax status"
+msgid "None"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:180
+#: admin/includes/wcm-class-table.php:634
+#: admin/includes/wcm-class-table.php:664
+msgid "No"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:181
+#: admin/includes/wcm-class-table.php:665
+msgid "Notify"
+msgstr ""
+
+#: admin/class-stock-manager-admin.php:182
+#: admin/includes/wcm-class-table.php:633
+#: admin/includes/wcm-class-table.php:666
+msgid "Yes"
+msgstr ""
+
+#. translators: %1$s & %2$s: Opening & closing strong tag. %3$s: link to WooCommerce Stock Manager on WordPress.org
+#: admin/class-stock-manager-admin.php:589
+msgid "If you are liking %1$sWooCommerce Stock Manager%2$s, please rate us %3$s. A huge thanks from StoreApps in advance!"
+msgstr ""
+
+#: admin/includes/config.php:6
+#: admin/includes/config.php:16
+#: admin/includes/config.php:21
+#: admin/includes/config.php:26
+#: admin/includes/config.php:31
+#: admin/includes/wcm-class-table.php:245
+#: admin/views/import-export.php:120
+#: admin/views/import-export.php:144
+#: admin/views/log.php:29
+#: admin/assets/src/components/ProductFilter.js:64
+#: admin/assets/src/components/Products.js:99
+#: admin/assets/src/components/ScreenOptions.js:38
+msgid "SKU"
+msgstr ""
+
+#: admin/includes/config.php:11
+#: admin/includes/wcm-class-table.php:255
+#: admin/views/import-export.php:119
+#: admin/views/import-export.php:143
+#: admin/views/log.php:30
+#: admin/assets/src/components/Products.js:93
+msgid "ID"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:105
+#: admin/views/components/filter.php:122
+#: admin/assets/src/components/Products.js:121
+#: admin/assets/src/components/ScreenOptions.js:88
+msgid "Tax status"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:108
+#: admin/views/components/filter.php:124
+#: admin/assets/src/components/Products.js:124
+#: admin/assets/src/components/ScreenOptions.js:93
+msgid "Tax class"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:111
+#: admin/views/components/filter.php:126
+#: admin/assets/src/components/Products.js:127
+#: admin/assets/src/components/ScreenOptions.js:98
+msgid "Shipping class"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:235
+#: admin/views/components/filter.php:104
+#: admin/assets/src/components/Products.js:102
+#: admin/assets/src/components/ScreenOptions.js:43
+msgid "Thumbnail"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:265
+#: admin/views/log.php:31
+msgid "Name"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:275
+#: admin/views/import-export.php:126
+#: admin/views/log.php:32
+#: admin/assets/src/components/Products.js:97
+msgid "Product type"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:285
+#: admin/views/import-export.php:127
+#: admin/views/log.php:33
+msgid "Parent ID"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:295
+#: admin/views/components/filter.php:106
+#: admin/assets/src/components/Products.js:130
+#: admin/assets/src/components/ScreenOptions.js:53
+msgid "Price"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:305
+#: admin/assets/src/components/Products.js:133
+#: admin/assets/src/components/ScreenOptions.js:58
+msgid "Sale price"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:315
+#: admin/views/components/filter.php:110
+#: admin/assets/src/components/Products.js:136
+#: admin/assets/src/components/ScreenOptions.js:63
+msgid "Weight"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:325
+#: admin/views/components/filter.php:40
+#: admin/views/components/filter.php:112
+#: admin/views/import-export.php:122
+#: admin/views/import-export.php:145
+#: admin/assets/src/components/Products.js:139
+#: admin/assets/src/components/ScreenOptions.js:68
+msgid "Manage stock"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:335
+#: admin/views/components/filter.php:46
+#: admin/views/components/filter.php:114
+#: admin/views/import-export.php:123
+#: admin/views/import-export.php:146
+#: admin/assets/src/components/ProductFilter.js:112
+#: admin/assets/src/components/Products.js:142
+#: admin/assets/src/components/ScreenOptions.js:73
+msgid "Stock status"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:345
+#: admin/views/components/filter.php:116
+#: admin/views/import-export.php:124
+#: admin/views/import-export.php:147
+#: admin/assets/src/components/Products.js:145
+#: admin/assets/src/components/ScreenOptions.js:78
+msgid "Backorders"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:355
+#: admin/views/components/filter.php:118
+#: admin/views/import-export.php:125
+#: admin/views/import-export.php:148
+#: admin/views/log-history.php:38
+#: admin/views/log.php:34
+#: admin/assets/src/components/Products.js:148
+#: admin/assets/src/components/ScreenOptions.js:83
+msgid "Stock"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:365
+#: admin/includes/wcm-class-table.php:413
+#: admin/includes/wcm-class-table.php:445
+#: admin/includes/wcm-class-table.php:740
+msgid "Save"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:414
+#: admin/includes/wcm-class-table.php:446
+msgid "Close"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:461
+msgid "Show variables"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:539
+msgid "Same as parent"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:648
+#: admin/views/components/filter.php:47
+msgid "In stock"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:649
+#: admin/views/components/filter.php:48
+msgid "Out of stock"
+msgstr ""
+
+#: admin/includes/wcm-class-table.php:650
+msgid "On backorder"
+msgstr ""
+
+#: admin/views/components/filter.php:3
+msgid "Filter"
+msgstr ""
+
+#: admin/views/components/filter.php:4
+#: admin/views/components/filter.php:63
+msgid "Search by sku"
+msgstr ""
+
+#: admin/views/components/filter.php:5
+#: admin/views/components/filter.php:73
+msgid "Search by product name"
+msgstr ""
+
+#: admin/views/components/filter.php:6
+msgid "Display setting"
+msgstr ""
+
+#: admin/views/components/filter.php:15
+msgid "Order by"
+msgstr ""
+
+#: admin/views/components/filter.php:16
+msgid "Product name ASC"
+msgstr ""
+
+#: admin/views/components/filter.php:17
+msgid "Product name DESC"
+msgstr ""
+
+#: admin/views/components/filter.php:18
+msgid "SKU ASC"
+msgstr ""
+
+#: admin/views/components/filter.php:19
+msgid "SKU DESC"
+msgstr ""
+
+#: admin/views/components/filter.php:23
+msgid "Simple products"
+msgstr ""
+
+#: admin/views/components/filter.php:24
+msgid "Products with variation"
+msgstr ""
+
+#: admin/views/components/filter.php:28
+msgid "All categories"
+msgstr ""
+
+#: admin/views/components/filter.php:41
+msgid "No manage stock"
+msgstr ""
+
+#: admin/views/components/filter.php:42
+msgid "Yes manage stock"
+msgstr ""
+
+#: admin/views/components/filter.php:52
+msgid "Show"
+msgstr ""
+
+#: admin/views/components/filter.php:54
+msgid "Clear filter"
+msgstr ""
+
+#: admin/views/components/filter.php:101
+msgid "Hide or display cells"
+msgstr ""
+
+#: admin/views/components/filter.php:108
+msgid "Sales price"
+msgstr ""
+
+#: admin/views/components/filter.php:142
+msgid "Save setting"
+msgstr ""
+
+#: admin/views/import-export.php:110
+msgid "Import"
+msgstr ""
+
+#: admin/views/import-export.php:113
+msgid "You can upload csv file, with your stock data. "
+msgstr ""
+
+#: admin/views/import-export.php:114
+msgid "CSV file must be in this format, or you can export file with exist data and edit them. "
+msgstr ""
+
+#: admin/views/import-export.php:115
+msgid "If you have a lot of products and export/import not working, increase memory limit.. "
+msgstr ""
+
+#: admin/views/import-export.php:116
+msgid "File format"
+msgstr ""
+
+#: admin/views/import-export.php:121
+#: admin/assets/src/components/Products.js:115
+#: admin/assets/src/components/ScreenOptions.js:48
+msgid "Product name"
+msgstr ""
+
+#: admin/views/import-export.php:130
+msgid "123"
+msgstr ""
+
+#: admin/views/import-export.php:131
+msgid "abc111"
+msgstr ""
+
+#: admin/views/import-export.php:132
+msgid "T-shirt"
+msgstr ""
+
+#: admin/views/import-export.php:133
+#: admin/views/import-export.php:135
+msgid "yes"
+msgstr ""
+
+#: admin/views/import-export.php:134
+msgid "instock"
+msgstr ""
+
+#: admin/views/import-export.php:136
+msgid "10"
+msgstr ""
+
+#: admin/views/import-export.php:137
+msgid "simple"
+msgstr ""
+
+#: admin/views/import-export.php:143
+msgid "product id, required. Neccessary for import and export."
+msgstr ""
+
+#: admin/views/import-export.php:144
+msgid "product unique identificator."
+msgstr ""
+
+#: admin/views/import-export.php:145
+#: admin/views/import-export.php:147
+msgid "values: \"yes\", \"notify\", \"no\". If is empty \"no\" will be save."
+msgstr ""
+
+#: admin/views/import-export.php:146
+msgid "values: \"instock\", \"outofstock\". If is empty \"outofstock\" will be save."
+msgstr ""
+
+#: admin/views/import-export.php:148
+msgid "quantity value. If is empty, 0 will be save."
+msgstr ""
+
+#: admin/views/import-export.php:155
+msgid "Upload csv file"
+msgstr ""
+
+#: admin/views/import-export.php:163
+msgid "Upload"
+msgstr ""
+
+#: admin/views/import-export.php:174
+msgid "The file "
+msgstr ""
+
+#: admin/views/import-export.php:203
+msgid "Product with ID: "
+msgstr ""
+
+#: admin/views/import-export.php:214
+msgid "Sorry, there was an error uploading your file."
+msgstr ""
+
+#: admin/views/import-export.php:228
+msgid "Export"
+msgstr ""
+
+#: admin/views/import-export.php:231
+msgid "You can download csv file, with your stock data. "
+msgstr ""
+
+#: admin/views/import-export.php:232
+msgid "Create export file"
+msgstr ""
+
+#: admin/views/log-history.php:37
+msgid "Date"
+msgstr ""
+
+#: admin/views/log-history.php:58
+msgid "No result"
+msgstr ""
+
+#: admin/views/log.php:20
+msgid "Stock manager"
+msgstr ""
+
+#: admin/views/log.php:56
+#: admin/views/log.php:87
+msgid "History"
+msgstr ""
+
+#: admin/views/setting.php:22
+#: admin/views/stock-monitor.php:32
+msgid "Stock manager setting"
+msgstr ""
+
+#: admin/views/setting.php:29
+msgid "Active old styles"
+msgstr ""
+
+#: admin/views/stock-monitor.php:39
+msgid "Products limit"
+msgstr ""
+
+#: admin/views/stock-monitor.php:43
+msgid "Allow stock for variable products"
+msgstr ""
+
+#: admin/views/stock-monitor.php:47
+msgid "Qty input step"
+msgstr ""
+
+#: woocommerce-stock-manager.php:59
+msgid "Alert!"
+msgstr ""
+
+#: woocommerce-stock-manager.php:59
+msgid "Current plugin needs this versions of WordPress and WooCommerce:"
+msgstr ""
+
+#: woocommerce-stock-manager.php:209
+msgid "All done! Close."
+msgstr ""
+
+#: admin/assets/src/components/ProductFilter.js:74
+msgid "Search"
+msgstr ""
+
+#: admin/assets/src/components/ProductFilter.js:86
+msgid "Category"
+msgstr ""
+
+#: admin/assets/src/components/ProductFilter.js:92
+#: admin/assets/src/components/ProductFilter.js:105
+#: admin/assets/src/components/ProductFilter.js:118
+msgid "All"
+msgstr ""
+
+#: admin/assets/src/components/ProductFilter.js:99
+msgid "Type"
+msgstr ""
+
+#: admin/assets/src/components/Products.js:53
+msgid "Loading failed"
+msgstr ""
+
+#: admin/assets/src/components/Products.js:160
+msgid "Loading more results..."
+msgstr ""
+
+#: admin/assets/src/components/SaveChanges.js:63
+msgid "Discard changes"
+msgstr ""
+
+#: admin/assets/src/components/SaveChanges.js:64
+msgid "Save all changes"
+msgstr ""
+
+#: admin/assets/src/components/ScreenOptions.js:33
+msgid "Show columns"
+msgstr ""
