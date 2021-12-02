@@ -262,12 +262,12 @@ if ( ! class_exists( 'Mega_Menu_Locations' ) ) :
 
 				<?php $this->print_messages(); ?>
 
-				<h3 class='first'><?php esc_html_e( 'Menu Locations', 'megamenu' ); ?></h3>
+				<h3 class='first'><span class='dashicons dashicons-location'></span><?php esc_html_e( 'Menu Locations', 'megamenu' ); ?></h3>
 
 				<table>
 					<tr>
 						<td class='mega-name'>
-							<?php esc_html_e( 'Registered Menu Locations', 'megamenu' ); ?>
+							<?php esc_html_e( 'Menu Location Settings', 'megamenu' ); ?>
 							<div class='mega-description'>
 								<p><?php esc_html_e( 'This is an overview of the menu locations supported by your theme.', 'megamenu' ); ?></p>
 								<p><?php esc_html_e( 'Use these options to enable Max Mega Menu and define the behaviour of each menu location.', 'megamenu' ); ?></p>
@@ -360,7 +360,6 @@ if ( ! class_exists( 'Mega_Menu_Locations' ) ) :
 
 			<div class='mega-location <?php echo esc_attr( $is_enabled_class ); ?><?php echo esc_attr( $has_active_location_class ); ?>'>
 				<div class='mega-accordion-title<?php echo esc_attr( $open_class ); ?>'>
-					<span class='dashicons dashicons-location'></span>
 					<h4><?php echo esc_html( $description ); ?></h4>
 					<?php
 
@@ -1241,8 +1240,9 @@ if ( ! class_exists( 'Mega_Menu_Locations' ) ) :
 
 			?>
 				<select name='megamenu_meta[<?php echo esc_attr( $location ); ?>][second_click]'>
-					<option value='close' <?php echo selected( $second_click == 'close' ); ?>><?php _e( 'First click will open a sub menu, second click will close the sub menu.', 'megamenu' ); ?></option>
-					<option value='go' <?php echo selected( $second_click == 'go' ); ?>><?php _e( 'First click will open a sub menu, second click will follow the link.', 'megamenu' ); ?></option>
+					<option value='close' <?php echo selected( $second_click == 'close' ); ?>><?php _e( 'First click will open the sub menu, second click will close the sub menu.', 'megamenu' ); ?></option>
+					<option value='go' <?php echo selected( $second_click == 'go' ); ?>><?php _e( 'First click will open the sub menu, second click will follow the link.', 'megamenu' ); ?></option>
+					<option value='disabled' <?php echo selected( $second_click == 'disabled' ); ?>><?php _e( 'First click will follow the link (the arrow must be used to toggle sub menu visiblity).', 'megamenu' ); ?></option>
 				<select>
 			<?php
 		}
@@ -1699,7 +1699,11 @@ if ( ! class_exists( 'Mega_Menu_Locations' ) ) :
 		 * @return bool
 		 */
 		private function compare_elems( $elem1, $elem2 ) {
-			return $elem1['priority'] > $elem2['priority'];
+			if ( $elem1['priority'] > $elem2['priority'] ) {
+				return 1;
+			}
+
+			return 0;
 		}
 	}
 

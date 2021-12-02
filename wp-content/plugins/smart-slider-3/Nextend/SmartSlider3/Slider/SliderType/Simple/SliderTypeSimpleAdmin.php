@@ -14,11 +14,8 @@ use Nextend\Framework\Form\Element\Select;
 use Nextend\Framework\Form\Element\Select\Easing;
 use Nextend\Framework\Form\Element\Select\Skin;
 use Nextend\Framework\Form\Element\Text\Color;
-use Nextend\Framework\Form\Element\Text\FieldImage;
 use Nextend\Framework\Form\Element\Text\Number;
 use Nextend\Framework\Form\Element\Text\NumberAutoComplete;
-use Nextend\Framework\Form\Element\Text\TextAutoComplete;
-use Nextend\Framework\Form\Element\Text\Video;
 use Nextend\Framework\Form\Element\Textarea;
 use Nextend\Framework\Form\Fieldset\FieldsetRow;
 use Nextend\Framework\Form\Fieldset\LayerWindow\FieldsetLayerWindow;
@@ -75,8 +72,7 @@ class SliderTypeSimpleAdmin extends AbstractSliderTypeAdmin {
                     'field'  => array(
                         'slideranimation-duration',
                         'slideranimation-delay',
-                        'slideranimation-easing',
-                        'slideranimation-parallax-overlap'
+                        'slideranimation-easing'
                     )
                 )
             )
@@ -102,7 +98,10 @@ class SliderTypeSimpleAdmin extends AbstractSliderTypeAdmin {
             'relatedFields' => array(
                 'sliderbackground-animation-speed',
                 'slideranimation-shifted-background-animation'
-            )
+            ),
+            'tipLabel' => n2_('Background animation'),
+            'tipDescription' => n2_('Background animations only work on the slide background images, which have Fill selected at their Fill mode. They don\'t affect any images if the background parallax is enabled.'),
+            'tipLink' => 'https://smartslider.helpscoutdocs.com/article/1780-simple-slider-type#background-animation',
         ));
         new Hidden($rowBackgroundAnimation, 'background-animation-color', '333333ff');
 
@@ -167,7 +166,7 @@ class SliderTypeSimpleAdmin extends AbstractSliderTypeAdmin {
             'def'  => 'default'
         ];
 
-        Js::addInline("N2R('SectionSlide', function(){ N2Classes.SectionSlide.addExternalDataToField(" . json_encode($dataToFields) . ");});");
+        Js::addInline("_N2.r('SectionSlide', function(){ _N2.SectionSlide.addExternalDataToField(" . json_encode($dataToFields) . ");});");
     }
 
     public function registerSlideAdminProperties($component) {

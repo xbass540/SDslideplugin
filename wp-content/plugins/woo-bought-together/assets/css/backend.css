@@ -1,3 +1,15 @@
+@keyframes woobt-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes woobt-spinner {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
 .woobt_table .woocommerce-help-tip {
     margin: 0 !important;
     font-size: 16px;
@@ -35,6 +47,10 @@
 .woobt_results ul li.disabled, .woobt_selected ul li.disabled {
     pointer-events: none;
     opacity: .5;
+}
+
+.woobt_results li.out-of-stock .data, .woobt_selected li.out-of-stock .data {
+    text-decoration: line-through;
 }
 
 .woobt_results ul > span {
@@ -131,6 +147,22 @@
 
 .woobt_selected li span.data, .woobt_results li span.data {
     flex-grow: 1;
+}
+
+.woobt_selected li span.data span.info, .woobt_results li span.data span.info {
+    font-size: 12px;
+    font-style: italic;
+    height: 18px;
+    line-height: 18px;
+    color: #999;
+    background-color: #fafafa;
+    text-decoration: none;
+    padding: 0 6px;
+    border-radius: 2px;
+}
+
+.woobt_selected li span.data span.info *, .woobt_results li span.data span.info * {
+    font-size: 12px;
 }
 
 .woobt_selected li span.data *, .woobt_results li span.data * {
@@ -256,4 +288,146 @@ table.wp-list-table span.product-type.woobt:before {
 
 .active[data-slug="woo-bought-together"] .premium a {
     color: #c9356e;
+}
+
+/* WPC Dialog */
+
+.ui-dialog.wpc-dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100102;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    border-radius: 0;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    color: #3c434a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar {
+    background: #fcfcfc;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #dfdfdf;
+    border-radius: 0;
+    height: 36px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 36px;
+    padding: 0 36px 0 16px
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar .ui-dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    background: 0 0;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #666;
+    cursor: pointer;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    outline: none;
+    overflow: hidden;
+    font-size: 0;
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:before {
+    font: 400 20px/1 dashicons;
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 36px;
+    width: 36px;
+    height: 36px;
+    content: '\f158';
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close:hover {
+    color: #00a0d2;
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close span {
+    display: none;
+}
+
+.ui-dialog.wpc-dialog .ui-dialog-content {
+    padding: 16px;
+    overflow: auto;
+}
+
+/* Search settings */
+
+#woobt_search_settings table {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+#woobt_search_settings table th, #woobt_search_settings table td {
+    font-weight: 400;
+    text-align: start;
+    padding: 5px;
+}
+
+#woobt_search_settings input, #woobt_search_settings select {
+    min-width: 70px;
+}
+
+.woobt_search_settings_updating:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 100%;
+    border-top-color: rgba(0, 0, 0, .5);
+    border-left-color: rgba(0, 0, 0, .1);
+    border-bottom-color: rgba(0, 0, 0, .1);
+    border-right-color: rgba(0, 0, 0, .1);
+    animation: woobt-spinner 1s linear infinite;
+    -webkit-animation: woobt-spinner 1s linear infinite;
+}
+
+.woobt_search_settings_updating:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .05);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    pointer-events: none;
 }

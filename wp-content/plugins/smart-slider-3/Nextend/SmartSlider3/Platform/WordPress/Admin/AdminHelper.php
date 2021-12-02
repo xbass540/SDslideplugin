@@ -5,6 +5,7 @@ namespace Nextend\SmartSlider3\Platform\WordPress\Admin;
 
 
 use Nextend\Framework\PageFlow;
+use Nextend\Framework\Sanitize;
 use Nextend\SmartSlider3\Application\ApplicationSmartSlider3;
 use Nextend\SmartSlider3\Application\Model\ModelLicense;
 use Nextend\SmartSlider3\Application\Model\ModelSliders;
@@ -116,22 +117,43 @@ class AdminHelper {
         PageFlow::markApplicationEnd();
     }
 
+    private function checkForCap() {
+
+        if (!current_user_can('unfiltered_html')) {
+            if (is_multisite()) {
+                $documentationUrl = 'https://smartslider.helpscoutdocs.com/article/1983-how-to-give-access-to-smart-slider-for-non-admin-users#multisite';
+            } else {
+                $documentationUrl = 'https://smartslider.helpscoutdocs.com/article/1983-how-to-give-access-to-smart-slider-for-non-admin-users#wordpress';
+            }
+
+            wp_die(sprintf('<div class="error">%s</div>', wpautop(sprintf('Smart Slider allows you to place many things on your slider, so only users with the %s capability can have access to it. You do not have this capability and only %s.', '<i>unfiltered_html</i>', sprintf('<a href="%s" target="_blank">%s</a>', $documentationUrl, 'the administrator of your website can grant it to you')))));
+        }
+    }
+
     public function display_admin() {
+
+        $this->checkForCap();
 
         $this->display_controller('sliders', 'gettingstarted');
     }
 
     public function display_admin_index() {
 
+        $this->checkForCap();
+
         $this->display_controller('sliders');
     }
 
     public function display_help() {
 
+        $this->checkForCap();
+
         $this->display_controller('help');
     }
 
     public function display_go_pro() {
+
+        $this->checkForCap();
 
         $this->display_controller('goPro');
     }
@@ -230,7 +252,7 @@ class AdminHelper {
                 $wp_admin_bar->add_node(array(
                     'id'     => 'smart_slider_3_slider_' . $slider['id'],
                     'parent' => 'smart_slider_3_edit',
-                    'title'  => '#' . $slider['id'] . ' - ' . $slider['title'],
+                    'title'  => Sanitize::esc_html('#' . $slider['id'] . ' - ' . $slider['title']),
                     'href'   => $applicationType->getUrlSliderEdit($slider['id'])
                 ));
             }

@@ -40,7 +40,8 @@ export class Shortcode extends Component {
 			ajaxUpdated  : false,
 			ajaxSuccess  : false,
 			ajaxResponse : false,
-			loading      : false
+			loading      : false,
+			firstLoading : true
 		};
 
 		this.ajaxTimeout = false;
@@ -90,21 +91,21 @@ export class Shortcode extends Component {
 				};
 
 				ajaxFetch( ajaxData ).then( response => {
-					this.setState( { loading: false, html: response.html, shortcode, shortcodeHash, ajaxSuccess: true, ajaxUpdated: true, ajaxResponse: response } );
+					this.setState( { loading: false, firstLoading: false, html: response.html, shortcode, shortcodeHash, ajaxSuccess: true, ajaxUpdated: true, ajaxResponse: response } );
 				} )
 					.catch( error => {
 						console.log( { error } );
 					} );
 			}, 300 );
 		} else {
-			this.setState( { loading: false, html: shortcode, shortcode, shortcodeHash } );
+			this.setState( { loading: false, firstLoading: false, html: shortcode, shortcode, shortcodeHash } );
 		}
 	}
 
 	render() {
-		const { html, loading, shortcode, shortcodeHash } = this.state;
-		const { blockArgs }                               = this.props;
-		const { do_shortcode, title, empty_message }      = blockArgs;
+		const { html, loading, firstLoading, shortcode, shortcodeHash } = this.state;
+		const { blockArgs }                                             = this.props;
+		const { do_shortcode, title, empty_message }                    = blockArgs;
 
 		const mainClass = 'block-editor-yith-plugin-fw-shortcode-block';
 
@@ -113,16 +114,18 @@ export class Shortcode extends Component {
 		let htmlToShow     = html;
 		let message        = '';
 
-		if ( do_shortcode && !html ) {
+		if ( firstLoading && loading ) {
+			type = 'first-loading';
+		} else if ( do_shortcode && !html ) {
 			type       = 'empty-html';
 			htmlToShow = shortcode;
-			if ( empty_message ) {
+			if ( !loading && empty_message ) {
 				message = empty_message;
 			}
 		}
 
-		const showTitle   = ['shortcode', 'empty-html'].includes( type );
-		const showContent = 'empty-html' !== type;
+		const showTitle   = ['first-loading', 'empty-html', 'shortcode'].includes( type );
+		const showContent = !['first-loading', 'empty-html'].includes( type );
 		const showMessage = !!message;
 
 		wrapperClasses.push( `${mainClass}--${type}` );

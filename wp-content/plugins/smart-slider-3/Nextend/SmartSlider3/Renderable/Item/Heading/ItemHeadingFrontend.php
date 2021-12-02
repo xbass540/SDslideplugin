@@ -49,13 +49,13 @@ class ItemHeadingFrontend extends AbstractItemFrontend {
 
         return $this->heading($this->data->get('priority', 'div'), $attributes + array(
                 "id"    => $this->id,
-                "class" => $font . $style . " " . $owner->fill($this->data->get('class', '')) . ' n2-ss-item-content n2-ow',
+                "class" => $font . $style . " " . $owner->fill($this->data->get('class', '')) . ' n2-ss-item-content n2-ss-text n2-ow',
                 "style" => "display:" . ($this->data->get('fullwidth', 1) ? 'block' : 'inline-block') . ";" . ($this->data->get('nowrap', 0) ? 'white-space:nowrap;' : '')
             ), $this->getLink(str_replace("\n", '<br>', $strippedHtml), $linkAttributes));
     }
 
     private function heading($type, $attributes, $content) {
-        if ($type > 0) {
+        if (is_numeric($type) && $type > 0) {
             return Html::tag("h{$type}", $attributes, $content);
         }
 
@@ -64,5 +64,9 @@ class ItemHeadingFrontend extends AbstractItemFrontend {
 
     public function renderAdminTemplate() {
         return $this->getHtml();
+    }
+
+    public function isAuto() {
+        return !$this->data->get('fullwidth', 1);
     }
 }

@@ -72,6 +72,30 @@ class OutputBuffer {
                 ));
             });
         }
+
+        if (class_exists('Cachify')) {
+            /**
+             * @see SSDEV-2776
+             */
+            add_action('template_redirect', function () {
+                ob_start(array(
+                    $this,
+                    "outputCallback"
+                ));
+            });
+        }
+
+        if (defined('PERFMATTERS_VERSION')) {
+            /**
+             * @see SSDEV-3398
+             */
+            add_action('template_redirect', function () {
+                ob_start(array(
+                    $this,
+                    "outputCallback"
+                ));
+            });
+        }
     }
 
     /**

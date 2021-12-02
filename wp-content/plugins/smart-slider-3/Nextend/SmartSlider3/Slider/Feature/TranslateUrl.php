@@ -21,12 +21,12 @@ class TranslateUrl {
         list($this->from, $this->to) = (array)Common::parse(Settings::get('translate-url', '||'));
     }
 
-    public function renderSlider($sliderHTML) {
+    public function replaceUrl($string) {
 
         if (!$this->slider->isAdmin && !empty($this->from) && !empty($this->to)) {
-            return str_replace($this->from, $this->to, $sliderHTML);
+            return str_replace($this->from, $this->to, $string);
         }
 
-        return $sliderHTML;
+        return $string;
     }
 }

@@ -11,6 +11,8 @@ foreach (glob(__DIR__ . "/includes/*.php") as $filename)
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 require_once dirname( __FILE__ ) . '/wizard/main.php';
 include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/product-table.php");
+include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/jet_smart_filters.php");
+include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/wp-rocket.php");
 $br_aapf_debugs = array();
 include_once(plugin_dir_path( __FILE__ ) . "libraries/link_parser.php");
 include_once(plugin_dir_path( __FILE__ ) . 'includes/filters/get_terms.php');
@@ -27,6 +29,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
         array('javascript', 'berocket_ajax_filtering_on_update'),
         array('javascript', 'berocket_ajax_products_loaded'),
     );
+    static $the_ajax_script = array();
     public static $debug_mode = false;
     public static $error_log = array();
     public static $the_ajax_script_initialized = false;
@@ -119,7 +122,6 @@ class BeRocket_AAPF extends BeRocket_Framework {
             'products_only'                   => '1',
             'out_of_stock_variable'           => '',
             'out_of_stock_variable_reload'    => '',
-            'out_of_stock_variable_single'    => '',
             'page_same_as_filter'             => '',
             'styles_in_footer'                => '',
             
@@ -182,7 +184,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
         }
         $this->feature_list = array();
         $this->framework_data['fontawesome_frontend'] = true;
-        $this->active_libraries = array('addons', 'feature', 'tippy', 'popup');
+        $this->active_libraries = array('addons', 'feature', 'tippy', 'popup', 'tutorial');
 
         if( method_exists($this, 'include_once_files') ) {
             $this->include_once_files();
@@ -192,7 +194,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
             BeRocket_AAPF_single_filter::getInstance();
             BeRocket_AAPF_group_filters::getInstance();
             new BeRocket_AAPF_compat_product_table();
-            add_action('et_builder_modules_load', 'berocket_filter_et_builder_ready');
+            new BeRocket_AAPF_compat_JetSmartFilter();
             add_action('vc_before_init', 'berocket_filter_vc_before_init', 100000);
             //----------------------
         }
@@ -223,13 +225,16 @@ class BeRocket_AAPF extends BeRocket_Framework {
                     if ( self::$debug_mode ) {
                         self::$error_log['1_settings'] = $option;
                     }
-                    add_action( 'admin_init', array($this, 'register_admin_assets'));
                     add_action( 'wp', array($this, 'register_frontend_assets'));
+                    if ( isset($_GET['legacy-widget-preview'], $_GET['legacy-widget-preview']['idBase']) && in_array($_GET['legacy-widget-preview']['idBase'], array('berocket_aapf_single', 'berocket_aapf_group')) ) {
+                        add_action( 'admin_init', array($this, 'register_frontend_assets'));
+                    } else {
+                        add_action( 'admin_init', array($this, 'register_admin_assets'));
+                    }
 
+                    add_action( 'divi_extensions_init', array($this, 'divi_extensions_init') );
                     add_action( 'admin_init', array( $this, 'admin_init' ) );
                     add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-                    add_shortcode( 'br_filters', array( $this, 'shortcode' ) );
-                    add_shortcode( 'brapf_next_shortcode_apply', array( $this, 'shortcode_apply' ) );
                     add_action( 'init', array( $this, 'create_metadata_table' ), 999999999 );
                     add_action( 'br_footer_script', array( $this, 'include_all_scripts' ) );
                     add_action( 'delete_transient_wc_products_onsale', array( $this, 'delete_products_not_on_sale' ) );
@@ -240,17 +245,9 @@ class BeRocket_AAPF extends BeRocket_Framework {
                     if ( defined('DOING_AJAX') && DOING_AJAX ) {
                         $this->ajax_functions();
                     }
-                    if ( ! is_admin() ) {
+                    if ( self::where_load_styles_scripts() ) {
                         if ( ! defined('DOING_AJAX') || ! DOING_AJAX ) {
                             $this->not_ajax_functions();
-                        }
-
-                        if ( isset($_GET['explode']) && $_GET['explode'] == 'explode') {
-                            add_action( 'woocommerce_before_template_part', array( 'BeRocket_AAPF_Widget_functions', 'pre_get_posts'), 999999 );
-                            add_action( 'wp_footer', array( 'BeRocket_AAPF_Widget_functions', 'end_clean'), 999999 );
-                            add_action( 'init', array( 'BeRocket_AAPF_Widget_functions', 'start_clean'), 1 );
-                        } else {
-                            add_action( 'woocommerce_before_template_part', array( 'BeRocket_AAPF_Widget_functions', 'rebuild'), 999999 );
                         }
                         if ( ! empty($option['selected_area_show']) ) {
                             add_action ( br_get_value_from_array($option, 'elements_position_hook', 'woocommerce_archive_description'), array($this, 'selected_area'), 1 );
@@ -259,9 +256,6 @@ class BeRocket_AAPF extends BeRocket_Framework {
                             add_action( 'wp_enqueue_scripts', array( $this, 'include_all_styles' ) );
                         }
                         add_filter( 'is_active_sidebar', array($this, 'is_active_sidebar'), 10, 2);
-                        if( ! empty($option['child_pre_indent']) ) {
-                            add_filter('berocket_aapf_select_term_child_prefix', array($this, 'select_term_child_prefix'));
-                        }
                         if( ! empty($option['page_same_as_filter']) ) {
                             include_once( dirname( __FILE__ ) . '/includes/addons/page-same-as-filter.php' );
                             new BeRocket_AAPF_addon_page_same_as_filter($option['page_same_as_filter']);
@@ -275,7 +269,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
                         add_filter( 'woocommerce_redirect_single_search_result', '__return_false' );
                     }
                     if( ! empty($option['out_of_stock_variable']) ) {
-                        include_once( dirname( __FILE__ ) . '/includes/addons/woocommerce-variation.php' );
+                        include_once( dirname( __FILE__ ) . '/includes/addons/new-woocommerce-variation.php' );
                     }
                     if( ! empty($option['seo_meta_title']) ) {
                         include_once( dirname( __FILE__ ) . '/includes/addons/seo_meta_title.php' );
@@ -285,11 +279,6 @@ class BeRocket_AAPF extends BeRocket_Framework {
                     add_filter( 'plugin_action_links_' . $plugin_base_slug, array( $this, 'plugin_action_links' ) );
                     add_filter( 'berocket_aapf_widget_terms', array($this, 'wpml_attribute_slug_translate'));
                     add_filter ( 'BeRocket_updater_menu_order_custom_post', array($this, 'menu_order_custom_post') );
-                    if( br_woocommerce_version_check('3.6') ) {
-                        //TEST FUNCTIONS
-                        add_filter( 'posts_clauses', array( $this, 'price_filter_post_clauses' ), 99999999999, 2 );
-                        add_filter( 'berocket_posts_clauses_recount', array( $this, 'add_price_to_post_clauses' ), 10, 3 );
-                    }
                     add_action('woocommerce_before_template_part', array($this, 'no_products_block_before'), 1, 1);
                     add_action('woocommerce_after_template_part', array($this, 'no_products_block_after'), 999999, 1);
                     add_action('braapf_wp_enqueue_style_after', array($this, 'custom_user_css'), 10, 1);
@@ -301,6 +290,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
                         add_action( 'admin_notices', array( $this, 'no_woocommerce' ) );
                     }
                 }
+                do_action('bapf_class_ready', $this);
             } else {
                 add_filter( 'berocket_display_additional_notices', array(
                     $this,
@@ -461,7 +451,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
             $this->info['version'] );
         }
         do_action('braapf_register_frontend_assets');
-        if( ! is_admin() && apply_filters('bapf_isoption_ajax_site', ! empty($option['ajax_site'])) ) {
+        if( self::where_load_styles_scripts() && apply_filters('bapf_isoption_ajax_site', ! empty($option['ajax_site'])) ) {
             self::require_all_scripts();
             do_action('br_footer_script');
         }
@@ -476,9 +466,12 @@ class BeRocket_AAPF extends BeRocket_Framework {
                 "",
                 $this->info['version'] );
         }
-        if( ! is_admin() && empty($option['styles_in_footer']) ) {
+        if( self::where_load_styles_scripts() && empty($option['styles_in_footer']) ) {
             self::require_all_styles();
         }
+    }
+    public static function where_load_styles_scripts() {
+        return (! is_admin() || ( isset($_GET['legacy-widget-preview'], $_GET['legacy-widget-preview']['idBase']) && in_array($_GET['legacy-widget-preview']['idBase'], array('berocket_aapf_single', 'berocket_aapf_group')) ) );
     }
     public static function require_all_scripts($old = false) {
         $scripts = apply_filters('bapf_require_all_scripts_array', array('berocket_aapf_widget-script', 'berocket_aapf_jquery-slider-fix', 'select2', 'berocket_aapf_widget-scroll-script'), $old);
@@ -557,7 +550,8 @@ class BeRocket_AAPF extends BeRocket_Framework {
         }
         if( function_exists('wmc_get_price') ) {
             include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/woo-multi-currency.php");
-        }if( defined('WOOCS_VERSION') ) {
+        }
+        if( defined('WOOCS_VERSION') ) {
             include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/woocs.php");
         }
         if ( ((defined( 'WCML_VERSION' ) || defined('POLYLANG_VERSION')) && defined( 'ICL_LANGUAGE_CODE' )) || function_exists('wpm_get_language') ) {
@@ -578,6 +572,9 @@ class BeRocket_AAPF extends BeRocket_Framework {
         if( function_exists('premmerce_multicurrency') ) {
             include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/premmerce-multicurrency.php");
         }
+        if( ! empty($GLOBALS['woocommerce-aelia-currencyswitcher']) ) {
+            include_once(plugin_dir_path( __FILE__ ) . "includes/compatibility/aelia-currencyswitcher.php");
+        }
         if( apply_filters('BeRocket_AAPF_widget_load_file', true) ) {
             foreach (glob(__DIR__ . "/includes/display_filter/*.php") as $filename)
             {
@@ -594,6 +591,7 @@ class BeRocket_AAPF extends BeRocket_Framework {
         wp_enqueue_style( 'font-awesome' );
     }
     public function admin_settings( $tabs_info = array(), $data = array() ) {
+        do_action('bapf_include_all_tempate_styles');
         wp_enqueue_script( 'berocket_aapf_widget-admin' );
         parent::admin_settings(
             array(
@@ -972,6 +970,13 @@ class BeRocket_AAPF extends BeRocket_Framework {
                         "value"    => '',
                         "label_for" => __('On Category, Tag, Attribute page filter for it will remove value or leave only one value', 'BeRocket_AJAX_domain'),
                     ),
+                    'reload_changed_filters' => array(
+                        "label"     => __( 'Load products when URL changed', "BeRocket_AJAX_domain" ),
+                        "type"      => "checkbox",
+                        "name"      => "reload_changed_filters",
+                        "value"     => '1',
+                        'label_for' => __('Load products again when some filters not exist after filtering', 'BeRocket_AJAX_domain'),
+                    ),
                     'header_part_tools' => array(
                         'section' => 'header_part',
                         "value"   => __('Tools', 'BeRocket_AJAX_domain'),
@@ -1031,14 +1036,6 @@ class BeRocket_AAPF extends BeRocket_Framework {
                         "class"     => "br_fixed_select2",
                         "value"     => '1',
                         'label_for' => __("Fixed CSS styles for Select2 (do not enable if Select2 work correct. Option can break Select2 in other plugins or themes)", 'BeRocket_AJAX_domain'),
-                    ),
-                    'out_of_stock_variable_single' => array(
-                        "label"     => __( 'Fix WPEngine query issue', "BeRocket_AJAX_domain" ),
-                        "tr_class"  => "out_of_stock_variable_single bapf_incompatibility_fixes bapf_incompatibility_fixes_hide",
-                        "type"      => "checkbox",
-                        "name"      => "out_of_stock_variable_single",
-                        "value"     => '1',
-                        'label_for' => __('Can also work with other hostings if they limit query size.', 'BeRocket_AJAX_domain') . '<br>',
                     ),
                 ),
                 'Design' => array(
@@ -1297,7 +1294,9 @@ class BeRocket_AAPF extends BeRocket_Framework {
         );
     }
     public function section_tutorials ( $item, $options ) {
-        include_once('includes/admin/tutorial.php');
+        if( ! function_exists('berocket_tutorial_tab') ) {
+            include_once('berocket/includes/tutorial.php');
+        }
         ob_start();
         include AAPF_TEMPLATE_PATH.'settings/tutorial_tab.php';
         $html = '</table>'.ob_get_clean().'<table class="framework-form-table berocket_framework_menu_tutorial">';
@@ -1461,15 +1460,6 @@ function out_of_stock_variable_reload_hide() {
 }
 out_of_stock_variable_reload_hide();
 jQuery('.berocket_aapf_recount_hide, .out_of_stock_variable').on('change', out_of_stock_variable_reload_hide);
-function out_of_stock_variable_single_hide() {
-    if( (jQuery('.berocket_aapf_recount_hide').val() == 'recount' || jQuery('.berocket_aapf_recount_hide').val() == 'removeFirst_recount' || jQuery('.berocket_aapf_recount_hide').val() == 'removeRecount') && parseInt(jQuery('.out_of_stock_variable').val()) && jQuery('.out_of_stock_variable_reload').prop('checked') ) {
-        jQuery('.out_of_stock_variable_single').show();
-    } else {
-        jQuery('.out_of_stock_variable_single').hide();
-    }
-}
-out_of_stock_variable_single_hide();
-jQuery('.berocket_aapf_recount_hide, .out_of_stock_variable, .out_of_stock_variable_reload').on('change', out_of_stock_variable_single_hide);
 function load_fix_ajax_request_load() {
     if( jQuery('.load_fix_ajax_request_load').prop('checked') ) {
         jQuery('.load_fix_use_get_query').parent().show();
@@ -1610,18 +1600,12 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
     }
     function ajax_functions() {
         add_action( 'setup_theme', array( $this, 'WPML_fix' ) );
-        add_action( "wp_ajax_br_aapf_get_child", array ( $this, 'br_aapf_get_child' ) );
-        add_action( "wp_ajax_nopriv_br_aapf_get_child", array ( $this, 'br_aapf_get_child' ) );
         add_action( "wp_ajax_aapf_color_set", array ( 'BeRocket_AAPF_Widget_functions', 'color_listener' ) );
         BeRocket_AAPF_Widget_functions::br_widget_ajax_set();
         add_action( "wp_ajax_berocket_aapf_load_simple_filter_creation", array ( $this, 'load_simple_filter_creation' ) );
         add_action( "wp_ajax_berocket_aapf_save_simple_filter_creation", array ( $this, 'save_simple_filter_creation' ) );
     }
     function not_ajax_functions() {
-        add_filter( 'pre_get_posts', array( $this, 'apply_user_price' ) );
-        add_filter( 'pre_get_posts', array( $this, 'apply_user_filters' ), 900000 );
-        add_filter( 'woocommerce_shortcode_products_query', array( $this, 'woocommerce_shortcode_products_query' ), 10, 3 );
-        add_filter( 'woocommerce_shortcode_products_query', array( $this, 'woocommerce_shortcode_products_query_save_query_late' ), 9000000, 3 );
         $shortcode_types = array(
             'products',
             'product',
@@ -1686,7 +1670,7 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
     public function include_all_scripts() {
         /* theme scripts */
         if( ! self::$the_ajax_script_initialized ) {
-            if( defined('THE7_VERSION') && THE7_VERSION ) {
+            if( apply_filters('brapf_the7_compat', (defined('THE7_VERSION') && THE7_VERSION && version_compare(THE7_VERSION, '9.8', '<=') ) ) ) {
                 add_filter('berocket_aapf_time_to_fix_products_style', '__return_false');
                 BeRocket_AAPF::wp_enqueue_script( 'berocket_ajax_fix-the7', plugins_url( 'assets/themes/the7.js', __FILE__ ), array( 'jquery' ), BeRocket_AJAX_filters_version );
             }
@@ -1699,11 +1683,6 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
                 $wp_query_product_cat = explode( "/", $wp_query->query['product_cat'] );
                 $wp_query_product_cat = $wp_query_product_cat[ count( $wp_query_product_cat ) - 1 ];
                 $wp_check_product_cat = $wp_query_product_cat;
-            }
-
-            $post_temrs = "[]";
-            if ( ! empty($_POST['terms']) ) {
-                $post_temrs = json_encode( $_POST['terms'] );
             }
 
             if ( ! empty($sitepress) && method_exists($sitepress, 'get_current_language') ) {
@@ -1742,79 +1721,78 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
             wc_no_products_found();
             $no_products = ob_get_clean();
 
-            $localized = wp_localize_script(
-                'berocket_aapf_widget-script',
-                'the_ajax_script',
-                apply_filters('aapf_localize_widget_script', array(
-                    'disable_ajax_loading'                 => ! empty($br_options['disable_ajax_loading']),
-                    'url_variable'                         => 'filters',
-                    'url_mask'                             => '%t%[%v%]',
-                    'url_split'                            => '|',
-                    'nice_url_variable'                    => '',
-                    'nice_url_value_1'                     => '',
-                    'nice_url_value_2'                     => '',
-                    'nice_url_split'                       => '',
-                    'version'                              => BeRocket_AJAX_filters_version,
-                    'number_style'                         => array('', '.', '2'),
-                    'current_language'                     => $current_language,
-                    'current_page_url'                     => $current_page_url,
-                    'ajaxurl'                              => admin_url( 'admin-ajax.php' ),
-                    'product_cat'                          => $wp_query_product_cat,
-                    'product_taxonomy'                     => $product_taxonomy,
-                    's'                                    => ( ! empty( $_GET['s'] ) ? $_GET['s'] : '' ),
-                    'products_holder_id'                   => ( empty($br_options['products_holder_id']) ? 'ul.products' : $br_options['products_holder_id'] ),
-                    'result_count_class'                   => ( ! empty($br_options['woocommerce_result_count_class']) ? $br_options['woocommerce_result_count_class'] : $this->defaults['woocommerce_result_count_class'] ),
-                    'ordering_class'                       => ( ! empty($br_options['woocommerce_ordering_class']) ? $br_options['woocommerce_ordering_class'] : $this->defaults['woocommerce_ordering_class'] ),
-                    'pagination_class'                     => ( ! empty($br_options['woocommerce_pagination_class']) ? $br_options['woocommerce_pagination_class'] : $this->defaults['woocommerce_pagination_class'] ),
-                    'control_sorting'                      => ( empty($br_options['control_sorting']) ? '' : $br_options['control_sorting'] ),
-                    'seo_friendly_urls'                    => ( empty($br_options['seo_friendly_urls']) ? '' : $br_options['seo_friendly_urls'] ),
-                    'seo_uri_decode'                       => ( empty($br_options['seo_uri_decode']) ? '' : $br_options['seo_uri_decode'] ),
-                    'slug_urls'                            => ( empty($br_options['slug_urls']) ? '' : $br_options['slug_urls'] ),
-                    'nice_urls'                            => '',
-                    'ub_product_count'                     => '',
-                    'ub_product_text'                      => '',
-                    'ub_product_button_text'               => '',
-                    'berocket_aapf_widget_product_filters' => $post_temrs,
-                    'default_sorting'                      => $default_sorting,
-                    'first_page'                           => '1',
-                    'scroll_shop_top'                      => ( empty($br_options['scroll_shop_top']) ? '' : $br_options['scroll_shop_top'] ),
-                    'ajax_request_load'                    => '1',
-                    'ajax_request_load_style'              => 'jquery',
-                    'use_request_method'                   => 'get',
-                    'no_products'                          => $no_products,
-                    'recount_products'                     => braapf_filters_must_be_recounted(),
-                    'pos_relative'                         => ( empty($br_options['pos_relative']) ? '' : $br_options['pos_relative'] ),
-                    'woocommerce_removes'                  => array(
-                        'result_count' => ( empty($br_options['woocommerce_removes']['result_count']) ? '' : $br_options['woocommerce_removes']['result_count'] ),
-                        'ordering'     => ( empty($br_options['woocommerce_removes']['ordering']) ? '' : $br_options['woocommerce_removes']['ordering'] ),
-                        'pagination'   => ( empty($br_options['woocommerce_removes']['pagination']) ? '' : $br_options['woocommerce_removes']['pagination'] ),
-                        'pagination_ajax'   => empty($br_options['woocommerce_removes']['pagination_ajax']),
-                    ),
-                    'pagination_ajax'                      => empty($br_options['woocommerce_removes']['pagination_ajax']),
-                    'description_show'                     => ( ! empty($br_options['description']['show']) ? $br_options['description']['show'] : 'click' ),
-                    'description_hide'                     => ( ! empty($br_options['description']['hide']) ? $br_options['description']['hide'] : 'click' ),
-                    'hide_sel_value'                       => ( empty($br_options['hide_value']['sel']) ? '' : $br_options['hide_value']['sel'] ),
-                    'hide_o_value'                         => ( empty($br_options['hide_value']['o']) ? '' : $br_options['hide_value']['o'] ),
-                    'use_select2'                          => ! empty($br_options['use_select2']),
-                    'hide_empty_value'                     => ( empty($br_options['hide_value']['empty']) ? '' : $br_options['hide_value']['empty'] ),
-                    'hide_button_value'                    => '',
-                    'scroll_shop_top_px'                   => ( ! empty( $br_options['scroll_shop_top_px'] ) ? $br_options['scroll_shop_top_px'] : $this->defaults['scroll_shop_top_px'] ),
-                    'load_image'                           => braapf_get_loader_element(),
-                    'translate'                            => array(
-                        'show_value'        => __('Show value(s)', 'BeRocket_AJAX_domain'),
-                        'hide_value'        => __('Hide value(s)', 'BeRocket_AJAX_domain'),
-                        'unselect_all'      => __('Unselect all', 'BeRocket_AJAX_domain'),
-                        'nothing_selected'  => __('Nothing is selected', 'BeRocket_AJAX_domain'),
-                        'products'          => __('products', 'BeRocket_AJAX_domain'),
-                    ),
-                    'trailing_slash'                       => $permalink_structure,
-                    'pagination_base'                      => $wp_rewrite->pagination_base,
-                ) )
-            );
-            if ( $localized !== FALSE ) {
-                self::$the_ajax_script_initialized = TRUE;
-            }
+            self::$the_ajax_script = apply_filters('aapf_localize_widget_script', array(
+                'disable_ajax_loading'                 => ! empty($br_options['disable_ajax_loading']),
+                'url_variable'                         => 'filters',
+                'url_mask'                             => '%t%[%v%]',
+                'url_split'                            => '|',
+                'nice_url_variable'                    => '',
+                'nice_url_value_1'                     => '',
+                'nice_url_value_2'                     => '',
+                'nice_url_split'                       => '',
+                'version'                              => BeRocket_AJAX_filters_version,
+                'number_style'                         => array('', '.', '2'),
+                'current_language'                     => $current_language,
+                'current_page_url'                     => $current_page_url,
+                'ajaxurl'                              => admin_url( 'admin-ajax.php' ),
+                'product_cat'                          => $wp_query_product_cat,
+                'product_taxonomy'                     => $product_taxonomy,
+                's'                                    => ( ! empty( $_GET['s'] ) ? $_GET['s'] : '' ),
+                'products_holder_id'                   => ( empty($br_options['products_holder_id']) ? 'ul.products' : $br_options['products_holder_id'] ),
+                'result_count_class'                   => ( ! empty($br_options['woocommerce_result_count_class']) ? $br_options['woocommerce_result_count_class'] : $this->defaults['woocommerce_result_count_class'] ),
+                'ordering_class'                       => ( ! empty($br_options['woocommerce_ordering_class']) ? $br_options['woocommerce_ordering_class'] : $this->defaults['woocommerce_ordering_class'] ),
+                'pagination_class'                     => ( ! empty($br_options['woocommerce_pagination_class']) ? $br_options['woocommerce_pagination_class'] : $this->defaults['woocommerce_pagination_class'] ),
+                'control_sorting'                      => ( empty($br_options['control_sorting']) ? '' : $br_options['control_sorting'] ),
+                'seo_friendly_urls'                    => ( empty($br_options['seo_friendly_urls']) ? '' : $br_options['seo_friendly_urls'] ),
+                'seo_uri_decode'                       => ( empty($br_options['seo_uri_decode']) ? '' : $br_options['seo_uri_decode'] ),
+                'slug_urls'                            => ( empty($br_options['slug_urls']) ? '' : $br_options['slug_urls'] ),
+                'nice_urls'                            => '',
+                'ub_product_count'                     => '',
+                'ub_product_text'                      => '',
+                'ub_product_button_text'               => '',
+                'default_sorting'                      => $default_sorting,
+                'first_page'                           => '1',
+                'scroll_shop_top'                      => ( empty($br_options['scroll_shop_top']) ? '' : $br_options['scroll_shop_top'] ),
+                'ajax_request_load'                    => '1',
+                'ajax_request_load_style'              => 'jquery',
+                'use_request_method'                   => 'get',
+                'no_products'                          => $no_products,
+                'recount_products'                     => braapf_filters_must_be_recounted(),
+                'pos_relative'                         => ( empty($br_options['pos_relative']) ? '' : $br_options['pos_relative'] ),
+                'woocommerce_removes'                  => array(
+                    'result_count' => ( empty($br_options['woocommerce_removes']['result_count']) ? '' : $br_options['woocommerce_removes']['result_count'] ),
+                    'ordering'     => ( empty($br_options['woocommerce_removes']['ordering']) ? '' : $br_options['woocommerce_removes']['ordering'] ),
+                    'pagination'   => ( empty($br_options['woocommerce_removes']['pagination']) ? '' : $br_options['woocommerce_removes']['pagination'] ),
+                    'pagination_ajax'   => empty($br_options['woocommerce_removes']['pagination_ajax']),
+                ),
+                'pagination_ajax'                      => empty($br_options['woocommerce_removes']['pagination_ajax']),
+                'description_show'                     => ( ! empty($br_options['description']['show']) ? $br_options['description']['show'] : 'click' ),
+                'description_hide'                     => ( ! empty($br_options['description']['hide']) ? $br_options['description']['hide'] : 'click' ),
+                'hide_sel_value'                       => ( empty($br_options['hide_value']['sel']) ? '' : $br_options['hide_value']['sel'] ),
+                'hide_o_value'                         => ( empty($br_options['hide_value']['o']) ? '' : $br_options['hide_value']['o'] ),
+                'use_select2'                          => ! empty($br_options['use_select2']),
+                'hide_empty_value'                     => ( empty($br_options['hide_value']['empty']) ? '' : $br_options['hide_value']['empty'] ),
+                'hide_button_value'                    => '',
+                'scroll_shop_top_px'                   => ( ! empty( $br_options['scroll_shop_top_px'] ) ? $br_options['scroll_shop_top_px'] : $this->defaults['scroll_shop_top_px'] ),
+                'load_image'                           => braapf_get_loader_element(),
+                'translate'                            => array(
+                    'show_value'        => __('Show value(s)', 'BeRocket_AJAX_domain'),
+                    'hide_value'        => __('Hide value(s)', 'BeRocket_AJAX_domain'),
+                    'unselect_all'      => __('Unselect all', 'BeRocket_AJAX_domain'),
+                    'nothing_selected'  => __('Nothing is selected', 'BeRocket_AJAX_domain'),
+                    'products'          => __('products', 'BeRocket_AJAX_domain'),
+                ),
+                'trailing_slash'                       => $permalink_structure,
+                'pagination_base'                      => $wp_rewrite->pagination_base,
+                'reload_changed_filters'               => ( empty($br_options['reload_changed_filters']) ? false : true),
+            ) );
+            self::$the_ajax_script_initialized = TRUE;
         }
+        $localized = wp_localize_script(
+            'berocket_aapf_widget-script',
+            'the_ajax_script',
+            self::$the_ajax_script
+        );
     }
     public function select2_load() {
         if( ! empty($br_options['fixed_select2']) ) {
@@ -1909,21 +1887,6 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
             <p>' . __( 'Update WooCommerce plugin', 'BeRocket_AJAX_domain' ) . '</p>
         </div>';
     }
-    public function shortcode_apply( $atts = array() ) {
-        if( ! is_array($atts) ) $atts = array();
-        $atts = array_merge(array('apply' => true), $atts);
-        remove_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'apply_filter_to_shortcode'));
-        remove_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'not_apply_filter_to_shortcode'));
-        if( $atts['apply'] === 'false') $atts['apply'] = false;
-        if($atts['apply'] !== 'default') {
-            $atts['apply'] = (bool) $atts['apply'];
-            if( $atts['apply'] ) {
-                add_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'apply_filter_to_shortcode'));
-            } else {
-                add_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'not_apply_filter_to_shortcode'));
-            }
-        }
-    }
     public function apply_filter_to_shortcode($enable) {
         remove_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'apply_filter_to_shortcode'));
         return true;
@@ -1932,588 +1895,16 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         remove_filter('berocket_aapf_wcshortcode_is_filtering', array($this, 'not_apply_filter_to_shortcode'));
         return false;
     }
-    public function shortcode( $atts = array() ) {
-        if( self::$debug_mode ) {
-            if( ! isset( self::$error_log['2_shortcodes'] ) )
-            {
-                self::$error_log['2_shortcodes'] = array();
-            }
-            self::$error_log['2_shortcodes'][] = $atts;
-        }
-        $default = BeRocket_AAPF_Widget::$defaults;
-        $a = shortcode_atts( $default, $atts );
-        if ( ! empty($atts['style']) ) {
-            $a['style'] = $atts['style'];
-        }
-        if ( ! empty($atts['product_cat']) ) {
-            $a['product_cat'] = json_encode( explode( "|", $a['product_cat'] ) );
-        }
-        if ( ! empty($atts['show_page']) ) {
-            $a['show_page'] = explode( "|", $a['show_page'] );
-        }
-        if ( ! empty($atts['include_exclude_list']) ) {
-            $a['include_exclude_list'] = explode( "|", $a['include_exclude_list'] );
-        }
-        if ( ! empty($atts['ranges']) ) {
-            $a['ranges'] = explode( "|", $a['ranges'] );
-        }
-        if( ! empty($atts['search_box_style']) ) {
-            $a['search_box_style'] = array_merge($default['search_box_style'], (array)json_decode($atts['search_box_style']));
-        }
-        $a['search_box_attributes'] = $default['search_box_attributes'];
-        if( ! empty($atts['search_box_attributes']) ) {
-            $atts['search_box_attributes'] = (array)json_decode( $atts['search_box_attributes'] );
-            if( is_array( $atts['search_box_attributes'] ) ) {
-                foreach($atts['search_box_attributes'] as $attr_num => $attr_data) {
-                    $a['search_box_attributes'][$attr_num] = array_merge($default['search_box_attributes'][$attr_num], (array)$attr_data);
-                }
-            }
-        }
-        $a['child_onew_childs'] = $default['child_onew_childs'];
-        if( ! empty($atts['child_onew_childs']) ) {
-            $atts['child_onew_childs'] = (array)json_decode( $atts['child_onew_childs'] );
-            if( is_array( $atts['child_onew_childs'] ) ) {
-                foreach($atts['child_onew_childs'] as $child_num => $child_data) {
-                    $a['child_onew_childs'][$child_num] = array_merge($default['child_onew_childs'][$child_num], (array)$child_data);
-                }
-            }
-        }
-
-        $a = apply_filters( 'berocket_aapf_shortcode_options', $a );
-        ob_start();
-        new BeRocket_AAPF_Widget($a, array());
-        return ob_get_clean();
-    }
-    public function woocommerce_shortcode_products_query( $query_vars, $atts = array(), $name = 'products' ) {
-        global $bapf_save_shortcode_query_late;
-        $bapf_save_shortcode_query_late = false;
-        if( isset($atts['berocket_aapf']) && $atts['berocket_aapf'] === false ) {
-            return $query_vars;
-        }
-        if( apply_filters('berocket_aapf_wcshortcode_is_filtering', ( (! is_shop() && ! is_product_taxonomy() && ! is_product_category() && ! is_product_tag()) || ! empty($atts['berocket_aapf']) ), $query_vars, $atts, $name ) ) {
-            $bapf_save_shortcode_query_late = true;
-            $query_vars = $this->woocommerce_filter_query_vars($query_vars, $atts, $name);
-        }
-        return $query_vars;
-    }
-    public function woocommerce_shortcode_products_query_save_query_late( $query_vars, $atts = array(), $name = 'products' ) {
-        global $bapf_save_shortcode_query_late;
-        if( $bapf_save_shortcode_query_late ) {
-            $bapf_save_shortcode_query_late = false;
-            $this->save_shortcode_query_vars($query_vars);
-        }
-        return $query_vars;
-    }
     public function woocommerce_shortcode_no_result($atts) {
         if( ! empty($atts['berocket_aapf']) ) {
             wc_no_products_found();
         }
     }
-    public function price_filter_post_clauses( $args, $wp_query ) {
-        if( empty($wp_query->query_vars['berocket_filtered']) ) {
-            return $args;
-        }
-        return $this->add_price_to_post_clauses($args);
-    }
-    public function add_price_to_post_clauses($args, $taxonomy_data = false, $terms = false) {
-        if( ! empty($_POST['price']) ) {
-            $options = $this->get_option();
-            if( empty($options['filter_price_variation']) ) {
-                $args = $this->wc_price_to_post_clauses($args);
-            } else {
-                $args = $this->advanced_price_to_post_clauses($args, $taxonomy_data, $terms);
-            }
-        }
-        return $args;
-    }
-    public function wc_price_to_post_clauses($args) {
-        global $wpdb;
-
-        if ( ! strstr( $args['join'], 'wc_product_meta_lookup' ) ) {
-            $args['join'] .= " LEFT JOIN {$wpdb->wc_product_meta_lookup} as wc_product_meta_lookup ON {$wpdb->posts}.ID = wc_product_meta_lookup.product_id ";
-        }
-        $min = isset( $_POST['price'][0] ) ? floatval( $_POST['price'][0] ) : 0;
-        $max = isset( $_POST['price'][1] ) ? floatval( $_POST['price'][1] ) : 9999999999;
-        $args['where'] .= $wpdb->prepare(
-            ' AND wc_product_meta_lookup.min_price >= %f AND wc_product_meta_lookup.max_price <= %f ',
-            $min,
-            $max
-        );
-        return $args;
-    }
-    public static function get_advanced_price_temp_table ($where, $taxonomy_data, $terms) {
-        global $wpdb;
-        $obj = self::getInstance();
-        $option = $obj->get_option();
-        $query_price = array(
-            'select'    => "SELECT IF(bapf_price_post.post_parent = 0, bapf_price_post.ID, bapf_price_post.post_parent) as product_id from {$wpdb->posts} as bapf_price_post",
-            'join'      => "JOIN {$wpdb->wc_product_meta_lookup} as bapf_price_lookup ON bapf_price_post.ID = bapf_price_lookup.product_id",
-            'where'     => "WHERE (" . $where . ")"
-        );
-        $query_price = apply_filters('berocket_aapf_get_advanced_price_temp_table', $query_price, $where, $taxonomy_data, $terms);
-        $query_price = implode(' ', $query_price);
-        $table = "JOIN ({$query_price}) as bapf_custom_price ON {$wpdb->posts}.ID = bapf_custom_price.product_id";
-        
-        return $table;
-    }
-    public function advanced_price_to_post_clauses($args, $taxonomy_data = false, $terms = false) {
-        global $wpdb;
-        $min = isset( $_POST['price'][0] ) ? floatval( $_POST['price'][0] ) : 0;
-        $max = isset( $_POST['price'][1] ) ? floatval( $_POST['price'][1] ) : 9999999999;
-        $where = $wpdb->prepare(
-            'bapf_price_lookup.min_price >= %f AND bapf_price_lookup.max_price <= %f ',
-            $min,
-            $max
-        );
-        $args['join'] .= self::get_advanced_price_temp_table($where, $taxonomy_data, $terms);
-        return $args;
-    }
-    public function woocommerce_filter_query_vars( $query_vars, $atts = array(), $name = 'products' ) {
-        $new_query_vars = $query_vars;
-        $new_query_vars['nopaging'] = true;
-        $new_query_vars['fields'] = 'ids';
-        $query = new WP_Query( $new_query_vars );
-        global $braapf_not_filtered_data;
-        $braapf_not_filtered_data = array(
-            'post__not_in' => $query->get( 'post__not_in' ),
-            'post__in' => $query->get( 'post__in' ),
-        );
-        global $br_shortcode_query;
-        $br_shortcode_query = $query;
-        global $wp_query;
-        $args = $this->get_filter_args($wp_query, true);
-        $args_fields = array( 'meta_key', 'tax_query', 'fields', 'where', 'join', 'meta_query', 'date_query', 's' );
-        foreach ( $args_fields as $args_field ) {
-            if ( ! empty($args[ $args_field ]) ) {
-                if( ! empty($query_vars[ $args_field ]) && is_array($query_vars[ $args_field ]) ) {
-                    $query_vars[ $args_field ] = array_merge($query_vars[ $args_field ], $args[ $args_field ]);
-                } else {
-                    $query_vars[ $args_field ] = $args[ $args_field ];
-                }
-            }
-        }
-        if( empty($query_vars['post__in']) ) {
-            if ( $name == 'sale_products' ) {
-                $query_vars['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
-            } else {
-                $query_vars['post__in'] = array();
-            }
-        } else {
-            if ( $name == 'sale_products' ) {
-                $query_vars[ 'post__in' ] = array_merge( $query_vars[ 'post__in' ], wc_get_product_ids_on_sale() );
-            }
-        }
-        $custom_terms = br_get_value_from_array($_POST,'terms');
-        if( ! empty($atts['attribute']) ) {
-            if( ! empty($atts['terms']) ) {
-                $terms = explode(',',$atts['terms']);
-                foreach($terms as &$term) {
-                    $term = get_term_by( 'slug', $term, 'pa_'.$atts['attribute']);
-                }
-                if( isset($term) ) {
-                    unset($term);
-                }
-            } else {
-                $terms = get_terms( array(
-                    'taxonomy' => 'pa_'.$atts['attribute'],
-                    'hide_empty' => true,
-                ) );
-            }
-            if( ! is_array($custom_terms) ) {
-                $custom_terms = array();
-            }
-            foreach($terms as $term) {
-                $custom_terms[] = array(
-                    $term->taxonomy,
-                    $term->term_id,
-                    'OR',
-                    $term->slug,
-                    'attribute'
-                );
-            }
-        }
-        if( empty($query_vars['post__not_in']) ) {
-            $query_vars['post__not_in'] = array();
-        }
-        $query_vars['post__not_in'] = array_merge($query_vars['post__not_in'], apply_filters('berocket_add_out_of_stock_variable', array(), $custom_terms, berocket_isset($_POST['limits_arr'])));
-        $query_vars['post__in'] = apply_filters( 'bapf_loop_shop_post_in', $query_vars['post__in']);
-        if( is_array($query_vars['post__in']) ) {
-            $query_vars['post__in'] = array_diff($query_vars['post__in'], $query_vars['post__not_in']);
-        }
-        if ( br_woocommerce_version_check('3.6') && ! empty($_POST['price']) ) {
-            $query_vars['berocket_price'] = $_POST['price'];
-        }
-        $query_vars['berocket_filtered'] = true;
-        $this->save_shortcode_query_vars($query_vars);
-        $query_vars = apply_filters('berocket_filters_query_vars_already_filtered', $query_vars, br_get_value_from_array($_POST,'terms'), br_get_value_from_array($_POST,'limits_arr'));
-        return $query_vars;
-    }
-    public function save_shortcode_query_vars($query_vars) {
-        $br_query_vars = $query_vars;
-        if( ! empty($br_query_vars['tax_query']) && is_array($br_query_vars['tax_query']) ) {
-            foreach($br_query_vars['tax_query'] as $i => $tax_query_val) {
-                if( ! empty($tax_query_val['taxonomy']) ) {
-                    $br_query_vars['tax_query'][$i] = array(
-                        $tax_query_val,
-                    );
-                }
-            }
-        }
-        global $br_wc_query, $br_aapf_wc_footer_widget;
-        $br_query_vars['fields'] = 'ids';
-        $br_wc_query = $br_query_vars;
-        $br_aapf_wc_footer_widget = true;
-        add_action( 'wp_footer', array( $this, 'wp_footer_widget'), 99999 );
-    }
     public function display_products() {
         return '';
     }
-    public function apply_user_price( $query, $is_shortcode = FALSE ) {
-        $options = $this->get_option();
-        if( class_exists('WC_Query') && method_exists('WC_Query', 'get_main_query') ) {
-            $wc_query = WC_Query::get_main_query();
-            $is_wc_main_query = $wc_query === $query;
-        } else {
-            $is_wc_main_query = $query->is_main_query();
-        }
-        $is_wc_main_query = apply_filters('berocket_aapf_check_is_wc_main_query', $is_wc_main_query, $query, $is_shortcode);
-        if ( ( ( ! is_admin() && $is_wc_main_query ) || $is_shortcode ) && ( apply_filters( 'berocket_aapf_is_filtered_page_check', ! empty($_GET['filters']), 'apply_user_price', $query ) ) ) {
-            br_aapf_args_converter( $query );
-            if( ! empty($options['products_only']) ) {
-                add_filter('pre_option_woocommerce_shop_page_display', array( $this, 'display_products' ), 99999);
-                add_filter('pre_option_woocommerce_category_archive_display', array( $this, 'display_products' ), 99999);
-            }
-        }
-        return $query;
-    }
-    public function apply_user_filters( $query, $is_shortcode = FALSE ) {
-        $options = $this->get_option();
-        if( self::$debug_mode ) {
-            if ( empty( self::$error_log['8_1_query_in'] ) || ! is_array( self::$error_log['8_1_query_in'] ) ) {
-                self::$error_log['8_1_query_in'] = array();
-            }
-            self::$error_log['8_1_query_in'][] = $query;
-            self::$error_log['PERMALINK'] = get_option('permalink_structure');
-        }
-        if( class_exists('WC_Query') && method_exists('WC_Query', 'get_main_query') ) {
-            $wc_query = WC_Query::get_main_query();
-            $is_wc_main_query = $wc_query === $query || $query->is_main_query();
-            if( $is_wc_main_query && ! $query->is_main_query() ) {
-                $is_shortcode = true;
-            }
-        } else {
-            $is_wc_main_query = $query->is_main_query();
-        }
-        $is_wc_main_query = apply_filters('berocket_aapf_check_is_wc_main_query', $is_wc_main_query, $query, $is_shortcode);
-        if( apply_filters( 'berocket_aapf_is_filtered_page_check', ! empty($_GET['filters']), 'apply_user_filters', $query ) ) {
-            br_aapf_args_converter( $query );
-        }
-        if ( ( ( ! is_admin() && $is_wc_main_query ) || $is_shortcode ) ) {
-            if( ( apply_filters( 'berocket_aapf_is_filtered_page_check', ! empty($_GET['filters']), 'apply_user_filters', $query ) )
-                && ( ( isset($query->query_vars['wc_query']) && $query->query_vars['wc_query'] == 'product_query' ) || ( isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'product' ) ) ) {
-                $args = $this->get_filter_args($query);
-                global $braapf_not_filtered_data;
-                $braapf_not_filtered_data = array(
-                    'post__not_in' => $query->get( 'post__not_in' ),
-                    'post__in' => $query->get( 'post__in' ),
-                );
-                $query_vars_post__in = $query->get( 'post__in' );
-                $query_vars_post__in = apply_filters( 'bapf_loop_shop_post_in', $query_vars_post__in);
-                $query->set( 'post__in', $query_vars_post__in );
-                $args_fields = array( 'meta_key', 'tax_query', 'fields', 'where', 'join', 'meta_query', 'date_query', 's' );
-                foreach ( $args_fields as $args_field ) {
-                    if ( ! empty($args[ $args_field ]) ) {
-                        $variable = $query->get( $args_field );
-                        if( is_array($variable) ) {
-                            $variable = array_merge($variable, $args[ $args_field ]);
-                        } else {
-                            $variable = $args[ $args_field ];
-                        }
-                        $query->set( $args_field, $variable );
-                    }
-                }
-                $query->set('berocket_filtered', true);
-
-                //THIS CAN BE NEW FIX FOR SORTING, BUT NOT SURE
-                if( class_exists('WC_Query') &&  method_exists('WC_Query', 'product_query') ) {
-
-                    if( empty($_GET['orderby']) && wc_clean( get_query_var( 'orderby' ) ) && strtolower(wc_clean( get_query_var( 'order' ) )) == 'desc' ) {
-                        $orderby = wc_clean( get_query_var( 'orderby' ) );
-                        $orderby = is_array( $orderby ) ? $orderby : explode(' ', $orderby);
-                        $orderby = $orderby[0];
-                        if( in_array($orderby, array('date')) ) {
-                            $_GET['orderby'] = strtolower($orderby);
-                        } else {
-                            $_GET['orderby'] = strtolower($orderby.'-'.wc_clean( get_query_var( 'order' ) ));
-                        }
-                    }
-                    $post__in = $query->get('post__in');
-                    wc()->query->product_query($query);
-                    $query->set('post__in', $post__in);
-                }
-                if( self::$debug_mode ) {
-                    self::$error_log['8_query_out'] = $query;
-                }
-            }
-            $query = apply_filters('berocket_filters_query_already_filtered', $query, br_get_value_from_array($_POST, 'terms'), br_get_value_from_array($_POST, 'limits_arr'));
-        }
-
-        if ( (( ! is_admin() && $query->is_main_query() ) || $is_shortcode) && isset($query->query_vars['post_type']) && $query->query_vars['post_type'] == 'product' ) {
-            global $br_wc_query;
-            $br_wc_query = $query;
-        }
-        if ( $is_shortcode ) {
-            global $br_aapf_wc_footer_widget;
-            $br_aapf_wc_footer_widget = true;
-            add_action( 'wp_footer', array( $this, 'wp_footer_widget'), 99999 );
-        }
-
-        if( self::$debug_mode ) {
-            self::$error_log['8_2_query_out'] = $query;
-        }
-
-        return apply_filters('berocket_aapf_return_query_filtered', $query, $is_shortcode);
-    }
-    public function get_filter_args($query, $is_shortcode = false) {
-        $options = $this->get_option();
-        $args = array();
-        if ( apply_filters( 'berocket_aapf_is_filtered_page_check', ! empty($_GET['filters']), 'get_filter_args', $query ) ) {
-            br_aapf_args_converter( $query );
-
-            if( self::$debug_mode ) {
-                self::$error_log['8_query_in'] = $query;
-            }
-            if( ! empty($options['products_only']) ) {
-                add_filter('pre_option_woocommerce_shop_page_display', array( $this, 'display_products' ), 99999);
-                add_filter('pre_option_woocommerce_category_archive_display', array( $this, 'display_products' ), 99999);
-            }
-
-            $old_post_terms                      = ( empty($_POST['terms']) ? '' : $_POST['terms'] );
-            $woocommerce_hide_out_of_stock_items = BeRocket_AAPF_Widget_functions::woocommerce_hide_out_of_stock_items();
-            $meta_query                          = $this->remove_out_of_stock( array(), true, $woocommerce_hide_out_of_stock_items != 'yes' );
-
-            $args = br_aapf_args_parser();
-            if ( isset( $args['meta_query'] ) ) {
-                $args['meta_query'] += $meta_query;
-            } else {
-                $args['meta_query'] = $meta_query;
-            }
-            $_POST['terms'] = $old_post_terms;
-            if ( ! br_woocommerce_version_check('3.6') && ! empty($_POST['price']) ) {
-                $min = isset( $_POST['price'][0] ) ? floatval( $_POST['price'][0] ) : 0;
-                $max = isset( $_POST['price'][1] ) ? floatval( $_POST['price'][1] ) : 9999999999;
-                if ( wc_tax_enabled() && 'incl' === get_option( 'woocommerce_tax_display_shop' ) && ! wc_prices_include_tax() ) {
-                    $tax_classes = array_merge( array( '' ), WC_Tax::get_tax_classes() );
-                    $class_min   = $min;
-
-                    foreach ( $tax_classes as $tax_class ) {
-                        if ( $tax_rates = WC_Tax::get_rates( $tax_class ) ) {
-                            $class_min = $min - WC_Tax::get_tax_total( WC_Tax::calc_exclusive_tax( $min, $tax_rates ) );
-                        }
-                    }
-                    $min = $class_min;
-                }
-
-                $args['meta_query'][] = array(
-                    'key'          => apply_filters('berocket_price_filter_meta_key', '_price', 'main_1543'),
-                    'value'        => array( $min, $max ),
-                    'compare'      => 'BETWEEN',
-                    'type'         => 'DECIMAL',
-                    'price_filter' => true,
-                );
-            }
-
-            $args = apply_filters( 'berocket_aapf_filters_on_page_load', $args );
-            if( self::$debug_mode ) {
-                self::$error_log['3_user_filters'] = $args;
-            }
-
-            global $berocket_filters_session;
-            if( ! empty($args['tax_query']) ) {
-                $_SESSION['BeRocket_filters'] = array('terms' => $_POST['terms']);
-                $berocket_filters_session = $_SESSION['BeRocket_filters'];
-            } else {
-                if( isset($_SESSION['BeRocket_filters']) ) {
-                    unset($_SESSION['BeRocket_filters']);
-                }
-                if( isset($berocket_filters_session) ) {
-                    unset($berocket_filters_session);
-                }
-            }
-        }
-        return $args;
-    }
-    public function remove_out_of_stock( $filtered_posts, $use_post_terms = false, $show_out_of_stock = false ) {
-        global $wpdb;
-        if ( $use_post_terms ) {
-            $meta_query = array();
-            if( ! empty($_POST['terms']) ) {
-                $stock_status = array();
-                foreach($_POST['terms'] as $term) {
-                    if( $term[0] == '_stock_status' ) {
-                        $stock_status[] = $term[3];
-                    }
-                }
-                if( count($stock_status) ) {
-                    array_push($meta_query , array( 'key' => '_stock_status', 'value' => $stock_status, 'compare' => 'IN' ) );
-                }
-                for ( $i = count( $_POST['terms'] ) - 1; $i >= 0; $i-- ) {
-                    if ( $_POST['terms'][$i][0] ==  '_stock_status' ) {
-                        unset( $_POST['terms'][$i] );
-                    }
-                }
-            }
-
-            if ( $show_out_of_stock ) {
-                return $meta_query;
-            } else {
-                return array();
-            }
-        }
-
-        $query_string = "
-            SELECT DISTINCT ID, post_parent, post_type FROM $wpdb->posts
-            INNER JOIN $wpdb->postmeta as meta ON ID = meta.post_id
-            WHERE post_type IN ( 'product', 'product_variation' ) AND post_status = 'publish'
-            AND meta_key = '_stock_status' AND meta_value != 'outofstock'";
-
-        if( self::$debug_mode ) {
-            self::$error_log['104_remove_out_of_stock_SELECT'] = $query_string;
-            $wpdb->show_errors();
-        }
-
-        // TODO: split this into 2 queries(product and product_variation) this way we will not be using all data at the same time
-        $matched_products_query = $wpdb->get_results( $query_string, OBJECT_K );
-        unset( $query_string );
-        $matched_products = array( 0 );
-
-        if( self::$debug_mode ) {
-            self::$error_log['000_select_status'][] = @ $wpdb->last_error;
-        }
-
-        foreach ( $matched_products_query as $product ) {
-            if ( $product->post_type == 'product' )
-                $matched_products[] = $product->ID;
-            // TODO: check if we really need this in_array. We have array_unique after foreach. Only one should be left
-            if ( $product->post_parent > 0 && ! in_array( $product->post_parent, $matched_products ) )
-                $matched_products[] = $product->post_parent;
-        }
-        if( ! empty($matched_products) && is_array($matched_products) ) {
-            $matched_products = array_unique( $matched_products );
-        }
-
-        if ( sizeof( $filtered_posts ) == 0) {
-            $filtered_posts = $matched_products;
-        } else {
-            // TODO: array_intersect will create count($filtered_posts) * count($matched_products) loops.
-            // TODO: this should be handled above, in foreach
-            $filtered_posts = array_intersect( $filtered_posts, $matched_products );
-        }
-
-        return (array) $filtered_posts;
-    }
-    public function remove_hidden( $filtered_posts ){
-        global $wpdb;
-
-        $query_string = "
-            SELECT DISTINCT ID, post_parent, post_type FROM $wpdb->posts
-            INNER JOIN $wpdb->postmeta as meta ON ID = meta.post_id
-            WHERE post_type IN ( 'product', 'product_variation' ) AND post_status = 'publish'
-            AND meta_key = '_visibility' AND meta_value NOT IN ('hidden', 'search')";
-
-        if( self::$debug_mode ) {
-            self::$error_log['105_remove_hidden_SELECT'] = $query_string;
-            $wpdb->show_errors();
-        }
-
-        $matched_products_query = $wpdb->get_results( $query_string, OBJECT_K );
-        unset( $query_string );
-        $matched_products = array( 0 );
-
-        if( self::$debug_mode ) {
-            self::$error_log['000_select_status'][] = @ $wpdb->last_error;
-        }
-
-        foreach ( $matched_products_query as $product ) {
-            if ( $product->post_type == 'product' )
-                $matched_products[] = $product->ID;
-            if ( $product->post_parent > 0 && ! in_array( $product->post_parent, $matched_products ) )
-                $matched_products[] = $product->post_parent;
-        }
-        if( ! empty($matched_products) && is_array($matched_products) ) {
-            $matched_products = array_unique( $matched_products );
-        }
-
-        if ( sizeof( $filtered_posts ) == 0) {
-            $filtered_posts = $matched_products;
-        } else {
-            $filtered_posts = array_intersect( $filtered_posts, $matched_products );
-        }
-        return (array) $filtered_posts;
-    }
     public function delete_products_not_on_sale($transient) {
         delete_transient( 'wc_products_notonsale' );
-    }
-    public function new_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-        global $wpdb;
-        if ( is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
-            $old_blog = $wpdb->blogid;
-            switch_to_blog($blog_id);
-            $this->_br_add_defaults();
-            switch_to_blog($old_blog);
-        }
-    }
-    public function br_add_defaults( $networkwide ) {
-        global $wpdb;
-        if ( function_exists('is_multisite') && is_multisite() ) {
-            if ( $networkwide) {
-                $old_blog = $wpdb->blogid;
-                $blogids  = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
-
-                foreach ( $blogids as $blog_id ) {
-                    switch_to_blog( $blog_id );
-                    $this->_br_add_defaults();
-                }
-
-                switch_to_blog( $old_blog );
-                return;
-            }
-        }
-        $this->_br_add_defaults();
-    }
-    public function _br_add_defaults() {
-        $tmp = $this->get_option();
-        $tmp2 = get_option( 'berocket_permalink_option' );
-        $version = get_option( 'br_filters_version' );
-        if ( isset($tmp['chk_default_options_db']) and ($tmp['chk_default_options_db'] == '1' or ! is_array( $tmp )) ) {
-            delete_option( 'br_filters_options' );
-            update_option( 'br_filters_options', self::$defaults );
-        }
-        if ( ( isset($tmp['chk_default_options_db']) and $tmp['chk_default_options_db'] == '1' ) or !is_array( $tmp2 ) ) {
-            delete_option( 'berocket_permalink_option' );
-            update_option( 'berocket_permalink_option', $this->default_permalink );
-            update_option( 'berocket_nn_permalink_option', $this->default_nn_permalink );
-        }
-    }
-    public function br_delete_plugin_options($networkwide) {
-        global $wpdb;
-        if (function_exists('is_multisite') && is_multisite()) {
-            if ($networkwide) {
-                $old_blog = $wpdb->blogid;
-                $blogids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
-                foreach ($blogids as $blog_id) {
-                    switch_to_blog($blog_id);
-                    $this->_br_delete_plugin_options();
-                }
-                switch_to_blog($old_blog);
-                return;
-            }
-        }
-        $this->_br_delete_plugin_options();
-    }
-    public function _br_delete_plugin_options() {
-        delete_option( 'br_filters_options' );
-        delete_option( 'berocket_permalink_option' );
     }
     public function convert_styles_to_string(&$style) {
         if( empty($style) || ! is_array($style) ) {
@@ -2555,7 +1946,9 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         }
     }
     public function footer_css() {
-        echo '<style>', $this->br_custom_user_css(), '</style>';
+        if ( $user_css = $this->br_custom_user_css() ) {
+            echo '<style>', $user_css, '</style>';
+        }
     }
     public function br_custom_user_css() {
         $options     = $this->get_option();
@@ -2812,6 +2205,7 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         global $wpdb;
         $type        = 'berocket_term';
         $table_name  = $wpdb->prefix . $type . 'meta';
+        $charset_collate = '';
         if ( ! empty ( $wpdb->charset ) ) {
             $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
         }
@@ -2840,77 +2234,6 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         $set_query_var_title = array_merge(BeRocket_AAPF_Widget::$defaults, $set_query_var_title);
         new BeRocket_AAPF_Widget($set_query_var_title);
     }
-    public function br_aapf_get_child() {
-        $br_options = apply_filters( 'berocket_aapf_listener_br_options', $this->get_option() );
-        $taxonomy = $_POST['taxonomy'];
-        $type = $_POST['type'];
-        $term_id = $_POST['term_id'];
-        $term_id = str_replace( '\\', '', $term_id );
-        $term_id = json_decode($term_id);
-        if ( $type == 'slider' ) {
-            $all_terms_name = array();
-            $terms_1        = get_terms( $taxonomy );
-            $is_numeric = true;
-            $terms = array();
-            foreach ( $terms_1 as $term_ar ) {
-                array_push( $all_terms_name, $term_ar->name );
-                if( ! is_numeric( substr( $term_ar->name[0], 0, 1 ) ) ) {
-                    $is_numeric = false;
-                }
-            }
-            if( $is_numeric ) {
-                sort( $all_terms_name, SORT_NUMERIC );
-            } else {
-                sort( $all_terms_name );
-            }
-            $start_terms    = array_search( $term_id[0], $all_terms_name );
-            $end_terms      = array_search( $term_id[1], $all_terms_name );
-            $all_terms_name = array_slice( $all_terms_name, $start_terms, ( $end_terms - $start_terms + 1 ) );
-            foreach ( $all_terms_name as $term_name ) {
-                $term_id = get_term_by ( 'name', $term_name, $taxonomy );
-                $args_terms = array(
-                    'orderby'    => 'id',
-                    'order'      => 'ASC',
-                    'hide_empty' => false,
-                    'parent'     => $term_id->term_id,
-                );
-                $current_terms = get_terms( $taxonomy, $args_terms );
-                foreach ( $current_terms as $current_term ) {
-                    $terms[] = $current_term;
-                }
-            }
-            echo json_encode($terms);
-        } else {
-            if( is_array($term_id) && count($term_id) > 0 ) {
-                $terms = array();
-                foreach ( $term_id as $parent ) {
-                    $args_terms = array(
-                        'taxonomy'   => $taxonomy,
-                        'hide_empty' => false,
-                        'parent'     => intval($parent),
-                    );
-                    $new_terms = berocket_aapf_get_terms($args_terms);
-                    if( ! is_array( $new_terms ) ) {
-                        $new_terms = array();
-                    }
-                    if ( is_array( $new_terms ) ) {
-                        foreach ( $new_terms as $key => $term_val ) {
-                            $new_terms[$key]->color = get_metadata( 'berocket_term', $term_val->term_id, 'color' );
-                            $new_terms[$key]->r_class = '';
-                            if( ! empty($br_options['hide_value']['o']) && isset($term_val->count) && $term_val->count == 0 ) {
-                                $new_terms[$key]->r_class += 'berocket_hide_o_value ';
-                            }
-                        }
-                    }
-                    $terms = array_merge( $terms, $new_terms );
-                }
-                echo json_encode($terms);
-            } else {
-                echo json_encode($term_id);
-            }
-        }
-        wp_die();
-    }
     public function WPML_fix() {
         global $sitepress;
         if ( ! empty($sitepress) && method_exists( $sitepress, 'switch_lang' )
@@ -2936,30 +2259,6 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         $args['orderby'] = "average_rating DESC, $wpdb->posts.post_date DESC";
         $args['groupby'] = "$wpdb->posts.ID";
         return $args;
-    }
-    public function wp_footer_widget() {
-        global $br_widget_ids;
-        if( isset( $br_widget_ids ) && is_array( $br_widget_ids ) && count( $br_widget_ids ) > 0 ) {
-            echo '<div class="berocket_wc_shortcode_fix" style="display: none;">';
-            foreach ( $br_widget_ids as $widget ) {
-                $widget['instance']['br_wp_footer'] = true;
-                the_widget( 'BeRocket_new_AAPF_Widget_single', $widget['instance'], $widget['args']);
-            }
-            echo '</div>';
-        }
-    }
-    public function get_attribute_for_variation_link($product, $filters) {
-        $attributes = $product->get_variation_attributes();
-        $filter_attribute = array();
-        if( ! empty($filters) && is_array($filters) ) {
-            foreach($filters as $term) {
-                if( empty($attributes[$term[0]]) || ! empty($filter_attribute[$term[0]]) ) continue;
-                if( in_array(strtolower(urlencode(urldecode($term[3]))), $attributes[$term[0]]) ) {
-                    $filter_attribute[$term[0]] = urldecode($term[3]);
-                }
-            }
-        }
-        return $filter_attribute;
     }
     public function wcml_currency_price_fix() {
         if ( ! empty($_POST['price']) ) {
@@ -2993,22 +2292,6 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
         $compatibility['br_product_filter'] = 'br-product-filters';
         $compatibility['br_filters_group'] = 'br-product-filters';
         return $compatibility;
-    }
-    public function limits_filter($post_in) {
-        $post_in = apply_filters('berocket_aapf_limits_filter_function', $post_in);
-        return $post_in;
-    }
-    public function select_term_child_prefix($prefix) {
-        $styles = array(
-            's' => '&nbsp;',
-            '2s' => '&nbsp;&nbsp;',
-            '4s' => '&nbsp;&nbsp;&nbsp;&nbsp;'
-        );
-        $option = $this->get_option();
-        if( array_key_exists($option['child_pre_indent'], $styles) ) {
-            $prefix = $styles[$option['child_pre_indent']];
-        }
-        return $prefix;
     }
     public function BRaapf_cache_check_md5($md5) {
         $options = $this->get_option();
@@ -3151,6 +2434,52 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
                 update_option( 'br_filters_options', $options );
             }
         }
+        if( $previous !== '0' && ( version_compare($previous, '1.5.6', '<') || (version_compare($previous, '2.0', '>') && version_compare($previous, '3.0.5', '<') ) ) ) {
+            $deprecated_filters = false;
+            if( ! empty($options['addons']) && is_array($options['addons']) ) {
+                foreach($options['addons'] as $i => $addon) {
+                    if( strpos($addon, 'deprecated_filters.php') !== FALSE ) {
+                        unset($options['addons'][$i]);
+                        $deprecated_filters = true;
+                        break;
+                    }
+                }
+            }
+            if($deprecated_filters) {
+                new berocket_admin_notices(array(
+                    'start' => 0,
+                    'end'   => 0,
+                    'name'  => 'aapf_remove_deprecated_filters',
+                    'html'  => 'AJAX Product Filters. Deprecated Filters add-on enabled on your site, but it will be removed in near future. You can disable Deprecated Filters in <a href="'.admin_url('admin.php?page=br-product-filters&tab=addons').'">Plugin settings -> Add-ons tab</a>',
+                    'righthtml'  => '<a class="berocket_no_thanks">Close notice</a>',
+                    'rightwidth'  => 200,
+                    'nothankswidth'  => 200,
+                    'contentwidth'  => 400,
+                    'subscribe'  => false,
+                    'priority'  => 20,
+                    'height'  => 50,
+                    'repeat'  => false,
+                    'repeatcount'  => 1,
+                    'image'  => array(
+                        'local' => plugin_dir_url( __FILE__ ) . 'images/attention.png',
+                    ),
+                ));
+            }
+        }
+        if( $previous !== '0' && ( version_compare($previous, '1.6', '<') || (version_compare($previous, '2.0', '>') && version_compare($previous, '3.1', '<') ) ) ) {
+            $options = $this->get_option();
+            if( ! empty($options['addons']) && is_array($options['addons']) ) {
+                foreach($options['addons'] as $i => $addon) {
+                    if( strpos($addon, 'deprecated_filters.php') !== FALSE ) {
+                        unset($options['addons'][$i]);
+                        break;
+                    }
+                }
+            }
+            $options['purge_cache_time'] = time();
+            update_option( 'br_filters_options', $options );
+            delete_option('BeRocket_aapf_additional_tables_addon_position');
+        }
     }
     public function save_settings_callback( $settings ) {
         $options = $this->get_option();
@@ -3207,6 +2536,9 @@ jQuery(document).on('change', '.berocket_disable_ajax_loading', berocket_disable
     }
     public function bapf_wp_footer() {
         do_action('bapf_wp_footer');
+    }
+    public function divi_extensions_init() {
+        include_once dirname( __FILE__ ) . '/includes/divi/DiviExtension.php';
     }
 }
 

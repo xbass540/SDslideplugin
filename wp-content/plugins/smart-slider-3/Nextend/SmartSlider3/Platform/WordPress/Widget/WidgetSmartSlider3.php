@@ -15,10 +15,17 @@ class WidgetSmartSlider3 extends WP_Widget {
 
     function __construct() {
 
-        parent::__construct('smartslider3', // Base ID
-            'Smart Slider', // Name
-            array('description' => 'Displays a Smart Slider') // Args
-        );
+        parent::__construct('smartslider3', 'Smart Slider', array(
+            'show_instance_in_rest' => true,
+            'description'           => 'Displays a Smart Slider'
+        ));
+
+        add_filter('widget_types_to_hide_from_legacy_widget_block', function ($widget_types) {
+
+            $widget_types[] = 'smartslider3';
+
+            return $widget_types;
+        });
 
         // YOAST SEO fix
         add_action('wpseo_head', array(
@@ -122,40 +129,44 @@ class WidgetSmartSlider3 extends WP_Widget {
 
             $_title = '';
             ?>
-            <select id="<?php echo $this->get_field_id('slider'); ?>" onchange="jQuery('#<?php echo $this->get_field_id('temp-title'); ?>').val(jQuery(this).find('option:selected').text()).trigger('change');" name="<?php echo $this->get_field_name('slider'); ?>" class="widefat">
-                <option value=""><?php n2_e('None'); ?></option>
-                <?php
-                foreach ($choices as $id => $choice) {
-                    if (is_array($choice)) {
-                        ?>
-                        <optgroup label="<?php echo $choice['label']; ?>">
-                            <?php
-                            foreach ($choice['choices'] as $_id => $_choice) {
-                                ?>
-                                <option <?php if ($_id == $value){
-                                        $_title = $_choice; ?>selected <?php } ?>value="<?php echo $_id; ?>"><?php echo $_choice; ?></option>
-                                <?php
-                            }
-                            ?>
-                        </optgroup>
-                        <?php
-                    } else {
-                        ?>
-                        <option <?php if ($id == $value){
-                                $_title = $choice; ?>selected <?php } ?>value="<?php echo $id; ?>"><?php echo $choice; ?></option>
-                        <?php
+            <select id="<?php echo $this->get_field_id('slider'); ?>" name="<?php echo $this->get_field_name('slider'); ?>" class="widefat">
+                <?php if (empty($choices)): ?>
+                    <option value=""><?php n2_e('None'); ?></option>
+                <?php else: ?>
+                    <?php
+                    if ($instance['slider'] === 0) {
+                        global $wpdb;
+                        $value = $wpdb->get_var('SELECT id FROM ' . $wpdb->prefix . 'nextend2_smartslider3_sliders WHERE status = \'published\' LIMIT 0,1');
+
                     }
-                }
-                ?>
+                    foreach ($choices as $id => $choice) {
+                        if (is_array($choice)) {
+                            ?>
+                            <optgroup label="<?php echo $choice['label']; ?>">
+                                <?php
+                                foreach ($choice['choices'] as $_id => $_choice) {
+                                    ?>
+                                    <option <?php if ($_id == $value){
+                                            $_title = $_choice; ?>selected <?php } ?>value="<?php echo $_id; ?>"><?php echo $_choice; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </optgroup>
+                            <?php
+                        } else {
+                            ?>
+                            <option <?php if ($id == $value){
+                                    $_title = $choice; ?>selected <?php } ?>value="<?php echo $id; ?>"><?php echo $choice; ?></option>
+                            <?php
+                        }
+                    }
+                    ?>
+                <?php endif; ?>
             </select>
             <input id="<?php echo $this->get_field_id('temp-title'); ?>"
                    name="<?php echo $this->get_field_name('temp-title'); ?>" type="hidden"
                    value="<?php echo $_title; ?>">
 
-            <span style="display:block;line-height:2;padding:10px;"><?php n2_e('OR'); ?></span>
-
-            <a style="vertical-align: top;" href="#" onclick="NextendSmartSliderSelectModal(jQuery('#<?php echo $this->get_field_id('slider'); ?>')); return false;" class="button button-primary elementor-button elementor-button-smartslider fl-builder-button fl-builder-button-large" title="Select slider">Select
-                slider</a>
         </p>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>">

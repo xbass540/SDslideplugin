@@ -5,14 +5,14 @@
 /**
  * External dependencies
  */
-import React                                                  from 'react';
+import React                                         from 'react';
 
 /**
  * WordPress dependencies
  */
-import { BaseControl, ColorIndicator, ColorPalette }          from '@wordpress/components';
-import { __experimentalUseEditorFeature as useEditorFeature } from '@wordpress/block-editor';
-import { useInstanceId }                                      from '@wordpress/compose';
+import { BaseControl, ColorIndicator, ColorPalette } from '@wordpress/components';
+import { useSetting }                                from '@wordpress/block-editor';
+import { useInstanceId }                             from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -65,7 +65,7 @@ export default function ColorPaletteControl( {
 												 clearable
 											 } ) {
 
-	palette = !!palette ? palette : useEditorFeature( 'color.palette' );
+	palette = !!palette ? palette : useSetting( 'color.palette' );
 
 	const instanceId = useInstanceId( ColorPaletteControl );
 	const id         = `inspector-yith-color-palette-control-${instanceId}`;

@@ -604,3 +604,9 @@ cursor: default;
 	width:40px;
 	height:auto;
 }
+
+/* Notice for import file upload failed */
+.wsm-upload-failed {
+	color: red;
+	opacity: 0.8;
+}

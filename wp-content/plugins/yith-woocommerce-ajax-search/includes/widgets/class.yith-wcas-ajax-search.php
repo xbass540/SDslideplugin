@@ -76,7 +76,7 @@ if ( ! class_exists( 'YITH_WCAS_Ajax_Search_Widget' ) ) {
 		 * @return array
 		 */
 		public function update( $new_instance, $old_instance ) {
-			$instance['title'] = wp_strip_all_tags( stripslashes( $new_instance['title'] ) );
+			$instance['title'] = isset( $new_instance ) ? wp_strip_all_tags( stripslashes( $new_instance['title'] ) ) : '';
 			return $instance;
 		}
 

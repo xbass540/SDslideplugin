@@ -32,6 +32,11 @@ class VisualComposer1 {
         ));
 
         add_action('vc_load_shortcode', array(
+            Shortcode::class,
+            'shortcodeModeToNormal'
+        ), -1000000);
+
+        add_action('vc_load_shortcode', array(
             $this,
             'forceShortcodeIframe'
         ));

@@ -226,7 +226,9 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 					continue;
 				}
 
-				for ( $i = 0; $i < $item['qty']; $i++ ) {
+				$refunded_qty = $order->get_qty_refunded_for_item( $item->get_id() );
+
+				for ( $i = 0; $i < ( $item['qty'] - absint( $refunded_qty ) ); $i ++ ) {
 					$items[] = $item_data;
 				}
 			}
@@ -320,7 +322,7 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 		 * @param WC_Order $order The order to check for shipping label creation eligibility.
 		 * @return bool Whether the given order is eligible for shipping label creation.
 		 */
-		public function is_order_eligible_for_shipping_label_creation( WC_Order $order ): bool {
+		public function is_order_eligible_for_shipping_label_creation( WC_Order $order ) {
 			// Set up a dictionary from product ID to quantity in the order, which will be updated by refunds and existing labels later.
 			$quantities_by_product_id = array();
 			foreach ( $order->get_items() as $item ) {
@@ -366,7 +368,7 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 		 *
 		 * @return bool Whether the WC store is eligible for shipping label creation.
 		 */
-		public function is_store_eligible_for_shipping_label_creation(): bool {
+		public function is_store_eligible_for_shipping_label_creation() {
 			$base_currency = get_woocommerce_currency();
 			if ( ! $this->is_supported_currency( $base_currency ) ) {
 				return false;
@@ -386,7 +388,7 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 		 * @param string $country_code Country code of the WC store.
 		 * @return bool Whether the given country code is supported for shipping labels.
 		 */
-		private function is_supported_country( string $country_code ): bool {
+		private function is_supported_country( $country_code ) {
 			return in_array( $country_code, $this->supported_countries, true );
 		}
 
@@ -396,7 +398,7 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 		 * @param string $currency_code Currency code of the WC store.
 		 * @return bool Whether the given country code is supported for shipping labels.
 		 */
-		private function is_supported_currency( string $currency_code ): bool {
+		private function is_supported_currency( $currency_code ) {
 			return in_array( $currency_code, $this->supported_currencies, true );
 		}
 
@@ -431,9 +433,20 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 		}
 
 		private function calculate_should_show_meta_box() {
+			// not all users have the permission to manage shipping labels.
+			// if a request is made to the JS backend and the user doesn't have permission, an error would be displayed.
+			if ( ! WC_Connect_Functions::user_can_manage_labels() ) {
+				return false;
+			}
+
 			$order = wc_get_order();
 
 			if ( ! $order ) {
+				return false;
+			}
+
+			// If the shipping label is disabled, will remove the meta box.
+			if ( ! $this->is_shipping_label_enabled() ) {
 				return false;
 			}
 
@@ -461,6 +474,21 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 			}
 
 			return false;
+		}
+
+		/**
+		 * Check whether shipping label feature is enabled from WC Services setting.
+		 *
+		 * @return bool True if shipping label is enabled from the settings.
+		 */
+		public function is_shipping_label_enabled() {
+			$account_settings = $this->account_settings->get();
+
+			if ( isset( $account_settings['formData']['enabled'] ) && is_bool( $account_settings['formData']['enabled'] ) ) {
+				return $account_settings['formData']['enabled'];
+			}
+
+			return true;
 		}
 
 		public function get_label_payload( $post_order_or_id ) {
@@ -512,7 +540,7 @@ if ( ! class_exists( 'WC_Connect_Shipping_Label' ) ) {
 			$order                   = wc_get_order( $post );
 			$order_id                = WC_Connect_Compatibility::instance()->get_order_id( $order );
 			$items                   = array_filter( $order->get_items(), array( $this, 'filter_items_needing_shipping' ) );
-			$items_count             = array_reduce( $items, array( $this, 'reducer_items_quantity' ), 0 );
+			$items_count             = array_reduce( $items, array( $this, 'reducer_items_quantity' ), 0 ) - absint( $order->get_item_count_refunded() );
 			$payload                 = apply_filters(
 				'wc_connect_meta_box_payload',
 				array(

@@ -3,13 +3,12 @@
 namespace Nextend\SmartSlider3\Slider\SliderType\Block;
 
 use Nextend\Framework\Asset\Js\Js;
+use Nextend\Framework\Form\Container\ContainerRowGroup;
 use Nextend\Framework\Form\Container\ContainerTable;
 use Nextend\Framework\Form\Element\Grouping;
-use Nextend\Framework\Form\Element\OnOff;
 use Nextend\Framework\Form\Element\Select;
-use Nextend\Framework\Form\Element\Text\FieldImage;
-use Nextend\Framework\Form\Element\Text\TextAutoComplete;
-use Nextend\Framework\Form\Element\Text\Video;
+use Nextend\Framework\Form\Element\Text\Color;
+use Nextend\Framework\Form\Element\Text\Number;
 use Nextend\Framework\Form\Element\Textarea;
 use Nextend\Framework\Form\Fieldset\FieldsetRow;
 use Nextend\Framework\Form\Fieldset\LayerWindow\FieldsetLayerWindow;
@@ -54,6 +53,8 @@ class SliderTypeBlockAdmin extends AbstractSliderTypeAdmin {
         $form->getElement('/controls/widget-bar')
              ->remove();
         $form->getElement('/controls/widget-thumbnail')
+             ->remove();
+        $form->getElement('/developer/developer/developer-1/controlsBlockCarouselInteraction')
              ->remove();
 
     }

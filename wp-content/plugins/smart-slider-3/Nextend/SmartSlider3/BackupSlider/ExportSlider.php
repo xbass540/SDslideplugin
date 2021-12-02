@@ -68,7 +68,7 @@ class ExportSlider {
             }
             self::addImage($this->backup->slider['thumbnail']);
 
-            $this->backup->slider['params'] = new SliderParams($this->backup->slider['type'], $this->backup->slider['params'], true);
+            $this->backup->slider['params'] = new SliderParams($this->backup->slider['id'], $this->backup->slider['type'], $this->backup->slider['params'], true);
 
             if ($this->backup->slider['type'] == 'group') {
                 $xref = new ModelSlidersXRef($this);
@@ -279,7 +279,7 @@ class ExportSlider {
         }
 
         foreach ($js['url'] as $url) {
-            $headHTML .= Html::script($url, true) . "\n";
+            $headHTML .= Html::scriptFile($url) . "\n";
         }
         foreach ($js['files'] as $file) {
             $path = 'js/' . basename($file);
@@ -288,14 +288,14 @@ class ExportSlider {
                 $this->files[$path] = file_get_contents($file);
             } else {
             }
-            $headHTML .= Html::script($path, true) . "\n";
+            $headHTML .= Html::scriptFile($path) . "\n";
         }
 
         if ($js['inline'] != '') {
             $headHTML .= Html::script($js['inline']) . "\n";
         }
 
-        $sliderHTML = preg_replace_callback('/(src|data-thumbnail|data-desktop|data-tablet|data-mobile)=["|\'](.*?)["|\']/i', array(
+        $sliderHTML = preg_replace_callback('/(src|srcset)=["|\'](.*?)["|\']/i', array(
             $this,
             'replaceHTMLImage'
         ), $sliderHTML);
@@ -310,19 +310,29 @@ class ExportSlider {
             'replaceHTMLImage'
         ), $sliderHTML);
 
+        $sliderHTML = preg_replace_callback('/(srcset)=["|\'](.*?)["|\']/i', array(
+            $this,
+            'replaceHTMLRetinaImage'
+        ), $sliderHTML);
+
         $sliderHTML = preg_replace_callback('/(data-n2-lightbox-urls)=["|\'](.*?)["|\']/i', array(
             $this,
             'replaceLightboxImages'
         ), $sliderHTML);
 
-        $sliderHTML = preg_replace_callback('/data-n2-lightbox=[^<>]*?(href)=["|\'](.*?)["|\']/i', array(
+        $sliderHTML = preg_replace_callback('/(data-n2-lightbox)=["|\'](.*?)["|\']/i', array(
             $this,
             'replaceHTMLImageHrefLightbox'
         ), $sliderHTML);
 
-        $headHTML = preg_replace_callback('/"([^"]*?\.(jpg|png|gif|jpeg|webp|svg))"/i', array(
+        $headHTML = preg_replace_callback('/"([^"]*?\.(jpg|png|gif|jpeg|webp|svg|mp4))"/i', array(
             $this,
             'replaceJSON'
+        ), $headHTML);
+
+        $headHTML = preg_replace_callback('/(--n2bgimage:URL\(")(.*?)("\);)/i', array(
+            $this,
+            'replaceCssBGImage'
         ), $headHTML);
 
         $this->files['index.html'] = "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge, chrome=1\">\n<title>" . $slider['title'] . "</title>\n" . $headHTML . "</head>\n<body>\n" . $sliderHTML . "</body>\n</html>";
@@ -355,6 +365,11 @@ class ExportSlider {
 
     public function replaceHTMLImage($found) {
         $path = Filesystem::absoluteURLToPath(self::addProtocol($found[2]));
+
+        if (substr($path, 0, 5) === "data:") {
+            return $found[0];
+        }
+
         if (strpos($path, Filesystem::getBasePath()) !== 0) {
             $imageUrl = Url::relativetoabsolute($path);
             $path     = Filesystem::absoluteURLToPath($imageUrl);
@@ -400,6 +415,28 @@ class ExportSlider {
         return 'data-n2-lightbox-urls="' . implode(',', $images) . '"';
     }
 
+    public function replaceHTMLRetinaImage($found) {
+        $srcset = $found[0];
+
+        $replacedImages = array();
+        $explodedSrcs   = explode(',', $found[2]);
+        foreach ($explodedSrcs as $explodedSrc) {
+            $exploded         = explode(' ', $explodedSrc);
+            $replacedImage    = $this->replaceHTMLImage(array(
+                $exploded[0],
+                '',
+                $exploded[0]
+            ));
+            $replacedImages[] = $replacedImage . (count($exploded) > 1 ? ' ' . $exploded[1] : '');
+
+        }
+        if (!empty($replacedImages)) {
+            $srcset = $found[1] . '="' . implode(',', $replacedImages) . '"';
+        }
+
+        return $srcset;
+    }
+
     public function replaceHTMLBGImage($found) {
         $path = $this->replaceHTMLImage(array(
             $found[3],
@@ -410,8 +447,16 @@ class ExportSlider {
         return str_replace($found[3], $path, $found[0]);
     }
 
+    public function replaceCssBGImage($found) {
+        if (substr($found[2], 0, 9) !== 'http:\/\/' && substr($found[2], 0, 10) !== 'https:\/\/' && substr($found[2], 0, 5) !== 'data:') {
+            return $found[1] . '..\/' . $found[2] . $found[3];
+        }
+
+        return $found[0];
+    }
+
     public function replaceJSON($found) {
-        $image = str_replace('\\/', '/', $found[1]);
+        $image = ResourceTranslator::toUrl(str_replace('\\/', '/', $found[1]));
         $path  = $this->replaceHTMLImage(array(
             $image,
             '',

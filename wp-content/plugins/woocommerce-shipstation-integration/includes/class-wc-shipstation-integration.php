@@ -19,8 +19,8 @@ class WC_ShipStation_Integration extends WC_Integration {
 	 */
 	public function __construct() {
 		$this->id                 = 'shipstation';
-		$this->method_title       = __( 'ShipStation', 'woocommerce-shipstation' );
-		$this->method_description = __( 'ShipStation allows you to retrieve &amp; manage orders, then print labels &amp; packing slips with ease.', 'woocommerce-shipstation' );
+		$this->method_title       = __( 'ShipStation', 'woocommerce-shipstation-integration' );
+		$this->method_description = __( 'ShipStation allows you to retrieve &amp; manage orders, then print labels &amp; packing slips with ease.', 'woocommerce-shipstation-integration' );
 
 		if ( ! get_option( 'woocommerce_shipstation_auth_key', false ) ) {
 			update_option( 'woocommerce_shipstation_auth_key', $this->generate_key() );
@@ -111,11 +111,11 @@ class WC_ShipStation_Integration extends WC_Integration {
 	public function hide_notices() {
 		if ( isset( $_GET['wc-shipstation-hide-notice'] ) && isset( $_GET['_wc_shipstation_notice_nonce'] ) ) {
 			if ( ! wp_verify_nonce( $_GET['_wc_shipstation_notice_nonce'], 'wc_shipstation_hide_notices_nonce' ) ) {
-				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce-shipstation' ) );
+				wp_die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce-shipstation-integration' ) );
 			}
 
 			if ( ! current_user_can( 'manage_woocommerce' ) ) {
-				wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-shipstation' ) );
+				wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-shipstation-integration' ) );
 			}
 
 			update_option( 'wc_shipstation_hide_activate_notice', 'yes' );
@@ -130,7 +130,7 @@ class WC_ShipStation_Integration extends WC_Integration {
 			return;
 		}
 
-		$logo_title = __( 'ShipStation logo', 'woocommerce-shipstation' );
+		$logo_title = __( 'ShipStation logo', 'woocommerce-shipstation-integration' );
 		?>
 		<div class="notice notice-warning">
 			<img class="shipstation-logo" alt="<?php echo esc_attr( $logo_title ); ?>" title="<?php echo esc_attr( $logo_title ); ?>" src="<?php echo plugins_url( 'assets/images/shipstation-logo-blue.png', dirname( __FILE__ ) ); ?>" />
@@ -140,7 +140,7 @@ class WC_ShipStation_Integration extends WC_Integration {
 				printf(
 					wp_kses(
 						/* translators: %s: ShipStation URL */
-						__( 'To begin printing shipping labels with ShipStation head over to <a class="shipstation-external-link" href="%s" target="_blank">ShipStation.com</a> and log in or create a new account.', 'woocommerce-shipstation' ),
+						__( 'To begin printing shipping labels with ShipStation head over to <a class="shipstation-external-link" href="%s" target="_blank">ShipStation.com</a> and log in or create a new account.', 'woocommerce-shipstation-integration' ),
 						array(
 							'a' => array(
 								'class'  => array(),
@@ -158,21 +158,21 @@ class WC_ShipStation_Integration extends WC_Integration {
 				printf(
 					wp_kses(
 						/* translators: %s: ShipStation Auth Key */
-						__( 'After logging in, add a selling channel for WooCommerce and use your Auth Key (<code>%s</code>) to connect your store.', 'woocommerce-shipstation' ),
+						__( 'After logging in, add a selling channel for WooCommerce and use your Auth Key (<code>%s</code>) to connect your store.', 'woocommerce-shipstation-integration' ),
 						array( 'code' => array() )
 					),
 					self::$auth_key
 				);
 				?>
 			</p>
-			<p><?php esc_html_e( "Once connected you're good to go!", 'woocommerce-shipstation' ); ?></p>
+			<p><?php esc_html_e( "Once connected you're good to go!", 'woocommerce-shipstation-integration' ); ?></p>
 			<hr>
 			<p>
 				<?php
 				printf(
 					wp_kses(
 						/* translators: %1$s: ShipStation plugin settings URL, %2$s: ShipStation documentation URL */
-						__( 'You can find other settings for this extension <a href="%1$s">here</a> and view the documentation <a href="%2$s">here</a>.', 'woocommerce-shipstation' ),
+						__( 'You can find other settings for this extension <a href="%1$s">here</a> and view the documentation <a href="%2$s">here</a>.', 'woocommerce-shipstation-integration' ),
 						array(
 							'a' => array(
 								'href' => array(),

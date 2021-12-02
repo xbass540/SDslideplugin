@@ -53,7 +53,7 @@ class WordPressUpdate {
 
         $filename = NEXTEND_SMARTSLIDER_3_BASENAME;
 
-        if (!isset($transient->response[$filename])) {
+        if (is_object($transient) && !isset($transient->response[$filename])) {
 
             try {
                 $response = SmartSlider3Info::api(array(
@@ -77,6 +77,7 @@ class WordPressUpdate {
                     'channel' => SmartSlider3Info::$channel
                 ), true);
 
+                $item->plugin                   = 'nextend-smart-slider3-pro/nextend-smart-slider3-pro.php';
                 $item->package                  = $updateLink;
                 $item->download_link            = $updateLink;
                 $item->versions                 = array();

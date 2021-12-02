@@ -24,6 +24,14 @@
     transform: translateX(-50%) translateY(-50%);
   }
 
+  &.block-editor-yith-plugin-fw-shortcode-block--first-loading{
+    @extend %bordered-block;
+
+    .block-editor-yith-plugin-fw-shortcode-block__title {
+      margin-bottom: 0;
+    }
+  }
+
   &.block-editor-yith-plugin-fw-shortcode-block--shortcode {
 
     @extend %bordered-block;

@@ -82,7 +82,6 @@ export const createEditFunction = ( blockName, blockArgs ) => {
 							value={value}
 							label={attributeArgs.label}
 							options={attributeArgs.options}
-							selected={value}
 							help={helpMessage}
 							multiple={!!attributeArgs.multiple}
 							onChange={( newValue ) => {
@@ -121,7 +120,6 @@ export const createEditFunction = ( blockName, blockArgs ) => {
 						componentControl = <ToggleControl
 							className={wrapperClassName}
 							key={attributeName}
-							value={value}
 							label={attributeArgs.label}
 							help={helpMessage}
 							checked={value}
@@ -135,7 +133,6 @@ export const createEditFunction = ( blockName, blockArgs ) => {
 						componentControl = <CheckboxControl
 							className={wrapperClassName}
 							key={attributeName}
-							value={value}
 							label={attributeArgs.label}
 							help={helpMessage}
 							checked={value}
@@ -191,11 +188,9 @@ export const createEditFunction = ( blockName, blockArgs ) => {
 					case 'radio':
 						componentControl = <RadioControl
 							key={attributeName}
-							value={value}
 							label={attributeArgs.label}
 							options={attributeArgs.options}
 							selected={value}
-							checked={value}
 							help={helpMessage}
 							onChange={( newValue ) => {
 								onChangeHandler( newValue, attributeName, controlType )

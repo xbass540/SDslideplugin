@@ -21,12 +21,14 @@ class Elementor {
 
     public function init() {
 
-        add_filter('elementor/widgets/black_list', function ($black_list) {
-            $black_list[] = 'N2SS3Widget';
-            $black_list[] = WidgetSmartSlider3::class;
+        if (!defined('SMART_SLIDER_ELEMENTOR_WIDGET_ALLOWED')) {
+            add_filter('elementor/widgets/black_list', function ($black_list) {
+                $black_list[] = 'N2SS3Widget';
+                $black_list[] = WidgetSmartSlider3::class;
 
-            return $black_list;
-        });
+                return $black_list;
+            });
+        }
 
         add_action('template_redirect', array(
             $this,
@@ -81,7 +83,12 @@ class Elementor {
     public function action_widgets_registered() {
 
         $widget_manager = Plugin::$instance->widgets_manager;
-        $widget_manager->register_widget_type(new ElementorWidgetSmartSlider());
+        if (defined('ELEMENTOR_VERSION') && version_compare(ELEMENTOR_VERSION, '2.9.0', '>=')) {
+            $widget_manager->register_widget_type(new ElementorWidgetSmartSlider());
+        } else {
+            //This is an outdated Elementor version, where we need to use different function overrides.
+            $widget_manager->register_widget_type(new ElementorWidgetDeprecatedSmartSlider());
+        }
     }
 
     public function action_controls_registered($controls_manager) {

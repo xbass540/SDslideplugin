@@ -4,7 +4,6 @@
 namespace Nextend\SmartSlider3\Application\Admin\Slides;
 
 
-use Nextend\Framework\Localization\Localization;
 use Nextend\Framework\Notification\Notification;
 use Nextend\Framework\Request\Request;
 use Nextend\SmartSlider3\Application\Admin\AbstractControllerAdmin;
@@ -17,7 +16,8 @@ class ControllerSlides extends AbstractControllerAdmin {
     public function initialize() {
         parent::initialize();
 
-        SmartSlider3Info::$forceDesktop = true;
+        SmartSlider3Info::$forceDesktop    = true;
+        SmartSlider3Info::$forceAllDevices = true;
     }
 
     public function actionEdit() {

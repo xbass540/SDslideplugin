@@ -9,11 +9,11 @@ class WC_ShipStation_Privacy extends WC_Abstract_Privacy {
 	 *
 	 */
 	public function __construct() {
-		parent::__construct( __( 'ShipStation', 'woocommerce-shipstation' ) );
+		parent::__construct( __( 'ShipStation', 'woocommerce-shipstation-integration' ) );
 
-		$this->add_exporter( 'woocommerce-shipstation-order-data', __( 'WooCommerce ShipStation Order Data', 'woocommerce-shipstation' ), array( $this, 'order_data_exporter' ) );
+		$this->add_exporter( 'woocommerce-shipstation-order-data', __( 'WooCommerce ShipStation Order Data', 'woocommerce-shipstation-integration' ), array( $this, 'order_data_exporter' ) );
 
-		$this->add_eraser( 'woocommerce-shipstation-order-data', __( 'WooCommerce ShipStation Data', 'woocommerce-shipstation' ), array( $this, 'order_data_eraser' ) );
+		$this->add_eraser( 'woocommerce-shipstation-order-data', __( 'WooCommerce ShipStation Data', 'woocommerce-shipstation-integration' ), array( $this, 'order_data_eraser' ) );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class WC_ShipStation_Privacy extends WC_Abstract_Privacy {
 	 */
 	public function get_privacy_message() {
 		/* translators: 1: URL to documentation */
-		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-shipstation' ), 'https://docs.woocommerce.com/document/privacy-shipping/#woocommerce-shipstation' ) );
+		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-shipstation-integration' ), 'https://docs.woocommerce.com/document/privacy-shipping/#woocommerce-shipstation' ) );
 	}
 
 	/**
@@ -70,19 +70,19 @@ class WC_ShipStation_Privacy extends WC_Abstract_Privacy {
 			foreach ( $orders as $order ) {
 				$data_to_export[] = array(
 					'group_id'    => 'woocommerce_orders',
-					'group_label' => __( 'Orders', 'woocommerce-shipstation' ),
+					'group_label' => __( 'Orders', 'woocommerce-shipstation-integration' ),
 					'item_id'     => 'order-' . $order->get_id(),
 					'data'        => array(
 						array(
-							'name'  => __( 'ShipStation tracking provider', 'woocommerce-shipstation' ),
+							'name'  => __( 'ShipStation tracking provider', 'woocommerce-shipstation-integration' ),
 							'value' => get_post_meta( $order->get_id(), '_tracking_provider', true ),
 						),
 						array(
-							'name'  => __( 'ShipStation tracking number', 'woocommerce-shipstation' ),
+							'name'  => __( 'ShipStation tracking number', 'woocommerce-shipstation-integration' ),
 							'value' => get_post_meta( $order->get_id(), '_tracking_number', true ),
 						),
 						array(
-							'name'  => __( 'ShipStation date shipped', 'woocommerce-shipstation' ),
+							'name'  => __( 'ShipStation date shipped', 'woocommerce-shipstation-integration' ),
 							'value' => get_post_meta( $order->get_id(), '_date_shipped', true ) ? date( 'Y-m-d H:i:s', get_post_meta( $order->get_id(), '_date_shipped', true ) ) : '',
 						),
 					),
@@ -158,7 +158,7 @@ class WC_ShipStation_Privacy extends WC_Abstract_Privacy {
 		delete_post_meta( $order->get_id(), '_date_shipped' );
 		delete_post_meta( $order->get_id(), '_shipstation_exported' );
 
-		return array( true, false, array( __( 'ShipStation Order Data Erased.', 'woocommerce-shipstation' ) ) );
+		return array( true, false, array( __( 'ShipStation Order Data Erased.', 'woocommerce-shipstation-integration' ) ) );
 	}
 }
 

@@ -1,1 +1,10 @@
-<?php // Silence is golden
+<?php
+/**
+ * Silence is golden
+ *
+ * @package woocommerce-stock-manager
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}

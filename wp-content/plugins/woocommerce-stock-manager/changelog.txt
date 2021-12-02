@@ -1,4 +1,4 @@
-Plugin Name	: WooCommerce Stock Manager
+Plugin Name	: Stock Manager for WooCommerce
 Plugin URI	: https://www.storeapps.org/
 Author		: StoreApps
 Author URI	: https://www.storeapps.org/

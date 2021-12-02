@@ -8,6 +8,7 @@ if( ! class_exists('BeRocket_framework_libraries') ) {
             'tooltip'       => 'tippy.php',
             'tippy'         => 'tippy.php',
             'feature'       => 'feature_tab.php',
+            'tutorial'      => 'tutorial.php',
         );
         public $info, $values, $options;
         public $libraries_class = array();

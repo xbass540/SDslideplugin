@@ -101,12 +101,30 @@ class WordPressConnector extends AbstractPlatformConnector {
             if (is_admin()) {
                 $lastError = $this->db->last_error;
                 $lastQuery = $this->db->last_query;
-                $message   = array(
+
+                $possibleErrors = array(
+                    'Duplicate entry'    => 'Your table column doesn\'t have auto increment, while it should have.',
+                    'command denied'     => 'Your database user has limited access and isn\'t able to run all commands which are necessary for our code to work.',
+                    'Duplicate key name' => 'Your database user has limited access and isn\'t able to run DROP or ALTER database commands.',
+                    'Can\'t DROP'        => 'Your database user has limited access and isn\'t able to run DROP or ALTER database commands.'
+                );
+
+                $errorMessage = sprintf(n2_('If you see this message after the repair database process, please %1$scontact us%2$s with the log:'), '<a href="https://smartslider3.com/contact-us/support/" target="_blank">', '</a>');
+
+                foreach ($possibleErrors as $error => $cause) {
+                    if (strpos($lastError, $error) !== false) {
+                        $errorMessage = n2_($cause) . ' ' . n2_('Contact your server host and ask them to fix this for you!');
+                        break;
+                    }
+                }
+
+                $message = array(
                     n2_('Unexpected database error.'),
                     '',
                     '<a href="' . wp_nonce_url(add_query_arg(array('repairss3' => '1'), SmartSlider3Platform::getAdminUrl()), 'repairss3') . '" class="n2_button n2_button--big n2_button--blue">' . n2_('Try to repair database') . '</a>',
                     '',
-                    sprintf(n2_('If you see this message after the repair database process, please %1$scontact us%2$s with the log:'), '<a href="https://smartslider3.com/contact-us/support/" target="_blank">', '</a>'),
+                    $errorMessage,
+                    '',
                     '<b>' . $lastError . '</b>',
                     $lastQuery
                 );

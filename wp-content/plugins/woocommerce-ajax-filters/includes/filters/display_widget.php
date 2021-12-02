@@ -103,7 +103,6 @@ class BeRocket_AAPF_Widget {
             'text_color_over'               => '000000',
         ),
         'ranges'                        => array( 1, 10 ),
-        'hide_first_last_ranges'        => '',
         'include_exclude_select'        => '',
         'include_exclude_list'          => array(),
     );
@@ -115,6 +114,12 @@ class BeRocket_AAPF_Widget {
         if( ! empty($args['widget_id']) ) {
             $this->id = $args['widget_id'];
             $this->number = $args['widget_id'];
+        }
+        if( empty($instance['widget_type']) ) {
+            if( BeRocket_AAPF::$user_can_manage ) {
+                echo '<div>', __('Filter do not have <strong>Widget type</strong>', 'BeRocket_AJAX_domain'), '</div>';
+            }
+            return false;
         }
         if( empty($this->number) || $this->number == -1 ) {
             global $berocket_aapf_shortcode_id;
@@ -260,6 +265,11 @@ class BeRocket_AAPF_Widget {
                 }
                 $instance['type'] = $instance['new_template'] = $set_query_var_title['new_template'] = $template;
             }
+        } else {
+            if( BeRocket_AAPF::$user_can_manage ) {
+                echo '<div>', __('Filter do not have <strong>Style</strong>', 'BeRocket_AJAX_domain'), '</div>';
+            }
+            return false;
         }
 
         if( BeRocket_AAPF::$debug_mode ) {
@@ -284,6 +294,7 @@ class BeRocket_AAPF_Widget {
             $wp_query      = $br_wc_query;
             $wp_the_query  = $br_wc_query;
             if( class_exists('WC_Query') &&  method_exists('WC_Query', 'product_query') && method_exists('WC_Query', 'get_main_query') ) {
+                $wp_query = apply_filters('braapf_wp_query_widget_start', $wp_query, $old_query, $br_options);
                 wc()->query->product_query($wp_query);
             }
         }
@@ -411,8 +422,18 @@ class BeRocket_AAPF_Widget {
                 } elseif( (! empty($min_price) || $min_price == '0') && ! empty($max_price) ) {
                     $price_range = array($min_price, $max_price);
                 } else {
-                    $price_range = BeRocket_AAPF_Widget_functions::get_price_range( ( isset($cat_value_limit) ? $cat_value_limit : null ) );
-                    if ( ! $price_range or count( $price_range ) < 2 ) {
+                    $price_range = BeRocket_AAPF_Widget_functions::get_price_ranges();
+                    if( ! empty($price_range) && isset($price_range['min_price']) && isset($price_range['max_price']) ) {
+                        if($price_range['min_float'] == $price_range['max_float']) {
+                            $price_range = array($price_range['min_price'], $price_range['min_price']);
+                        } else {
+                            $price_range = array($price_range['min_price'], $price_range['max_price']);
+                        }
+                        $price_range = array(
+                            floor(apply_filters('berocket_price_filter_widget_min_amount', apply_filters('berocket_price_slider_widget_min_amount', apply_filters( 'woocommerce_price_filter_widget_min_amount', $price_range[0] )), $price_range[0])),
+                            ceil (apply_filters('berocket_price_filter_widget_max_amount', apply_filters('berocket_price_slider_widget_max_amount', apply_filters( 'woocommerce_price_filter_widget_max_amount', $price_range[1] )), $price_range[1]))
+                        );
+                    } else {
                         $widget_error_log['price_range'] = $price_range;
                         $widget_error_log['return'] = 'price_range < 2';
                         $this->filter_return($br_wc_query, $wp_the_query, $wp_query, $wc_query, $old_the_query, $old_query, $widget_error_log);
@@ -617,6 +638,7 @@ class BeRocket_AAPF_Widget {
                 $wp_query = $old_query;
             }
             if( ! empty($wc_query) && is_a($wc_query, 'WP_Query') && class_exists('WC_Query') &&  method_exists('WC_Query', 'product_query') && method_exists('WC_Query', 'get_main_query') ) {
+                $wc_query = apply_filters('braapf_wp_query_widget_end', $wc_query, $old_query);
                 wc()->query->product_query($wc_query);
             }
             wc()->query->remove_ordering_args();

@@ -20,7 +20,7 @@ abstract class WC_Shipstation_API_Request {
 	 * @param  string $message
 	 */
 	public function log( $message ) {
-		if ( 'no' === WC_ShipStation_Integration::$logging_enabled ) {
+		if ( ! WC_ShipStation_Integration::$logging_enabled ) {
 			return;
 		}
 		if ( is_null( $this->log ) ) {
@@ -42,18 +42,19 @@ abstract class WC_Shipstation_API_Request {
 		foreach ( $required_fields as $required ) {
 			if ( empty( $_GET[ $required ] ) ) {
 				/* translators: 1: field name */
-				$this->trigger_error( sprintf( __( 'Missing required param: %s', 'woocommerce-shipstation' ), $required ) );
+				$this->trigger_error( sprintf( __( 'Missing required param: %s', 'woocommerce-shipstation-integration' ), $required ) );
 			}
 		}
 	}
 
 	/**
 	 * Trigger and log an error
-	 * @param  string $message
+	 *
+	 * @param string $message
 	 */
-	public function trigger_error( $message ) {
+	public function trigger_error( $message, $status_code = 400 ) {
 		$this->log( $message );
-		wp_send_json_error( $message );
+		wp_send_json_error( $message, $status_code );
 	}
 }
 

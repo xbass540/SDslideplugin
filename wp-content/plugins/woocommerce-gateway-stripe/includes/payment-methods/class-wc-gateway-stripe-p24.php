@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.0.0
  */
 class WC_Gateway_Stripe_P24 extends WC_Stripe_Payment_Gateway {
+
+	const ID = 'stripe_p24';
+
 	/**
 	 * Notices (array)
 	 *
@@ -266,7 +269,12 @@ class WC_Gateway_Stripe_P24 extends WC_Stripe_Payment_Gateway {
 
 			do_action( 'wc_gateway_stripe_process_payment_error', $e, $order );
 
-			if ( $order->has_status( [ 'pending', 'failed' ] ) ) {
+			if ( $order->has_status(
+				apply_filters(
+					'wc_stripe_allowed_payment_processing_statuses',
+					[ 'pending', 'failed' ]
+				)
+			) ) {
 				$this->send_failed_order_email( $order_id );
 			}
 

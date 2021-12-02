@@ -1,4 +1,84 @@
 *** Changelog ***
+
+= 5.8.1 - 2021-11-23 =
+* Fix - Run filters that disable Stripe JS on cart and product pages when PRBs are disabled.
+
+= 5.8.0 - 2021-11-18 =
+* Fix - Hong Kong addresses are now mapped more thoroughly to WooCommerce addresses when paying with Apple Pay.
+* Fix - Error when changing payment method for a subscription with new checkout experience.
+* Fix - Payment Requests are now updated correctly when updating items in the Cart Block.
+* Add - Support for WooCommerce Pre-Orders with new checkout experience.
+* Fix - Stripe JS is no longer loaded on cart and product pages when PRBs are disabled on those pages.
+* Tweak - Update the minimum required PHP version to 7.0 to reflect our L-2 support policy.
+* Fix - Add support for MYR (Malaysian ringgit) for Alipay.
+* Add - New Settings UI.
+* Fix - Hide payment request button when variations of a variable product are out-of-stock.
+
+= 5.7.0 - 2021-10-20 =
+* Fix - Enable use of saved payment methods converted to SEPA payments.
+* Tweak - "Save payment information" checkbox now has better alignment in store checkout.
+* Tweak - Error notices at checkout now have more consistent design.
+
+= 5.6.2 - 2021-10-06 =
+* Tweak - Remove animated credit card icons from payment method option on the checkout page.
+* Fix - Payments for pre-orders and subscriptions with an empty source token now work as intended.
+
+= 5.6.1 - 2021-10-04 =
+* Fix - Naming conflict with other plugins on WC_Stripe_REST_Controller.
+* Fix - Fatal error on `WC_REST_Stripe_Settings_Controller` when Elementor and WooFunnels plugins are used.
+
+= 5.6.0 - 2021-09-30 =
+* Add - Pre-release preview of new checkout experience using Stripe Universal Payment Element.
+* Tweak - Removed "Branded" and "Custom label" options on Payment request buttons to align with design guidelines.
+* Tweak - Converted payment request button size value to distinct options to align with design guidelines.
+* Tweak - Animate supported credit card icons instead of displaying multiple icons at once.
+
+= 5.5.0 - 2021-09-15 =
+* Tweak - Moved the `WC_Gateway_Stripe::admin_scripts` method to `WC_Stripe_Settings_Controller::admin_scripts`.
+* Fix - Save payment method during 3D Secure flow for Block-based checkout.
+* Fix - Show subtotal on Payment Request dialog.
+* Add - Settings to control Payment Request Button locations in the Stripe plugin settings. Persists changes made through pre-existing filters, or defaults to the Cart and Product pages if no filters are in use.
+* Tweak - Deprecated the 'wc_stripe_hide_payment_request_on_product_page', 'wc_stripe_show_payment_request_on_checkout', and 'wc_stripe_show_payment_request_on_cart' filters in favor of the UI-driven approach in the plugin settings.
+* Add - Notice for WP & WC version compatibility check.
+
+= 5.4.1 - 2021-09-01 =
+* Fix - Get Subscription CustomerID from Order instead of User.
+
+= 5.4.0 - 2021-08-18 =
+* Fix - Do not ask for a Shipping Address if no Shipping Zone is defined.
+* Fix - Return HTTP 204 when webhook validation fails so Stripe won't stop sending certain webhook events after too many failed validations.
+* Fix - Possible use of an undefined variable `prepared_source`.
+* Add - 'wc_stripe_allowed_payment_processing_statuses' filter to customize order statuses that allow payment processing in the context of 3DS payments.
+
+= 5.3.0 - 2021-07-21 =
+* Fix - Disable Payment Request Buttons when order has to be split into multiple packages because Payment Requests do not support that use case.
+* Tweak - Payment request button should guide users to login when necessary.
+
+= 5.2.3 - 2021-06-11 =
+* Fix - Credit card icons and credit card input on custom shortcode checkout pages.
+
+= 5.2.2 - 2021-06-10 =
+* Fix - The absence of a cart causing fatal errors when rendering the Cart or Checkout block.
+
+= 5.2.1 - 2021-06-10 =
+* Fix - Remove calls to `has_block()` since it breaks compatibility with older versions of WordPress.
+* Tweak - Use the same JavaScript configurations for the Block-based and Shortcode-based checkout flows.
+
+= 5.2.0 - 2021-05-19 =
+* Fix - Use `get_parent` method to avoid accessing `order` subscription property directly.
+* Fix - Orders won't transition to 'Refunded' state if refund can't be created.
+* Fix - Normalize United Kingdom and Canada postal codes for Apple Pay.
+* Fix - Subscription sign-up fees not included in total for Payment Request Button.
+* Fix - Reduce requests sent to server from stripe settings page.
+* Fix - Choose the appropriate version of the WooCommerce Admin Notes API based on which API is available.
+* Fix - Customer information is now correctly displayed in the Stripe Payments Dashboard when a new customer checks out through the WooCommerce Checkout Block.
+* Fix - Pass customer language/locale to Stripe upon creation or modification.
+* Fix - Initial price for Variable Products is now correctly shown when a Payment Request is started.
+* Add - Support for Credit Card payments (incl. 3DS payments) via WooCommerce Blocks; limited to WooCommerce Core product types.
+* Add - Support for payments (incl. 3DS payments) paid via Payment Request Buttons in WooCommerce Blocks; limited to WooCommerce Core product types.
+* Add - Support for custom and branded Payment Request Buttons when using the Cart and Checkout blocks.
+* Tweak - Should customer opt to save their card, the card is now saved after a payment has been confirmed.
+
 = 5.1.0 - 2021-04-07 =
 * Fix - Don't attempt to submit level 3 data for non-US merchants.
 * Fix - Hide Payment Request Buttons when guest checkout is disabled.

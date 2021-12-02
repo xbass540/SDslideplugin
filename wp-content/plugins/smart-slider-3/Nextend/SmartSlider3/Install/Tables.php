@@ -43,7 +43,7 @@ class Tables {
         'nextend2_smartslider3_sliders'      => "(
           `id`     INT(11)      NOT NULL AUTO_INCREMENT,
           `alias`  VARCHAR(255) NULL DEFAULT NULL,
-          `title`  VARCHAR(100) NOT NULL,
+          `title`  VARCHAR(200) NOT NULL,
           `type`   VARCHAR(30)  NOT NULL,
           `params` MEDIUMTEXT   NOT NULL,
           `status` VARCHAR(50) NOT NULL DEFAULT 'published',
@@ -127,6 +127,8 @@ class Tables {
             $this->query("ALTER TABLE `#__nextend2_smartslider3_sliders` ADD `status` VARCHAR(50) NOT NULL DEFAULT 'published', ADD INDEX `status` (`status`)");
         }
 
+        $this->query("ALTER TABLE `#__nextend2_smartslider3_sliders` CHANGE  `title`  `title` VARCHAR( 200 ) NOT NULL");
+
         self::fixIndex('#__nextend2_smartslider3_sliders', 'status');
         self::fixIndex('#__nextend2_smartslider3_sliders', 'time');
 
@@ -160,7 +162,7 @@ class Tables {
         self::fixIndex('#__nextend2_smartslider3_slides', 'ordering');
         self::fixIndex('#__nextend2_smartslider3_slides', 'slider');
 
-        if(Notification::hasErrors()){
+        if (Notification::hasErrors()) {
             Notification::displayPlainErrors();
             exit;
         }

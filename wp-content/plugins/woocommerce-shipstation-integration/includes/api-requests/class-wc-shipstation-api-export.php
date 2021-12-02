@@ -59,7 +59,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 
 		if ( version_compare( WC_VERSION, '3.1', '>=' ) ) {
 			$order_ids = wc_get_orders( array(
-				'date_modified' => $start_date . '...' . $end_date,
+				'date_modified' => strtotime( $start_date ) . '...' . strtotime( $end_date ),
 				'type'          => 'shop_order',
 				'status'        => WC_ShipStation_Integration::$export_statuses,
 				'return'        => 'ids',
@@ -111,7 +111,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 				continue;
 			}
 
-			$order     = wc_get_order( $order_id );
+			$order     = apply_filters( 'woocommerce_shipstation_export_get_order', wc_get_order( $order_id ) );
 			$order_xml = $xml->createElement( 'Order' );
 			$wc_gte_30 = version_compare( WC_VERSION, '3.0', '>=' );// gte greater than or equal to 3.0
 			$formatted_order_number = ltrim( $order->get_order_number(), '#' );
@@ -126,21 +126,22 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 				$order_timestamp = $order->order_date;
 			}
 
-			$order_timestamp -= $tz_offset;
+			$order_timestamp   -= $tz_offset;
+			$order_status 		= ( 'refunded' === $order->get_status() ) ? 'cancelled' : $order->get_status();
 			$this->xml_append( $order_xml, 'OrderDate', gmdate( 'm/d/Y H:i', $order_timestamp ), false );
-			$this->xml_append( $order_xml, 'OrderStatus', $order->get_status() );
+			$this->xml_append( $order_xml, 'OrderStatus', $order_status );
 			$this->xml_append( $order_xml, 'PaymentMethod', $wc_gte_30 ? $order->get_payment_method() : $order->payment_method );
 			$this->xml_append( $order_xml, 'OrderPaymentMethodTitle', $wc_gte_30 ? $order->get_payment_method_title() : $order->payment_method_title );
 			$last_modified = strtotime( $wc_gte_30 ? $order->get_date_modified()->date( 'm/d/Y H:i' ) : $order->modified_date ) - $tz_offset;
 			$this->xml_append( $order_xml, 'LastModified', gmdate( 'm/d/Y H:i', $last_modified ), false );
 			$this->xml_append( $order_xml, 'ShippingMethod', implode( ' | ', $this->get_shipping_methods( $order ) ) );
 
-			$this->xml_append( $order_xml, 'CurrencyCode', get_woocommerce_currency(), false );
-			$this->xml_append( $order_xml, 'OrderTotal', $order->get_total(), false );
+			$this->xml_append( $order_xml, 'CurrencyCode', $order->get_currency(), false );
+			$this->xml_append( $order_xml, 'OrderTotal', ( $order->get_total() - $order->get_total_refunded() ), false );
 			$this->xml_append( $order_xml, 'TaxAmount', wc_round_tax_total( $order->get_total_tax() ), false );
 
 			if ( class_exists( 'WC_COG' ) ) {
-				$this->xml_append( $order_xml, 'CostOfGoods', wc_format_decimal( $order->wc_cog_order_total_cost ), false );
+				$this->xml_append( $order_xml, 'CostOfGoods', wc_format_decimal( $order->get_meta( '_wc_cog_order_total_cost', true ) ), false );
 			}
 
 			$this->xml_append( $order_xml, 'ShippingAmount', $wc_gte_30 ? $order->get_shipping_total() : $order->get_total_shipping(), false );
@@ -246,8 +247,10 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 						$this->xml_append( $item_xml, 'Weight', $product->get_weight(), false );
 						$this->xml_append( $item_xml, 'WeightUnits', $this->get_shipstation_weight_units( $store_weight_unit ), false );
 					}
-					
-					$this->xml_append( $item_xml, 'Quantity', $item['qty'], false );
+
+					// current item quantity - refunded quantity
+					$item_qty = $item['qty'] - abs( $order->get_qty_refunded_for_item( $item_id ) );
+					$this->xml_append( $item_xml, 'Quantity', $item_qty, false );
 					$this->xml_append( $item_xml, 'UnitPrice', $order->get_item_subtotal( $item, false, true ), false );
 				}
 
@@ -292,7 +295,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 			if ( $order->get_total_discount() ) {
 				$item_xml  = $xml->createElement( 'Item' );
 				$this->xml_append( $item_xml, 'SKU', 'total-discount' );
-				$this->xml_append( $item_xml, 'Name', __( 'Total Discount', 'woocommerce-shipstation' ) );
+				$this->xml_append( $item_xml, 'Name', __( 'Total Discount', 'woocommerce-shipstation-integration' ) );
 				$this->xml_append( $item_xml, 'Adjustment', 'true', false );
 				$this->xml_append( $item_xml, 'Quantity', 1, false );
 				$this->xml_append( $item_xml, 'UnitPrice', $order->get_total_discount() * -1, false );
@@ -307,7 +310,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 
 			// Add order note to indicate it has been exported to Shipstation.
 			if ( 'yes' !== get_post_meta( $order_id, '_shipstation_exported', true ) ) {
-				$order->add_order_note( __( 'Order has been exported to Shipstation', 'woocommerce-shipstation' ) );
+				$order->add_order_note( __( 'Order has been exported to Shipstation', 'woocommerce-shipstation-integration' ) );
 				update_post_meta( $order_id, '_shipstation_exported', 'yes' );
 			}
 		}
@@ -318,7 +321,7 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 		echo $xml->saveXML();
 
 		/* translators: 1: total count */
-		$this->log( sprintf( __( 'Exported %s orders', 'woocommerce-shipstation' ), $exported ) );
+		$this->log( sprintf( __( 'Exported %s orders', 'woocommerce-shipstation-integration' ), $exported ) );
 	}
 
 	/**
@@ -373,11 +376,14 @@ class WC_Shipstation_API_Export extends WC_Shipstation_API_Request {
 	 */
 	private function xml_append( $append_to, $name, $value, $cdata = true ) {
 		$data = $append_to->appendChild( $append_to->ownerDocument->createElement( $name ) );
+		
 		if ( $cdata ) {
-			$data->appendChild( $append_to->ownerDocument->createCDATASection( $value ) );
+			$child_node = empty( $append_to->ownerDocument->createCDATASection( $value ) ) ? $append_to->ownerDocument->createCDATASection( '' ) : $append_to->ownerDocument->createCDATASection( $value );
 		} else {
-			$data->appendChild( $append_to->ownerDocument->createTextNode( $value ) );
+			$child_node = empty( $append_to->ownerDocument->createTextNode( $value ) ) ? $append_to->ownerDocument->createTextNode( '' ) : $append_to->ownerDocument->createTextNode( $value );
 		}
+		
+		$data->appendChild( $child_node );
 	}
 
 	/**

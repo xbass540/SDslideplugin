@@ -54,9 +54,9 @@ jQuery( function( $ ) {
 			// Toggle Payment Request buttons settings.
 			$( '#woocommerce_stripe_payment_request' ).on( 'change', function() {
 				if ( $( this ).is( ':checked' ) ) {
-					$( '#woocommerce_stripe_payment_request_button_theme, #woocommerce_stripe_payment_request_button_type, #woocommerce_stripe_payment_request_button_height' ).closest( 'tr' ).show();
+					$( '#woocommerce_stripe_payment_request_button_theme, #woocommerce_stripe_payment_request_button_type, #woocommerce_stripe_payment_request_button_locations, #woocommerce_stripe_payment_request_button_size, #woocommerce_stripe_payment_request_button_height' ).closest( 'tr' ).show();
 				} else {
-					$( '#woocommerce_stripe_payment_request_button_theme, #woocommerce_stripe_payment_request_button_type, #woocommerce_stripe_payment_request_button_height' ).closest( 'tr' ).hide();
+					$( '#woocommerce_stripe_payment_request_button_theme, #woocommerce_stripe_payment_request_button_type, #woocommerce_stripe_payment_request_button_locations, #woocommerce_stripe_payment_request_button_size, #woocommerce_stripe_payment_request_button_height' ).closest( 'tr' ).hide();
 				}
 			} ).trigger( 'change' );
 
@@ -125,26 +125,30 @@ jQuery( function( $ ) {
 				$( 'form' ).find( 'input, select' ).off( 'change input', disableConnect );
 			} );
 
+			// Toggle UPE methods on/off.
+			$( '.wc_gateways' ).on( 'click', '.wc-payment-upe-method-toggle-enabled, .wc-payment-upe-method-toggle-disabled', function() {
+				var $toggle = $( this ).find( '.woocommerce-input-toggle' );
+				$toggle.toggleClass( 'woocommerce-input-toggle--enabled  woocommerce-input-toggle--disabled' );
+				$toggle.parent().toggleClass( 'wc-payment-upe-method-toggle-enabled  wc-payment-upe-method-toggle-disabled' );
+				$( '#wc_stripe_upe_change_notice' ).removeClass( 'hidden' );
+				return false;
+			});
+
+			$( '#mainform' ).submit( function() {
+				var $form = $( this );
+				$( '.wc_gateways .wc-payment-upe-method-toggle-enabled').each( function() {
+					$form.append( '<input type="hidden" name="woocommerce_stripe_upe_checkout_experience_accepted_payments[]" value="' + $( this ).closest( 'tr' ).data( 'upe_method_id' ) + '" />' );
+				});
+			});
+
 			// Webhook verification checks for timestamp within 5 minutes so warn if
 			// server time is off from browser time by > 4 minutes.
 			var timeDifference = Date.now() / 1000 - wc_stripe_settings_params.time;
 			var isTimeOutOfSync = Math.abs( timeDifference ) > 4 * 60;
-			$( '#woocommerce_stripe_test_webhook_secret, #woocommerce_stripe_webhook_secret' )
-				.on( 'change input', function() {
-					var $td = $( this ).closest( 'td' );
-					var $warning = $td.find( '.webhook_secret_time_sync_warning' );
-					var hasWebhookSecretValue = $( this ).val().length > 0;
-
-					if ( hasWebhookSecretValue ){
-						var isWarningShown = $warning.length > 0;
-						if ( isTimeOutOfSync && ! isWarningShown ) {
-							$td.append( '<p class="webhook_secret_time_sync_warning">' + wc_stripe_settings_params.i18n_out_of_sync + '</p>' );
-						}
-					} else {
-						$warning.remove();
-					}
-				} )
-				.change();
+			if ( isTimeOutOfSync ) {
+				var $td = $( '#woocommerce_stripe_test_webhook_secret, #woocommerce_stripe_webhook_secret' ).closest( 'td' );
+				$td.append( '<p>' + wc_stripe_settings_params.i18n_out_of_sync + '</p>' );
+			}
 		}
 	};
 

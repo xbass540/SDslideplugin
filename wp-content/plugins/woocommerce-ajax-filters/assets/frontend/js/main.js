@@ -147,7 +147,8 @@ braapf_get_current_url_data,
 braapf_reset_buttons_hide,
 bapf_universal_theme_compatibility,
 braapf_disable_ajax_loading,
-braapf_close_tippy;
+braapf_close_tippy,
+braapf_context_is_update;
 function braapf_grab_all_init() {braapf_grab_all();}
 function braapf_selected_filters_area_set_init() {braapf_selected_filters_area_set();}
 function braapf_filtered_filters_set() {
@@ -313,12 +314,16 @@ function braapf_filtered_filters_set() {
         }
         context = berocket_apply_filters('before_update_products_context', context, element);
         var url_filtered = berocket_apply_filters('before_update_products_context_url_filtered', braapf_get_url_with_filters_selected(), context, element);
-        if( berocket_apply_filters('apply_filters_to_page', ($('.berocket_aapf_widget_update_button:visible, .bapf_update:visible').length == 0 || context != 'filter'), context, element, url_filtered) ) {
+        if( berocket_apply_filters('apply_filters_to_page', ($('.berocket_aapf_widget_update_button:visible, .bapf_update:visible').length == 0 || braapf_context_is_update(context)), context, element, url_filtered) ) {
             braapf_selected_filters_area_set();
             braapf_filter_products_by_url(url_filtered);
         } else if( berocket_apply_filters('apply_filters_to_page_partial', false, context, element, url_filtered) ) {
             braapf_ajax_load_from_url(berocket_apply_filters('before_update_products_context_url_filtered_partial', url_filtered, context, element), {}, berocket_apply_filters('ajax_load_from_filters_partial', {done:[braapf_replace_each_filter, braapf_init_load]}, url_filtered, 'partial'), 'partial');
         }
+    }
+    
+    braapf_context_is_update = function(context) {
+        return berocket_apply_filters('context_is_update', (context == 'update' || context == 'reset_all' || context == 'reset_single'), context);
     }
     braapf_filter_products_by_url = function(url) {
         if( berocket_apply_filters('page_has_products_holder', (! $(the_ajax_script.products_holder_id).length), url) ) {
@@ -332,10 +337,16 @@ function braapf_filtered_filters_set() {
         braapf_grab_all();
         var compat_filters = braapf_compact_filters();
     }
-    braapf_update_url_history_api_from_current = function() {
+    var braapf_update_url_history_api_from_current_action = false;
+    braapf_update_url_history_api_from_current = function(data, textStatus, jqXHR, url, type) {
         if( the_ajax_script.seo_friendly_urls ) {
             url_filtered = braapf_get_url_with_filters_selected();
             history.replaceState(history.state, "BeRocket Rules", url_filtered);
+            if( url != url_filtered && the_ajax_script.reload_changed_filters ) {
+                setTimeout(function() {
+                    braapf_filter_products_by_url(url_filtered);
+                }, 5);
+            }
         }
     }
     //Grab filters from page
@@ -493,6 +504,7 @@ function braapf_filtered_filters_set() {
             });
             url_data.queryargs = newqueryargs;
         }
+        url_data = berocket_apply_filters('braapf_remove_pages_from_url_data', url_data);
         return url_data;
     }
     braapf_apply_additional_filter_data = function (url_data, filters_start) {
@@ -623,7 +635,7 @@ function braapf_filtered_filters_set() {
         $('.berocket_single_filter_widget').each(function() {
             var data_id = $(this).data('id');
             $('.berocket_single_filter_widget_'+data_id).html($html.find('.berocket_single_filter_widget_'+data_id).last().html());
-            if( $html.find('.berocket_single_filter_widget_'+data_id).is('.bapf_mt_none') ) {
+            if( $html.find('.berocket_single_filter_widget_'+data_id).last().is('.bapf_mt_none') ) {
                 $('.berocket_single_filter_widget_'+data_id).addClass('bapf_mt_none');
             } else {
                 $('.berocket_single_filter_widget_'+data_id).removeClass('bapf_mt_none');
@@ -640,7 +652,7 @@ function braapf_filtered_filters_set() {
         }
     }
     if( berocket_apply_filters('load_products_ajax_on_popstate', true) ) {
-        window.onpopstate = function(event) {
+        window.addEventListener("popstate", function(event) {
             if ( event.state != null && event.state.BeRocket == 'Rules' ) {
                 var url = location.href;
                 if( berocket_apply_filters('page_has_products_holder', (! $(the_ajax_script.products_holder_id).length), url) ) {
@@ -649,7 +661,7 @@ function braapf_filtered_filters_set() {
                     braapf_ajax_load_from_url(url, {}, berocket_apply_filters('ajax_load_from_filters', {done:[braapf_replace_products, braapf_replace_pagination, braapf_replace_result_count, braapf_replace_orderby, braapf_replace_each_filter, braapf_init_load, braapf_filtered_filters_set, braapf_update_data_from_current]}, url, 'default'));
                 }
             }
-        }
+        });
     }
     //Load data from URL
     braapf_ajax_load_from_url = function(url, send_data, callback_func, type) {
@@ -689,7 +701,7 @@ function braapf_filtered_filters_set() {
                 $(document).trigger('berocket_ajax_filtering_on_update');
                 data = berocket_apply_filters('ajax_load_from_url_done', data, url, send_data, callback_func, type);
                 $.each(callback_func.done, function(i, val) {
-                    val(data, textStatus, jqXHR);
+                    val(data, textStatus, jqXHR, url, type);
                 });
                 data = berocket_apply_filters('ajax_load_from_url_done_after', data, url, send_data, callback_func, type);
                 $(document).trigger('berocket_ajax_products_loaded');
@@ -701,7 +713,7 @@ function braapf_filtered_filters_set() {
                 $(document).trigger('berocket_ajax_products_not_loaded');
                 jqXHR = berocket_apply_filters('ajax_load_from_url_fail', jqXHR, url, send_data, callback_func, type);
                 $.each(callback_func.fail, function(i, val) {
-                    val(jqXHR, textStatus, errorThrown);
+                    val(jqXHR, textStatus, errorThrown, url, type);
                 });
                 jqXHR = berocket_apply_filters('ajax_load_from_url_fail_after', jqXHR, url, send_data, callback_func, type);
                 if( type == 'default' ) {
@@ -719,7 +731,7 @@ function braapf_filtered_filters_set() {
             .always(function(data, textStatus, jqXHR) {
                 data = berocket_apply_filters('ajax_load_from_url_always', data, url, send_data, callback_func, type);
                 $.each(callback_func.always, function(i, val) {
-                    val(data, textStatus, jqXHR);
+                    val(data, textStatus, jqXHR, url, type);
                 });
                 data = berocket_apply_filters('ajax_load_from_url_always_after', data, url, send_data, callback_func, type);
                 $(document).trigger('berocket_ajax_filtering_end');
@@ -797,6 +809,7 @@ function braapf_filtered_filters_set() {
                     html += berocket_apply_filters('default_selected_filters_area_single_taxonomy', html2, taxonomy, html2_elements);
                 }
             });
+            $('.berocket_aapf_widget_selected_area').parents('.berocket_single_filter_widget').removeClass('bapf_mt_none');
             if( html ) {
                 $('.bapf_sfa_mt_hide').show().parent().removeClass('bapf_mt_none');
                 html = berocket_apply_filters('default_selected_filters_area_full_exist', '<div class="berocket_aapf_widget_selected_filter">' + html + '<ul class="bapf_sfa_unall"><li><a href="#Unselect_all" class="braapf_unselect_all"><i class="fa fa-times"></i> '+the_ajax_script.translate.unselect_all+'</a></li></ul>', html, braapf_filtered_filters);
@@ -894,6 +907,35 @@ function braapf_filtered_filters_set() {
             try {if( berocket_apply_filters('etTheme_compatibility', (typeof(etTheme) == 'object' && typeof(etTheme.global_image_lazy) == 'function' ) ) ) {
                 etTheme.global_image_lazy();
             }} catch (e) {berocket_throw_error('etTheme_compatibility', e);}
+            try {if( berocket_apply_filters('the7_compatibility', ($(the_ajax_script.products_holder_id+' .iso-lazy-load').length > 0) ) ) {
+                $(the_ajax_script.products_holder_id+' .iso-lazy-load').attr('src', function(){
+                    if(typeof($(this).data('src')) != 'undefined' && $(this).data('src')) {
+                        return $(this).data('src');
+                    }
+                    return $(this).attr('src');
+                }).attr('srcset', function() {
+                    if(typeof($(this).data('srcset')) != 'undefined' && $(this).data('srcset')) {
+                        return $(this).data('srcset');
+                    }
+                    return $(this).attr('srcset');
+                }).removeClass('iso-lazy-load');
+            }} catch (e) {berocket_throw_error('etTheme_compatibility', e);}
+            try { if( typeof(InfiniteScroll) == 'function' ) {
+                var infScroll = InfiniteScroll.data( '.shop-container .products' );
+                if( typeof(infScroll) == 'object' && infScroll.options ) {
+                    var infOptionsStore = infScroll.options;
+                    infScroll.destroy();
+                    jQuery('.shop-container .products').data('infiniteScroll', '').infiniteScroll(infOptionsStore);
+                }
+            }} catch (e) {berocket_throw_error('flatsome_infinitescroll', e);}
+            try { if( jQuery('.shop-container .products').length && typeof(jQuery('.shop-container .products').data('packery')) == 'object' ) {
+                jQuery('.shop-container .products').packery('reloadItems').packery('layout');
+            }} catch (e) {berocket_throw_error('flatsome_packery', e);}
+            try {if( berocket_apply_filters('JetSmartFilters_compatibility', (typeof(window.JetSmartFilters) == 'object' && typeof(window.JetSmartFilters.initializeFilters) == 'function' ) ) ) {
+                window.JetSmartFilters.initializeFilters()
+            }} catch (e) {berocket_throw_error('JetSmartFilters_compatibility', e);}
+            $(window).trigger('resize');
+            $(window).trigger('scroll');
         }
         return data;
     }
@@ -1184,7 +1226,10 @@ braapf_check_partial_load_filters,
 braapf_add_loader_element,
 braapf_remove_loader_element,
 braapf_elementor_sticky_fix,
-baapfGet_wprocketInstance;
+baapfGet_wprocketInstance,
+brapf_jet_smart_filters_add,
+brapf_jet_smart_filters_remove_pages,
+brapf_jet_smart_filters;
 (function ($){
     //CHILD/PARENT FEATURE
     braapf_child_parent_grab_single = function(single_data, element, selected_filters) {
@@ -1282,8 +1327,45 @@ baapfGet_wprocketInstance;
             $(this.form).find("[data-quantity]").attr("data-quantity", this.value);
         } catch (e) {berocket_throw_error('wc_quantity_change', e);}
     });
+    //JetWooBuilder
+    brapf_jet_smart_filters = function(data) {
+        var $html = $('<div><div>'+data+'</div></div>');
+        if( jQuery('#jet-smart-filters-js-extra').length > 0 && $html.find('#jet-smart-filters-js-extra').length > 0 ) {
+            jQuery('#jet-smart-filters-js-extra').replaceWith($html.find('#jet-smart-filters-js-extra'));
+        }
+    }
+    brapf_jet_smart_filters_remove_pages = function(url_data) {
+        if( Array.isArray(url_data.queryargs) ) {
+            var newqueryargs = [];
+            $.each(url_data.queryargs, function(i, val) {
+                if(val.name != 'pagenum') {
+                    newqueryargs.push(val);
+                }
+            });
+            url_data.queryargs = newqueryargs;
+        }
+        return url_data;
+    }
+    brapf_jet_smart_filters_add = function(elem) {
+        elem.done.push(brapf_jet_smart_filters);
+        return elem;
+    }
+    brapf_JetSmartFilter_extra_props = function() {
+        var compat_filters = braapf_compact_filters();
+        var filter_mask = berocket_apply_filters('braapf_filters_mask', the_ajax_script.url_mask);
+        var filter_string = braapf_compat_filters_to_string(compat_filters, filter_mask, the_ajax_script.url_split);
+        JetSmartFilterSettings.extra_props.brfilters = filter_string;
+    }
+    jQuery(document).ready(function() {
+        if( berocket_apply_filters('JetSmartFilter_compatibility', (jQuery('#jet-smart-filters-js-extra').length > 0)) ) {
+            jQuery(document).on('berocket_ajax_products_loaded', brapf_JetSmartFilter_extra_props);
+            brapf_JetSmartFilter_extra_props();
+            berocket_add_filter( 'ajax_load_from_filters', brapf_jet_smart_filters_add );
+            berocket_add_filter( 'braapf_remove_pages_from_url_data', brapf_jet_smart_filters_remove_pages );
+        }
+    });
 })(jQuery);
-
+jQuery(document).trigger('bapf_js_loaded');
 var braapf_init_ion_slidr,
 braapf_ion_slidr_same,
 braapf_jqrui_slidr_ion_value_wc_price,
@@ -1388,15 +1470,24 @@ braapf_jqrui_slidr_ion_values_link_arr_attr;
         slider_data.update({from:slider_data.options.min, to:slider_data.options.max});
         $slider.removeClass('bapf_ion_blocked');
     });
-    berocket_add_filter('braapf_init', braapf_init_ion_slidr);
-    berocket_add_filter('braapf_init_for_parent', braapf_init_ion_slidr_for_parent);
-    berocket_add_filter('grab_single_filter_default', braapf_grab_single_ion);
-    berocket_add_filter('jqrui_slidr_ion_link_arr_attr', braapf_jqrui_slidr_ion_values_link_arr_attr);
-    berocket_add_filter('jqrui_slidr_ion_link_arr_attr_price', braapf_jqrui_slidr_ion_values_link_arr_attr);
-    berocket_add_filter('jqrui_slidr_ion_wc_price', braapf_jqrui_slidr_ion_value_wc_price);
-    berocket_add_filter('jqrui_slidr_ion_arr_attr', braapf_jqrui_slidr_ion_value_arr_attr);
-    berocket_add_filter('jqrui_slidr_ion_arr_attr_price', braapf_jqrui_slidr_ion_value_arr_attr, 10);
-    berocket_add_filter('jqrui_slidr_ion_arr_attr_price', braapf_jqrui_slidr_ion_value_wc_price, 20);
+    function braapf_jqrui_slidr_ion_berocket_add_filter() {
+        berocket_add_filter('braapf_init', braapf_init_ion_slidr);
+        berocket_add_filter('braapf_init_for_parent', braapf_init_ion_slidr_for_parent);
+        berocket_add_filter('grab_single_filter_default', braapf_grab_single_ion);
+        berocket_add_filter('jqrui_slidr_ion_link_arr_attr', braapf_jqrui_slidr_ion_values_link_arr_attr);
+        berocket_add_filter('jqrui_slidr_ion_link_arr_attr_price', braapf_jqrui_slidr_ion_values_link_arr_attr);
+        berocket_add_filter('jqrui_slidr_ion_wc_price', braapf_jqrui_slidr_ion_value_wc_price);
+        berocket_add_filter('jqrui_slidr_ion_arr_attr', braapf_jqrui_slidr_ion_value_arr_attr);
+        berocket_add_filter('jqrui_slidr_ion_arr_attr_price', braapf_jqrui_slidr_ion_value_arr_attr, 10);
+        berocket_add_filter('jqrui_slidr_ion_arr_attr_price', braapf_jqrui_slidr_ion_value_wc_price, 20);
+    }
+    if ( typeof(berocket_add_filter) == 'function' ) {
+        braapf_jqrui_slidr_ion_berocket_add_filter();
+    } else {
+        jQuery(document).on('berocket_hooks_ready', function() {
+            braapf_jqrui_slidr_ion_berocket_add_filter();
+        });
+    }
 })(jQuery);
 
 var braapf_grab_single_select;
@@ -1431,7 +1522,13 @@ var braapf_grab_single_select;
             }
         });
     });
-    berocket_add_filter('grab_single_filter_default', braapf_grab_single_select);
+    if ( typeof(berocket_add_filter) == 'function' ) {
+        berocket_add_filter('grab_single_filter_default', braapf_grab_single_select);
+    } else {
+        jQuery(document).on('berocket_hooks_ready', function() {
+            berocket_add_filter('grab_single_filter_default', braapf_grab_single_select);
+        });
+    }
 })(jQuery);
 
 var bapf_select2_init,
@@ -1473,9 +1570,18 @@ jQuery(document).ready(function() {
     jQuery(document).on('berocket_ajax_filtering_on_update', function() {
         bapf_select2_disable_for_parent(jQuery(document));
     });
-    bapf_select2_init();
-    berocket_add_filter('braapf_init', bapf_select2_init, 2000);
-    berocket_add_filter('braapf_init_for_parent', bapf_select2_init_for_parent);
+    function bapf_select2_berocket_add_filter() {
+        bapf_select2_init();
+        berocket_add_filter('braapf_init', bapf_select2_init, 2000);
+        berocket_add_filter('braapf_init_for_parent', bapf_select2_init_for_parent);
+    }
+    if ( typeof(berocket_add_filter) == 'function' ) {
+        bapf_select2_berocket_add_filter();
+    } else {
+        jQuery(document).on('berocket_hooks_ready', function() {
+            bapf_select2_berocket_add_filter();
+        });
+    }
 });
 var braapf_init_jqrui_slidr,
 braapf_jqrui_slidr_same,
@@ -1685,13 +1791,22 @@ braapf_jqrui_slidr_values_link_arr_attr;
         $slider.slider('values', [min, max]);
         $slider.removeClass('bapf_jqrui_blocked');
     });
-    berocket_add_filter('jqrui_slidr_wc_price', braapf_jqrui_slidr_values_wc_price);
-    berocket_add_filter('jqrui_slidr_arr_attr', braapf_jqrui_slidr_values_arr_attr);
-    berocket_add_filter('jqrui_slidr_arr_attr_price', braapf_jqrui_slidr_values_arr_attr, 10);
-    berocket_add_filter('jqrui_slidr_arr_attr_price', braapf_jqrui_slidr_values_wc_price, 20);
-    berocket_add_filter('jqrui_slidr_link_arr_attr', braapf_jqrui_slidr_values_link_arr_attr);
-    berocket_add_filter('jqrui_slidr_link_arr_attr_price', braapf_jqrui_slidr_values_link_arr_attr);
-    berocket_add_filter('grab_single_filter_default', braapf_grab_single_jqrui);
-    berocket_add_filter('braapf_init', braapf_init_jqrui_slidr);
-    berocket_add_filter('braapf_init_for_parent', braapf_init_jqrui_slidr_for_parent);
+    function braapf_jqrui_slidr_berocket_add_filter() {
+        berocket_add_filter('jqrui_slidr_wc_price', braapf_jqrui_slidr_values_wc_price);
+        berocket_add_filter('jqrui_slidr_arr_attr', braapf_jqrui_slidr_values_arr_attr);
+        berocket_add_filter('jqrui_slidr_arr_attr_price', braapf_jqrui_slidr_values_arr_attr, 10);
+        berocket_add_filter('jqrui_slidr_arr_attr_price', braapf_jqrui_slidr_values_wc_price, 20);
+        berocket_add_filter('jqrui_slidr_link_arr_attr', braapf_jqrui_slidr_values_link_arr_attr);
+        berocket_add_filter('jqrui_slidr_link_arr_attr_price', braapf_jqrui_slidr_values_link_arr_attr);
+        berocket_add_filter('grab_single_filter_default', braapf_grab_single_jqrui);
+        berocket_add_filter('braapf_init', braapf_init_jqrui_slidr);
+        berocket_add_filter('braapf_init_for_parent', braapf_init_jqrui_slidr_for_parent);
+    }
+    if ( typeof(berocket_add_filter) == 'function' ) {
+        braapf_jqrui_slidr_berocket_add_filter();
+    } else {
+        jQuery(document).on('berocket_hooks_ready', function() {
+            braapf_jqrui_slidr_berocket_add_filter();
+        });
+    }
 })(jQuery);

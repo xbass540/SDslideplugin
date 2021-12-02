@@ -4,7 +4,9 @@ jQuery( function( $ ) {
 	'use strict';
 
 	try {
-		var stripe = Stripe( wc_stripe_params.key );
+		var stripe = Stripe( wc_stripe_params.key, {
+			locale: wc_stripe_params.stripe_locale || 'auto',
+		} );
 	} catch( error ) {
 		console.log( error );
 		return;
@@ -251,7 +253,11 @@ jQuery( function( $ ) {
 			);
 
 			// Subscription early renewals modal.
-			$( '#early_renewal_modal_submit' ).on( 'click', this.onEarlyRenewalSubmit );
+			if ($('#early_renewal_modal_submit[data-payment-method]').length) {
+				$('#early_renewal_modal_submit[data-payment-method=stripe]').on('click', this.onEarlyRenewalSubmit);
+			} else {
+				$('#early_renewal_modal_submit').on('click', this.onEarlyRenewalSubmit);
+			}
 
 			wc_stripe_form.createElements();
 

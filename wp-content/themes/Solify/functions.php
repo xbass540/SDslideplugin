@@ -415,4 +415,23 @@ function megamenu_add_theme_default_1587798877($themes) {
 }
 add_filter("megamenu_themes", "megamenu_add_theme_default_1587798877");
 
+
+//add some hook 
+
+function add_some_html (){
+  ?>
+  <div class="test-cont">Add some text here</div>
+  <?
+}
+
+add_action('dynamic_sidebar_before','add_some_html',5);
+
+
+function modify_content($content){
+  $content = $content . 'All right reserved';
+  return $content;
+}
+
+add_filter('the_content', 'modify_content');
+
  ?>

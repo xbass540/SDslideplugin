@@ -3,40 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( woocommerce_gateway_stripe()->connect->is_connected() ) {
-	$reset_link = add_query_arg(
-		[
-			'_wpnonce'                     => wp_create_nonce( 'reset_stripe_api_credentials' ),
-			'reset_stripe_api_credentials' => true,
-		],
-		admin_url( 'admin.php?page=wc-settings&tab=checkout&section=stripe' )
-	);
-
-	$api_credentials_text = sprintf(
-		/* translators: %1, %2, %3, and %4 are all HTML markup tags */
-		__( '%1$sClear all Stripe account keys.%2$s %3$sThis will disable any connection to Stripe.%4$s', 'woocommerce-gateway-stripe' ),
-		'<a id="wc_stripe_connect_button" href="' . $reset_link . '" class="button button-secondary">',
-		'</a>',
-		'<span style="color:red;">',
-		'</span>'
-	);
-} else {
-	$oauth_url = woocommerce_gateway_stripe()->connect->get_oauth_url();
-
-	if ( ! is_wp_error( $oauth_url ) ) {
-		$api_credentials_text = sprintf(
-			/* translators: %1, %2 and %3 are all HTML markup tags */
-			__( '%1$sSetup or link an existing Stripe account.%2$s By clicking this button you agree to the %3$sTerms of Service%2$s. Or, manually enter Stripe account keys below.', 'woocommerce-gateway-stripe' ),
-			'<a id="wc_stripe_connect_button" href="' . $oauth_url . '" class="button button-primary">',
-			'</a>',
-			'<a href="https://wordpress.com/tos">'
-		);
-	} else {
-		$api_credentials_text = __( 'Manually enter Stripe keys below.', 'woocommerce-gateway-stripe' );
-	}
-}
-
-return apply_filters(
+$stripe_settings = apply_filters(
 	'wc_stripe_settings',
 	[
 		'enabled'                             => [
@@ -53,6 +20,13 @@ return apply_filters(
 			'default'     => __( 'Credit Card (Stripe)', 'woocommerce-gateway-stripe' ),
 			'desc_tip'    => true,
 		],
+		'title_upe'                           => [
+			'title'       => __( 'Title', 'woocommerce-gateway-stripe' ),
+			'type'        => 'text',
+			'description' => __( 'This controls the title which the user sees during checkout when multiple payment methods are enabled.', 'woocommerce-gateway-stripe' ),
+			'default'     => __( 'Popular payment methods', 'woocommerce-gateway-stripe' ),
+			'desc_tip'    => true,
+		],
 		'description'                         => [
 			'title'       => __( 'Description', 'woocommerce-gateway-stripe' ),
 			'type'        => 'text',
@@ -61,9 +35,8 @@ return apply_filters(
 			'desc_tip'    => true,
 		],
 		'api_credentials'                     => [
-			'title'       => __( 'Stripe Account Keys', 'woocommerce-gateway-stripe' ),
-			'type'        => 'title',
-			'description' => $api_credentials_text,
+			'title' => __( 'Stripe Account Keys', 'woocommerce-gateway-stripe' ),
+			'type'  => 'stripe_account_keys',
 		],
 		'testmode'                            => [
 			'title'       => __( 'Test mode', 'woocommerce-gateway-stripe' ),
@@ -214,6 +187,34 @@ return apply_filters(
 				'long'  => __( 'Text and logo', 'woocommerce-gateway-stripe' ),
 			],
 		],
+		'payment_request_button_locations'    => [
+			'title'             => __( 'Payment Request Button Locations', 'woocommerce-gateway-stripe' ),
+			'type'              => 'multiselect',
+			'description'       => __( 'Select where you would like Payment Request Buttons to be displayed', 'woocommerce-gateway-stripe' ),
+			'desc_tip'          => true,
+			'class'             => 'wc-enhanced-select',
+			'options'           => [
+				'product'  => __( 'Product', 'woocommerce-gateway-stripe' ),
+				'cart'     => __( 'Cart', 'woocommerce-gateway-stripe' ),
+				'checkout' => __( 'Checkout', 'woocommerce-gateway-stripe' ),
+			],
+			'default'           => [ 'product', 'cart' ],
+			'custom_attributes' => [
+				'data-placeholder' => __( 'Select pages', 'woocommerce-gateway-stripe' ),
+			],
+		],
+		'payment_request_button_size'         => [
+			'title'       => __( 'Payment Request Button Size', 'woocommerce-gateway-stripe' ),
+			'type'        => 'select',
+			'description' => __( 'Select the size of the button.', 'woocommerce-gateway-stripe' ),
+			'default'     => 'default',
+			'desc_tip'    => true,
+			'options'     => [
+				'default' => __( 'Default (40px)', 'woocommerce-gateway-stripe' ),
+				'medium'  => __( 'Medium (48px)', 'woocommerce-gateway-stripe' ),
+				'large'   => __( 'Large (56px)', 'woocommerce-gateway-stripe' ),
+			],
+		],
 		'saved_cards'                         => [
 			'title'       => __( 'Saved Cards', 'woocommerce-gateway-stripe' ),
 			'label'       => __( 'Enable Payment via Saved Cards', 'woocommerce-gateway-stripe' ),
@@ -231,4 +232,56 @@ return apply_filters(
 			'desc_tip'    => true,
 		],
 	]
+);
+
+if ( WC_Stripe_Feature_Flags::is_upe_preview_enabled() ) {
+	// in the new settings, "checkout" is going to be enabled by default (if it is a new WCStripe installation).
+	$stripe_settings['payment_request_button_locations']['default'][] = 'checkout';
+
+	// no longer needed in the new settings.
+	unset( $stripe_settings['payment_request_button_branded_type'] );
+	unset( $stripe_settings['payment_request_button_height'] );
+	unset( $stripe_settings['payment_request_button_label'] );
+	// injecting some of the new options.
+	$stripe_settings['payment_request_button_type']['options']['default'] = __( 'Only icon', 'woocommerce-gateway-stripe' );
+	$stripe_settings['payment_request_button_type']['options']['book']    = __( 'Book', 'woocommerce-gateway-stripe' );
+	// no longer valid options.
+	unset( $stripe_settings['payment_request_button_type']['options']['branded'] );
+	unset( $stripe_settings['payment_request_button_type']['options']['custom'] );
+} else {
+	unset( $stripe_settings['payment_request_button_size'] );
+}
+
+if ( WC_Stripe_Feature_Flags::is_upe_preview_enabled() ) {
+	$upe_settings = [
+		WC_Stripe_Feature_Flags::UPE_CHECKOUT_FEATURE_ATTRIBUTE_NAME => [
+			'title'       => __( 'New checkout experience', 'woocommerce-gateway-stripe' ),
+			'label'       => sprintf(
+				/* translators: 1) br tag 2) Stripe anchor tag 3) Apple anchor tag 4) Stripe dashboard opening anchor tag 5) Stripe dashboard closing anchor tag */
+				__( 'Try the new payment experience (Early access) %1$sGet early access to a new, smarter payment experience on checkout and let us know what you think by %2$s. We recommend this feature for experienced merchants as the functionality is currently limited. %3$s', 'woocommerce-gateway-stripe' ),
+				'<br />',
+				'<a href="https://woocommerce.survey.fm/woocommerce-stripe-upe-opt-out-survey" target="_blank">submitting your feedback</a>',
+				'<a href="https://woocommerce.com/document/stripe/#new-checkout-experience" target="_blank">Learn more</a>'
+			),
+			'type'        => 'checkbox',
+			'description' => __( 'New checkout experience allows you to manage all payment methods on one screen and display them to customers based on their currency and location.', 'woocommerce-gateway-stripe' ),
+			'default'     => 'no',
+			'desc_tip'    => true,
+		],
+	];
+	if ( WC_Stripe_Feature_Flags::is_upe_checkout_enabled() ) {
+		// This adds the payment method section
+		$upe_settings['upe_checkout_experience_accepted_payments'] = [
+			'title'   => __( 'Payments accepted on checkout (Early access)', 'woocommerce-gateway-stripe' ),
+			'type'    => 'upe_checkout_experience_accepted_payments',
+			'default' => [ 'card' ],
+		];
+	}
+	// Insert UPE options below the 'logging' setting.
+	$stripe_settings = array_merge( $stripe_settings, $upe_settings );
+}
+
+return apply_filters(
+	'wc_stripe_settings',
+	$stripe_settings
 );

@@ -2,14 +2,14 @@
 /**
  * Plugin Name: WooCommerce - ShipStation Integration
  * Plugin URI: https://woocommerce.com/products/shipstation-integration/
- * Version: 4.1.41
+ * Version: 4.1.48
  * Description: Adds ShipStation label printing support to WooCommerce. Requires server DomDocument support.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Text Domain: woocommerce-shipstation
+ * Text Domain: woocommerce-shipstation-integration
  * Domain Path: /languages
- * Tested up to: 5.5
- * WC tested up to: 4.5
+ * Tested up to: 5.8
+ * WC tested up to: 5.6
  * WC requires at least: 3.4
  */
 
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function woocommerce_shipstation_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
-	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Shipstation requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-shipstation' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
+	echo '<div class="error"><p><strong>' . sprintf( esc_html__( 'Shipstation requires WooCommerce to be installed and active. You can download %s here.', 'woocommerce-shipstation-integration' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</strong></p></div>';
 }
 
 /**
@@ -34,14 +34,14 @@ function woocommerce_shipstation_missing_wc_notice() {
  * @since 1.0.0
  */
 function woocommerce_shipstation_init() {
-	load_plugin_textdomain( 'woocommerce-shipstation', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'woocommerce-shipstation-integration', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'woocommerce_shipstation_missing_wc_notice' );
 		return;
 	}
 
-	define( 'WC_SHIPSTATION_VERSION', '4.1.41' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPSTATION_VERSION', '4.1.48' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_SHIPSTATION_FILE', __FILE__ );
 
 	if ( ! defined( 'WC_SHIPSTATION_EXPORT_LIMIT' ) ) {
@@ -94,9 +94,9 @@ add_action( 'woocommerce_api_wc_shipstation', 'woocommerce_shipstation_api' );
 function woocommerce_shipstation_api_plugin_action_links( $links ) {
 	$setting_link = admin_url( 'admin.php?page=wc-settings&tab=integration&section=shipstation' );
 	$plugin_links = array(
-		'<a href="' . $setting_link . '">' . __( 'Settings', 'woocommerce-shipstation' ) . '</a>',
-		'<a href="https://woocommerce.com/my-account/tickets">' . __( 'Support', 'woocommerce-shipstation' ) . '</a>',
-		'<a href="https://docs.woocommerce.com/document/shipstation-for-woocommerce/">' . __( 'Docs', 'woocommerce-shipstation' ) . '</a>',
+		'<a href="' . $setting_link . '">' . __( 'Settings', 'woocommerce-shipstation-integration' ) . '</a>',
+		'<a href="https://woocommerce.com/my-account/tickets">' . __( 'Support', 'woocommerce-shipstation-integration' ) . '</a>',
+		'<a href="https://docs.woocommerce.com/document/shipstation-for-woocommerce/">' . __( 'Docs', 'woocommerce-shipstation-integration' ) . '</a>',
 	);
 
 	return array_merge( $plugin_links, $links );

@@ -1,0 +1,225 @@
+2021-12-02T11:13:05+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:13:15+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:13:32+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:13:57+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:15:03+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:15:14+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:15:16+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:15:49+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:15:52+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:16:03+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:16:11+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:16:16+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:16:19+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:16:25+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:31:57+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:06+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:18+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:30+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:40+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:44+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:32:47+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:33:31+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T11:33:33+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T12:10:21+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-admin/a in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+
+2021-12-02T12:10:23+00:00 CRITICAL Uncaught Error: Cannot use object of type Automattic\Jetpack\Autoloader\jp7fa27687a59114a5aec1ac3080434897\Shutdown_Handler as array in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php:185
+Stack trace:
+#0 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/class-debug-bar-action-and-filters-addon.php(41): debug_bar_action_and_filters_addon_display_filters()
+#1 /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar/debug-bar.php(370): Debug_Bar_Actions_Filters_Addon->render()
+#2 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(303): Debug_Bar->render('')
+#3 /home/xbass/Local Sites/plugindev/app/public/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(NULL, Array)
+#4 /home/xbass/Local Sites/plugindev/app/public/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#5 /home/xbass/Local Sites/plugindev/app/public/wp-include in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/debug-bar-actions-and-filters-addon/debug-bar-action-and-filters-addon.php on line 185
+

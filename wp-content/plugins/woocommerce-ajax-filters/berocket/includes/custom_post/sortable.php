@@ -12,13 +12,14 @@ if ( ! class_exists('BeRocket_custom_post_sortable_addon_class') ) {
                 add_action('berocket_custom_post_'.$this->post_name.'_wc_save_product_without_check_before', array($this, 'sortable_wc_save_product_before'), 10, 2);
                 add_action('berocket_custom_post_'.$this->post_name.'_columns_replace', array($this, 'sortable_columns_replace'), 10, 1);
                 add_filter('berocket_custom_post_'.$this->post_name.'_manage_edit_columns', array($this, 'sortable_manage_edit_columns'));
+                add_filter('manage_edit-'.$this->post_name.'_sortable_columns', array($this, 'sortable_columns_set'));
             }
             add_filter('berocket_custom_post_'.$this->post_name.'_get_custom_posts_args_default', array($this, 'sortable_get_custom_post'));
             add_action('berocket_custom_post_'.$this->post_name.'_admin_init_only', array($this, 'jquery_sortable_for_posts'));
         }
         public function sortable_admin_init() {
             $this->custom_post->get_custom_posts();
-            add_action( 'pre_get_posts', array($this, 'sortable_get_posts') );
+            add_action( 'pre_get_posts', array($this, 'sortable_get_posts'), 999999 );
             if( ! empty($_POST['braction']) && $_POST['braction'] == 'berocket_custom_post_sortable' ) {
                 $this->sortable_change();
             }
@@ -51,10 +52,11 @@ if ( ! class_exists('BeRocket_custom_post_sortable_addon_class') ) {
         }
         public function sortable_get_posts( $query ){
             global $pagenow;
-            if( 'edit.php' == $pagenow && isset( $_GET['post_type'] ) && $_GET['post_type'] == $this->post_name ){
+            $post_type = $query->get('post_type');
+            if( 'edit.php' == $pagenow && $post_type == $this->post_name && (empty($_GET['orderby']) || $_GET['orderby'] == 'berocket_sortable') ){
                 $query->set( 'meta_key', 'berocket_post_order' );
                 $query->set( 'orderby', 'meta_value_num' );
-                $query->set( 'order', 'ASC' );
+                $query->set( 'order', ( (empty($_GET['order']) || strtoupper($_GET['order']) == 'ASC') ? 'ASC' : 'DESC' ) );
             }
         }
         public function sortable_get_custom_post($args) {
@@ -148,6 +150,10 @@ if ( ! class_exists('BeRocket_custom_post_sortable_addon_class') ) {
                 </script>
                 <?php
             }
+        }
+        public function sortable_columns_set($columns) {
+            $columns['berocket_sortable'] = 'berocket_sortable';
+            return $columns;
         }
     }
 }

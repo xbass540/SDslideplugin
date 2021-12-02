@@ -29,10 +29,15 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 		$needs_shipping = 0;
 
 		foreach ( $order->get_items() as $item_id => $item ) {
-			$product = $order->get_product_from_item( $item );
+
+			if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
+				$product  = is_callable( array( $item, 'get_product' ) ) ? $item->get_product() : false;
+			} else {
+				$product  = $order->get_product_from_item( $item );
+			}
 
 			if ( is_a( $product, 'WC_Product' ) && $product->needs_shipping() ) {
-				$needs_shipping += $item['qty'];
+				$needs_shipping += ( $item['qty'] - abs( $order->get_qty_refunded_for_item( $item_id ) ) );
 			}
 		}
 
@@ -107,28 +112,6 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 	}
 
 	/**
-	 * Retrieves the raw request data (body).
-	 *
-	 * `$HTTP_RAW_POST_DATA` is deprecated in PHP 5.6 and removed in PHP 7.0,
-	 * it's used here for server that has issue with reading `php://input`
-	 * stream.
-	 *
-	 * @since 4.1.17
-	 * @version 4.1.17
-	 *
-	 * @return string Raw request data.
-	 */
-	private function get_raw_post_data() {
-		global $HTTP_RAW_POST_DATA;
-
-		if ( ! isset( $HTTP_RAW_POST_DATA ) ) {
-			$HTTP_RAW_POST_DATA = file_get_contents( 'php://input' );
-		}
-
-		return $HTTP_RAW_POST_DATA;
-	}
-
-	/**
 	 * Get Parsed XML response.
 	 *
 	 * @param  string $xml XML.
@@ -168,7 +151,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 		$this->validate_input( array( 'order_number', 'carrier' ) );
 
 		$timestamp          = current_time( 'timestamp' );
-		$shipstation_xml    = $this->get_raw_post_data();
+		$shipstation_xml    = file_get_contents( 'php://input' );
 		$shipped_items      = array();
 		$shipped_item_count = 0;
 		$order_shipped      = false;
@@ -178,7 +161,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 
 		if ( empty( $shipstation_xml ) ) {
 			$can_parse_xml = false;
-			$this->log( __( 'Missing ShipNotify XML input.', 'woocommerce-shipstation' ) );
+			$this->log( __( 'Missing ShipNotify XML input.', 'woocommerce-shipstation-integration' ) );
 
 			$mask = array(
 				'auth_key'                         => '***',
@@ -198,17 +181,17 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 
 		if ( ! function_exists( 'simplexml_import_dom' ) ) {
 			$can_parse_xml = false;
-			$this->log( __( 'Missing SimpleXML extension for parsing ShipStation XML.', 'woocommerce-shipstation' ) );
+			$this->log( __( 'Missing SimpleXML extension for parsing ShipStation XML.', 'woocommerce-shipstation-integration' ) );
 		}
 
 		// Try to parse XML first since it can contain the real OrderID.
 		if ( $can_parse_xml ) {
-			$this->log( __( 'ShipNotify XML: ', 'woocommerce-shipstation' ) . print_r( $shipstation_xml, true ) );
+			$this->log( __( 'ShipNotify XML: ', 'woocommerce-shipstation-integration' ) . print_r( $shipstation_xml, true ) );
 
 			$xml = $this->get_parsed_xml( $shipstation_xml );
 
 			if ( ! $xml ) {
-				$this->log( __( 'Cannot parse XML', 'woocommerce-shipstation' ) );
+				$this->log( __( 'Cannot parse XML', 'woocommerce-shipstation-integration' ) );
 				status_header( 500 );
 			}
 
@@ -229,7 +212,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 
 		if ( false === $order || ! is_object( $order ) ) {
 			/* translators: 1: order id */
-			$this->log( sprintf( __( 'Order %s can not be found.', 'woocommerce-shipstation' ), $order_id ) );
+			$this->log( sprintf( __( 'Order %s can not be found.', 'woocommerce-shipstation-integration' ), $order_id ) );
 			exit;
 		}
 
@@ -237,7 +220,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 		$order_id = version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->id : $order->get_id();
 		if ( empty( $order_id ) ) {
 			/* translators: 1: order id */
-			$this->log( sprintf( __( 'Invalid order ID: %s', 'woocommerce-shipstation' ), $order_id ) );
+			$this->log( sprintf( __( 'Invalid order ID: %s', 'woocommerce-shipstation-integration' ), $order_id ) );
 			exit;
 		}
 
@@ -246,7 +229,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 			$items = $xml->Items;
 			if ( $items ) {
 				foreach ( $items->Item as $item ) {
-					$this->log( __( 'ShipNotify Item: ', 'woocommerce-shipstation' ) . print_r( $item, true ) );
+					$this->log( __( 'ShipNotify Item: ', 'woocommerce-shipstation-integration' ) . print_r( $item, true ) );
 
 					$item_sku    = wc_clean( (string) $item->SKU );
 					$item_name   = wc_clean( (string) $item->Name );
@@ -259,7 +242,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 					$item_id = wc_clean( (int) $item->LineItemID );
 					if ( ! $this->is_shippable_item( $order, $item_id ) ) {
 						/* translators: 1: item name */
-						$this->log( sprintf( __( 'Item %s is not shippable product. Skipping.', 'woocommerce-shipstation' ), $item_name ) );
+						$this->log( sprintf( __( 'Item %s is not shippable product. Skipping.', 'woocommerce-shipstation-integration' ), $item_name ) );
 						continue;
 					}
 
@@ -277,7 +260,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 		if ( sizeof( $shipped_items ) > 0 ) {
 			$order_note = sprintf(
 				/* translators: 1) shipped items 2) carrier's name 3) shipped date, 4) tracking number */
-				__( '%1$s shipped via %2$s on %3$s with tracking number %4$s.', 'woocommerce-shipstation' ),
+				__( '%1$s shipped via %2$s on %3$s with tracking number %4$s.', 'woocommerce-shipstation-integration' ),
 				esc_html( implode( ', ', $shipped_items ) ),
 				esc_html( $carrier ),
 				date_i18n( get_option( 'date_format' ), $timestamp ),
@@ -293,7 +276,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 			$this->log(
 				sprintf(
 					/* translators: 1) number of shipped items 2) total shipped items 3) order ID */
-					__( 'Shipped %1$d out of %2$d items in order %3$s', 'woocommerce-shipstation' ),
+					__( 'Shipped %1$d out of %2$d items in order %3$s', 'woocommerce-shipstation-integration' ),
 					$shipped_item_count,
 					$total_item_count,
 					$order_id
@@ -309,14 +292,14 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 
 			$order_note = sprintf(
 				/* translators: 1) carrier's name 2) shipped date, 3) tracking number */
-				__( 'Items shipped via %1$s on %2$s with tracking number %3$s (Shipstation).', 'woocommerce-shipstation' ),
+				__( 'Items shipped via %1$s on %2$s with tracking number %3$s (Shipstation).', 'woocommerce-shipstation-integration' ),
 				esc_html( $carrier ),
 				date_i18n( get_option( 'date_format' ), $timestamp ),
 				$tracking_number
 			);
 
 			/* translators: 1: order id */
-			$this->log( sprintf( __( 'No items found - shipping entire order %d.', 'woocommerce-shipstation' ), $order_id ) );
+			$this->log( sprintf( __( 'No items found - shipping entire order %d.', 'woocommerce-shipstation-integration' ), $order_id ) );
 		}
 
 		// Tracking information - WC Shipment Tracking extension.
@@ -342,7 +325,7 @@ class WC_Shipstation_API_Shipnotify extends WC_Shipstation_API_Request {
 			$order->update_status( WC_ShipStation_Integration::$shipped_status );
 
 			/* translators: 1) order ID 2) shipment status */
-			$this->log( sprintf( __( 'Updated order %1$s to status %2$s', 'woocommerce-shipstation' ), $order_id, WC_ShipStation_Integration::$shipped_status ) );
+			$this->log( sprintf( __( 'Updated order %1$s to status %2$s', 'woocommerce-shipstation-integration' ), $order_id, WC_ShipStation_Integration::$shipped_status ) );
 		}
 
 		// Trigger action for other integrations.

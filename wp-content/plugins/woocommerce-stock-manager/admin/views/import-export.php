@@ -1,7 +1,9 @@
 <?php
 /**
- * @author    StoreApps
- * @package   WooCommerce Stock Manager
+ * Import & Export product data
+ *
+ * @package   woocommerce-stock-manager/admin/views/
+ * @version   2.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -9,17 +11,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $stock = $this->stock();
- 
-function stockautoUTF($s){
-	if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
+
+/**
+ * Function to convert stock file.
+ *
+ * @param string $s CSV file row headers.
+ * @return converted
+ */
+function stock_auto_utf( $s ) {
+	if ( preg_match( '#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s ) ) {
 		return $s;
+	}
 
-	if (preg_match('#[\x7F-\x9F\xBC]#', $s))
-		return iconv('WINDOWS-1250', 'UTF-8', $s);
+	if ( preg_match( '#[\x7F-\x9F\xBC]#', $s ) ) {
+		return iconv( 'WINDOWS-1250', 'UTF-8', $s );
+	}
 
-	return iconv('ISO-8859-2', 'UTF-8', $s);
+	return iconv( 'ISO-8859-2', 'UTF-8', $s );
 }
-
 
 ?>
 <script type="text/javascript">
@@ -57,7 +66,8 @@ function stockautoUTF($s){
 			wsm_export_products( offset );        
 			function wsm_export_products( offset ) {
 				var data = {
-					'action'  : 'wsm_get_products_or_export',
+					'action'   : 'wsm_get_products_or_export',
+					'security' : '<?php echo esc_html( wp_create_nonce( 'sa-wsm-export' ) ); ?>',
 					'offset'   : offset
 				};
 				jQuery.post(ajaxurl, data, function( response ) {
@@ -75,8 +85,9 @@ function stockautoUTF($s){
 						jQuery( '#csv' ).empty();
 						jQuery( '#csv' ).append( 'All done!' );
 						var data = {
-							'action'  : 'wsm_get_csv_file',
-							'data'   : string
+							'action'   : 'wsm_get_csv_file',
+							'security' : '<?php echo esc_html( wp_create_nonce( 'sa-wsm-get-csv' ) ); ?>',
+							'data'     : string
 						};
 						jQuery.post(ajaxurl, data, function( response ) {
 							var data, filename, link;
@@ -104,138 +115,149 @@ function stockautoUTF($s){
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-<div class="t-col-6">
-  <div class="toret-box box-info">
-	<div class="box-header">
-	  <h3 class="box-title"><?php _e('Import','woocommerce-stock-manager'); ?></h3>
-	</div>
-  <div class="box-body">
-	<h4><?php _e('You can upload csv file, with your stock data. ','woocommerce-stock-manager'); ?></h4>
-	<p><?php _e('CSV file must be in this format, or you can export file with exist data and edit them. ','woocommerce-stock-manager'); ?></p>
-	<p><?php _e('If you have a lot of products and export/import not working, increase memory limit.. ','woocommerce-stock-manager'); ?></p>
-	<h3><?php _e('File format','woocommerce-stock-manager'); ?></h3>
-	<table class="table-bordered">
-	  <tr>
-	  	<td><?php _e('ID','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('SKU','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Product name','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Manage stock','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Stock status','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Backorders','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Stock','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Product type','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('Parent ID','woocommerce-stock-manager'); ?></td>
-	  </tr>
-	  <tr>
-	  	<td><?php _e('123','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('abc111','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('T-shirt','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('yes','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('instock','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('yes','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('10','woocommerce-stock-manager'); ?></td>
-		<td><?php _e('simple','woocommerce-stock-manager'); ?></td>
-		<td></td>
-	  </tr>  
-	</table>  
-	
-	<ul>
-		<li><strong><?php _e('ID','woocommerce-stock-manager'); ?></strong> <?php _e('product id, required. Neccessary for import and export.','woocommerce-stock-manager'); ?></li>
-	  <li><strong><?php _e('SKU','woocommerce-stock-manager'); ?></strong> <?php _e('product unique identificator.','woocommerce-stock-manager'); ?></li>
-	  <li><strong><?php _e('Manage stock','woocommerce-stock-manager'); ?></strong> <?php _e('values: "yes", "notify", "no". If is empty "no" will be save.','woocommerce-stock-manager'); ?></li>
-	  <li><strong><?php _e('Stock status','woocommerce-stock-manager'); ?></strong> <?php _e('values: "instock", "outofstock". If is empty "outofstock" will be save.','woocommerce-stock-manager'); ?></li>
-	  <li><strong><?php _e('Backorders','woocommerce-stock-manager'); ?></strong> <?php _e('values: "yes", "notify", "no". If is empty "no" will be save.','woocommerce-stock-manager'); ?></li>
-	  <li><strong><?php _e('Stock','woocommerce-stock-manager'); ?></strong> <?php _e('quantity value. If is empty, 0 will be save.','woocommerce-stock-manager'); ?></li>
-	</ul>
-	
-	
-	<form method="post" action="" class="setting-form" enctype="multipart/form-data">	
-		<table class="table-bordered">
-		  <tr>
-			<th><?php _e('Upload csv file', 'woocommerce-stock-manager'); ?></th>
-			<td>
-			  <input type="file" name="uploadFile">
-			</td>
-		  </tr>
-		</table>
-		<div class="clear"></div>
-	  <input type="hidden" name="upload" value="ok" />
-	  <input type="submit" class="btn btn-info" value="<?php _e('Upload', 'woocommerce-stock-manager'); ?>" />
-	</form>  
-	<?php
-	if(isset($_POST['upload'])){
-  
-		$target_dir = STOCKDIR.'admin/views/upload/';
-		$target_dir = $target_dir . basename( $_FILES["uploadFile"]["name"]);
-		$uploadOk   = true;
+	<div class="t-col-6">
+		<div class="toret-box box-info">
+			<div class="box-header">
+				<h3 class="box-title"><?php esc_html_e( 'Import', 'woocommerce-stock-manager' ); ?></h3>
+			</div>
+			<div class="box-body">
+				<h4><?php esc_html_e( 'You can upload csv file, with your stock data. ', 'woocommerce-stock-manager' ); ?></h4>
+				<p><?php esc_html_e( 'CSV file must be in this format, or you can export file with exist data and edit them. ', 'woocommerce-stock-manager' ); ?></p>
+				<p><?php esc_html_e( 'If you have a lot of products and export/import not working, increase memory limit.. ', 'woocommerce-stock-manager' ); ?></p>
+				<h3><?php esc_html_e( 'File format', 'woocommerce-stock-manager' ); ?></h3>
+				<table class="table-bordered">
+					<tr>
+						<td><?php esc_html_e( 'ID', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'SKU', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Product name', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Manage stock', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Stock status', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Backorders', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Stock', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Product type', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'Parent ID', 'woocommerce-stock-manager' ); ?></td>
+					</tr>
+					<tr>
+						<td><?php esc_html_e( '123', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'abc111', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'T-shirt', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'yes', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'instock', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'yes', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( '10', 'woocommerce-stock-manager' ); ?></td>
+						<td><?php esc_html_e( 'simple', 'woocommerce-stock-manager' ); ?></td>
+						<td></td>
+					</tr>
+				</table>
+				<ul>
+					<li><strong><?php esc_html_e( 'ID', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'product id, required. Neccessary for import and export.', 'woocommerce-stock-manager' ); ?></li>
+					<li><strong><?php esc_html_e( 'SKU', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'product unique identificator.', 'woocommerce-stock-manager' ); ?></li>
+					<li><strong><?php esc_html_e( 'Manage stock', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'values: "yes", "notify", "no". If is empty "no" will be save.', 'woocommerce-stock-manager' ); ?></li>
+					<li><strong><?php esc_html_e( 'Stock status', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'values: "instock", "outofstock". If is empty "outofstock" will be save.', 'woocommerce-stock-manager' ); ?></li>
+					<li><strong><?php esc_html_e( 'Backorders', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'values: "yes", "notify", "no". If is empty "no" will be save.', 'woocommerce-stock-manager' ); ?></li>
+					<li><strong><?php esc_html_e( 'Stock', 'woocommerce-stock-manager' ); ?></strong> <?php esc_html_e( 'quantity value. If is empty, 0 will be save.', 'woocommerce-stock-manager' ); ?></li>
+				</ul>
+				<form method="post" action="" class="setting-form" enctype="multipart/form-data">	
+					<table class="table-bordered">
+						<tr>
+							<th><?php esc_html_e( 'Upload csv file', 'woocommerce-stock-manager' ); ?></th>
+							<td>
+								<input type="file" name="uploadFile">
+							</td>
+						</tr>
+					</table>
+					<div class="clear"></div>
+					<input type="hidden" name="upload" value="ok" />
+					<?php wp_nonce_field( 'sa-wsm-import', 'sa_wsm_nonce' ); ?>
+					<input type="submit" class="btn btn-info" value="<?php esc_html_e( 'Upload', 'woocommerce-stock-manager' ); ?>" />
+				</form>
+				<?php
+				if ( isset( $_POST['upload'] ) && ! empty( $_FILES ) ) {
+					$post_sa_wsm_nonce = ( ! empty( $_POST['sa_wsm_nonce'] ) ) ? wc_clean( wp_unslash( $_POST['sa_wsm_nonce'] ) ) : ''; // phpcs:ignore
+					if ( ! empty( $post_sa_wsm_nonce ) && wp_verify_nonce( $post_sa_wsm_nonce, 'sa-wsm-import' ) ) {
+						// Allowed filetypes for import.
+						$valid_filetypes = array(
+							'csv' => 'text/csv',
+						);
 
-		if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_dir)) {
-  
-			echo __('The file '. basename( $_FILES['uploadFile']['name']). ' has been uploaded.','woocommerce-stock-manager');
-	
-			$row = 1;
-			if (($handle = fopen($target_dir, "r")) !== FALSE) {
-  
-				while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-					$num = count($data);
-				  
-					$product_id   = stockautoUTF($data[0]);
-					$sku          = stockautoUTF($data[1]);
-					$manage_stock = stockautoUTF($data[3]);
-					$stock_status = stockautoUTF($data[4]);
-					$backorders   = stockautoUTF($data[5]);
-					$stock        = stockautoUTF($data[6]);
-					
-					if($row != 1){
-					  
-						if( !empty( $product_id ) ){
+						// Retrieve the file type from the file name.
+						$uploaded_file = $_FILES['uploadFile']['name']; // phpcs:ignore
+						$filetype      = wp_check_filetype( wc_clean( wp_unslash( $uploaded_file ) ), $valid_filetypes );
 
-							$values = array(
-								'sku' => $sku,
-								'manage_stock' => $manage_stock,
-								'stock_status' => $stock_status,
-								'backorders' => $backorders,
-								'stock' => $stock
-							);
+						// Check if file type is valid.
+						if ( in_array( $filetype['type'], $valid_filetypes, true ) ) {
+							$target_dir = STOCKDIR . 'admin/views/upload/';
+							$target_dir = $target_dir . basename( $uploaded_file );
 
-							WCM_Save::save_one_item( $values, $product_id );
-					  
-							echo '<p>'.__('Product with ID: '.$product_id.' was updated.','woocommerce-stock-manager').'</p>';
-	
+							if ( move_uploaded_file( $_FILES['uploadFile']['tmp_name'], $target_dir ) ) { // phpcs:ignore
+
+								/* translators: 1: Uploaded file name */
+								echo sprintf( esc_html__( 'The file %1$s has been uploaded', 'woocommerce-stock-manager' ), basename( $uploaded_file ) ); // phpcs:ignore
+
+								$row    = 1;
+								$handle = fopen( $target_dir, 'r' ); // phpcs:ignore
+								if ( false !== $handle ) {
+
+									// assigning to $data to not consider first row of CSV file.
+									while ( ( $data = fgetcsv( $handle, 1000, ',' ) ) !== false ) { // phpcs:ignore
+										$num = count( $data );
+
+										$product_id   = stock_auto_utf( $data[0] );
+										$sku          = stock_auto_utf( $data[1] );
+										$manage_stock = stock_auto_utf( $data[3] );
+										$stock_status = stock_auto_utf( $data[4] );
+										$backorders   = stock_auto_utf( $data[5] );
+										$stock        = stock_auto_utf( $data[6] );
+
+										if ( 1 !== $row ) {
+											if ( ! empty( $product_id ) ) {
+												$values = array(
+													'sku' => $sku,
+													'manage_stock' => $manage_stock,
+													'stock_status' => $stock_status,
+													'backorders' => $backorders,
+													'stock' => $stock,
+												);
+
+												WSM_Save::save_one_item( $values, $product_id );
+
+												/* translators: 1: P tag opening 2: Updated Product ID 3. Closing p tag */
+												echo sprintf( esc_html__( '%1$s Product with ID %2$s was updated. %3$s', 'woocommerce-stock-manager' ), '<p>', wp_kses_post( $product_id ), '</p>' );
+											}
+										}
+										$row++;
+
+									}
+									fclose( $handle ); // phpcs:ignore
+								}
+							} else {
+								echo '<p>' . esc_html__( 'Sorry, there was an error uploading your file.', 'woocommerce-stock-manager' ) . '</p>';
+							}
+						} else {
+							echo '<h3 class="wsm-upload-failed">' . esc_html__( 'Error: You have not uploaded a CSV file.', 'woocommerce-stock-manager' ) . '</h3>';
 						}
+					} else {
+						wp_die( 'Could not verify nonce' );
 					}
-					$row++;
-	
 				}
-				fclose($handle);
-			}
-	  
-		}else{
-			echo '<p>'.__('Sorry, there was an error uploading your file.','woocommerce-stock-manager').'</p>';
-		}
-  
-	} 
-?>    
-  </div>
-</div>
-</div>
-
-
-
-<div class="t-col-6">
-  <div class="toret-box box-info">
-	<div class="box-header">
-	  <h3 class="box-title"><?php _e('Export','woocommerce-stock-manager'); ?></h3>
+				?>
+			</div>
+		</div>
 	</div>
-  <div class="box-body">
-	<h4><?php _e('You can download csv file, with your stock data. ','woocommerce-stock-manager'); ?></h4>
-	<p><a href="#" class="btn btn-danger product-export"><?php _e('Create export file','woocommerce-stock-manager'); ?></a></p> 
-	<div class="export-output" style="display:none;"></div>
-	<div id="csv" style="display:none;"></div>
-  </div>
-</div>
-</div>  
-  
+
+	<div class="t-col-6">
+		<div class="toret-box box-info">
+			<div class="box-header">
+				<h3 class="box-title"><?php esc_html_e( 'Export', 'woocommerce-stock-manager' ); ?></h3>
+			</div>
+			<div class="box-body">
+				<h4><?php esc_html_e( 'You can download csv file, with your stock data. ', 'woocommerce-stock-manager' ); ?></h4>
+				<p><a href="#" class="btn btn-danger product-export"><?php esc_html_e( 'Create export file', 'woocommerce-stock-manager' ); ?></a></p> 
+				<div class="export-output" style="display:none;"></div>
+				<div id="csv" style="display:none;"></div>
+			</div>
+		</div>
+	</div>
 
 </div>
 <?php

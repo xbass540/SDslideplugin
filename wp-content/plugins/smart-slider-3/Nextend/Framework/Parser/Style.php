@@ -26,7 +26,7 @@ class Style {
                 $extra = $tab['extra'];
                 unset($tab['extra']);
             }
-            foreach ($tab AS $k => $v) {
+            foreach ($tab as $k => $v) {
                 $style .= $this->parse($k, $v);
             }
             $style .= $this->parse('extra', $extra);
@@ -74,12 +74,9 @@ class Style {
 
     public function parseBorder($v) {
         $border = explode('|*|', $v);
-        $style  = 'border-width: ' . $border[0] . 'px';
-        $style  .= 'border-style: ' . $border[1] . ';';
         $rgba   = Color::hex2rgba($border[2]);
-        $style  .= 'border-color: #' . substr($border[2], 0, 6) . "; border-color: RGBA(" . $rgba[0] . ',' . $rgba[1] . ',' . $rgba[2] . ',' . round($rgba[3] / 127, 2) . ');';
 
-        return $style;
+        return 'border: ' . $border[0] . 'px ' . $border[1] . ' RGBA(' . $rgba[0] . ',' . $rgba[1] . ',' . $rgba[2] . ',' . round($rgba[3] / 127, 2) . ');';
     }
 
     public function parseBorderRadius($v) {

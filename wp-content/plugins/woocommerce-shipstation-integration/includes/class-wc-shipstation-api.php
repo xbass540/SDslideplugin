@@ -50,11 +50,11 @@ class WC_Shipstation_API extends WC_Shipstation_API_Request {
 	 */
 	public function request() {
 		if ( empty( $_GET['auth_key'] ) ) {
-			$this->trigger_error( __( 'Authentication key is required!', 'woocommerce-shipstation' ) );
+			$this->trigger_error( __( 'Authentication key is required!', 'woocommerce-shipstation-integration' ) );
 		}
 
 		if ( ! hash_equals( sanitize_text_field( $_GET['auth_key'] ), WC_ShipStation_Integration::$auth_key ) ) {
-			$this->trigger_error( __( 'Invalid authentication key', 'woocommerce-shipstation' ) );
+			$this->trigger_error( __( 'Invalid authentication key', 'woocommerce-shipstation-integration' ) );
 		}
 
 		$request = $_GET;
@@ -62,7 +62,7 @@ class WC_Shipstation_API extends WC_Shipstation_API_Request {
 		if ( isset( $request['action'] ) ) {
 			$this->request = array_map( 'sanitize_text_field', $request );
 		} else {
-			$this->trigger_error( __( 'Invalid request', 'woocommerce-shipstation' ) );
+			$this->trigger_error( __( 'Invalid request', 'woocommerce-shipstation-integration' ) );
 		}
 
 		self::$authenticated = true;
@@ -75,11 +75,11 @@ class WC_Shipstation_API extends WC_Shipstation_API_Request {
 			$obfuscated_request = $mask + $this->request;
 
 			/* translators: 1: query string */
-			$this->log( sprintf( __( 'Input params: %s', 'woocommerce-shipstation' ), http_build_query( $obfuscated_request ) ) );
+			$this->log( sprintf( __( 'Input params: %s', 'woocommerce-shipstation-integration' ), http_build_query( $obfuscated_request ) ) );
 			$request_class = include( 'api-requests/class-wc-shipstation-api-' . $this->request['action'] . '.php' );
 			$request_class->request();
 		} else {
-			$this->trigger_error( __( 'Invalid request', 'woocommerce-shipstation' ) );
+			$this->trigger_error( __( 'Invalid request', 'woocommerce-shipstation-integration' ) );
 		}
 
 		exit;

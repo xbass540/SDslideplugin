@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, woo, wpc, frequently, upsells, related, bought, together
 Requires at least: 4.0
-Tested up to: 5.7
-Stable tag: 3.5.4
+Tested up to: 5.8
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,10 @@ WPC Frequently Bought Together help you increase your sales with personalized pr
 = Live demo =
 
 Visit our [live demo](https://demo.wpclever.net/woobt/ "live demo") here to see how this plugin works.
+
+= Basic steps for settings =
+
+https://www.youtube.com/watch?v=FpOS16IH3fg
 
 = Features =
 
@@ -33,8 +37,6 @@ Visit our [live demo](https://demo.wpclever.net/woobt/ "live demo") here to see 
 - Set the min/max quantity for the deal
 - Add separately: make additional items to be treated as separate individual products
 - When none is chosen, upsells/ related products can be set as default products
-- RTL support
-- WPML integration for building multilingual sites
 - Compatible with all WordPress themes, WooCommerce & WPC plugins
 
 = Premium Version =
@@ -54,13 +56,13 @@ Technically, this plugin offers a way for shop owners to get all related product
 
 = Translators =
 
-Available languages: English (Default), Turkish, German
+Available languages: English (Default), Turkish, German, French
 
 If you have created your own language pack, or have an update for an existing one, you can send [gettext PO and MO file](http://codex.wordpress.org/Translating_WordPress "Translating WordPress") to [us](https://wpclever.net/contact?utm_source=pot&utm_medium=woobt&utm_campaign=wporg "WPClever.net") so we can bundle it into WPC Frequently Bought Together.
 
 = Not what you needed? =
 
-Please try other plugins from us
+Please try other plugins from us:
 
 - [WPC Product Bundles](https://wordpress.org/plugins/woo-product-bundle/ "WPC Product Bundles")
 - [WPC Composite Products](https://wordpress.org/plugins/wpc-composite-products/ "WPC Composite Products")
@@ -79,6 +81,125 @@ Visit [plugin documentation website](https://wpclever.net?utm_source=doc&utm_med
 4. When adding/editing the product you can choose "Bought Together" tab then add some products with the new price
 
 == Changelog ==
+
+= 4.0.0 =
+* Added: Open search settings on a popup
+* Added: Choose product types for searching
+
+= 3.9.6 =
+* Fixed: Sync quantity
+
+= 3.9.5 =
+* Fixed: Calculate additional & total price
+
+= 3.9.4 =
+* Fixed: Order again
+* Fixed: Restore after deleting
+
+= 3.9.3 =
+* Fixed: Minor JS issues
+* Added: Product link to thumbnail
+
+= 3.9.2 =
+* Added: New position "Under summary"
+* Added: "This item:", "Choose", "Clear" on Localization tab
+
+= 3.9.1 =
+* Fixed: Hide the "require selection" alert when the quantity is zero
+* Fixed: Minor CSS/JS issue
+
+= 3.9.0 =
+* Fixed: Minor JS issue
+
+= 3.8.9 =
+* Added: Filter hooks: woobt_custom_qty, woobt_sync_qty, woobt_checked_all, woobt_separately, woobt_selection
+
+= 3.8.8 =
+* Added: Localization tab
+
+= 3.8.7 =
+* Fixed: WPML compatibility
+
+= 3.8.6 =
+* Fixed: Wrong price for variable product
+* Fixed: Minor JS issue
+
+= 3.8.5 =
+* Updated: Compatible with WPC Product Quantity
+
+= 3.8.4 =
+* Fixed: Minor JS issue
+
+= 3.8.3 =
+* Fixed: Wrong price when applying the tax
+
+= 3.8.2 =
+* Fixed: Missing text for translation
+
+= 3.8.1 =
+* Updated: Change the textdomain to 'woo-bought-together'
+* Fixed: Error when using separately mode
+
+= 3.8.0 =
+* Fixed: Error when adding variable product to the cart
+
+= 3.7.7 =
+* Added: Filter hook 'woobt_separately'
+
+= 3.7.6 =
+* Fixed: Compatible with WPC Buy Now Button
+
+= 3.7.5 =
+* Updated: Compatible with WordPress 5.8 & WooCommerce 5.5.2
+* Fixed: Discounted price
+
+= 3.7.4 =
+* Fixed: Sync quantity function
+
+= 3.7.3 =
+* Fixed: Notice text for invalid selection
+
+= 3.7.2 =
+* Added: New option "Selecting method" to choose "Multiple selection (default)" or "Single selection (choose 1 only)"
+
+= 3.7.1 =
+* Fixed: Some minor CSS/JS issues
+
+= 3.7.0 =
+* Added: Separate images layout
+
+= 3.6.6 =
+* Added: Filter hook 'woobt_show_items' to control the items before showing
+
+= 3.6.5 =
+* Fixed: Some minor CSS/JS issues
+
+= 3.6.4 =
+* Fixed: Some minor JS issues
+
+= 3.6.3 =
+* Fixed: Don't hide unpurchasable products for editing
+
+= 3.6.2 =
+* Fixed: Wrong counter on the add-to-cart button while hiding "this product"
+
+= 3.6.1 =
+* Added: Filter hook 'woobt_is_shortcode' to prevent shortcode detected
+
+= 3.6.0 =
+* Added: Option to use separate add to cart button
+* Added: French translation (thanks to Franco)
+* Update: Use product ID in shortcode, e.g [woobt id="99"]
+* Fixed: Some minor CSS/JS issues
+* Note: Remember to clear the cache after updating
+
+= 3.5.6 =
+* Fixed: Price calculator for the main product
+* Updated: Optimized the code
+
+= 3.5.5 =
+* Fixed: Price & total for main variable product
+* Fixed: Some minor CSS issues
 
 = 3.5.4 =
 * Updated: Optimized the code

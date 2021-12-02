@@ -28,6 +28,10 @@ define( 'DB_USER', 'root' );
 /** MySQL database password */
 define( 'DB_PASSWORD', 'root' );
 
+define( 'WP_DEBUG', true );
+define( 'SAVEQUERIES', true );
+
+
 /** MySQL hostname */
 define( 'DB_HOST', 'localhost' );
 

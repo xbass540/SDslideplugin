@@ -28,7 +28,7 @@ if( ! class_exists('BeRocket_error_notices') ) {
                     unset($errors[$error_id]);
                 }
             }
-            update_option('berocket_plugin_error_'.$plugin_id, $errors);
+            update_option('berocket_plugin_error_'.$plugin_id, $errors, false);
         }
         public static function get_plugin_error_ajax() {
             $plugin_id = br_get_value_from_array($_POST, 'plugin_id');

@@ -3,8 +3,10 @@ if( ! class_exists('BeRocket_aapf_admin_bar_debug') ) {
     class BeRocket_aapf_admin_bar_debug{
 		public $footer_run = false, $admin_bar_run = false;
         function __construct() {
-            add_action( 'admin_bar_menu', array($this, 'debug_admin_bar_menu'), 1000 );
-			add_action( 'wp_footer', array($this, 'footer_bar'), 1000 );
+            if( empty($_GET['et_fb']) ) {
+                add_action( 'admin_bar_menu', array($this, 'debug_admin_bar_menu'), 1000 );
+                add_action( 'wp_footer', array($this, 'footer_bar'), 1000 );
+            }
         }
 		function footer_bar() {
 			$this->footer_run = true;
@@ -192,6 +194,7 @@ if( ! class_exists('BeRocket_aapf_admin_bar_debug') ) {
 		}
 		function get_css() {
 			$html = '<style>#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item {height:initial!important;line-height:1em;}
+			#wp-admin-bar-bapf_debug_bar .ab-item {display: flex;align-items: center;}
 			#wp-admin-bar-bapf_debug_bar.brapf_admin_error_alert .ab-item .dashicons.dashicons-info-outline {margin-left: 5px;font-family: dashicons;font-size: 24px;line-height:32px;cursor:pointer;color: red; transform: rotate(180deg);}
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item *{line-height:1em;color:#ccc;}
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item h2{color:white;font-size: 1.5em;text-align:center;}
@@ -203,7 +206,7 @@ if( ! class_exists('BeRocket_aapf_admin_bar_debug') ) {
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_status .dashicons-yes {color:green;}
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_status .dashicons-no {color:red;}
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_status_element {display:inline-block;text-align:center; padding:3px;}
-			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_errors {text-align:center; max-height: 200px}
+			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_errors {text-align:center; max-height: 200px; overflow: auto; margin-left: -10px; margin-right: -10px;}
             #wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_errors > div {display: flex; border-top: 1px solid #555;text-align:left;align-items: center;}
             #wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_errors > div p {padding: 3px;}
 			#wp-admin-bar-bapf_debug_bar .ab-submenu .ab-item .bapf_adminbar_errors .dashicons {font-family: dashicons;font-size: 34px;line-height: 34px;display: block;cursor:pointer;}

@@ -3,8 +3,8 @@ Contributors: woocommerce, automattic, woothemes, allendav, kellychoffman, jkudi
 Tags: shipping, stamps, usps, woocommerce, taxes, payment, dhl, labels
 Requires at least: 4.6
 Requires PHP: 5.3
-Tested up to: 5.6
-Stable tag: 1.25.11
+Tested up to: 5.8
+Stable tag: 1.25.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,55 @@ The source code is freely available [in GitHub](https://github.com/Automattic/wo
 
 == Changelog ==
 
+= 1.25.20 - 2021-11-15 =
+* Fix - Hide "Shipping Label" and "Shipment Tracking" metabox when the label setting is disabled.
+* Fix - Wrap TaxJar API zipcodes with wc_normalize_postcode() before inserting into the database.
+* Fix - Update shipping label to only show non-refunded order line items.
+* Fix - Added 3 digits currency code on shipping label price for non USD.
+
+= 1.25.19 - 2021-10-14 =
+* Add - Notice about tax nexus in settings.
+* Fix - Country drop down list no longer showing currency name.
+
+= 1.25.18 - 2021-08-16 =
+* Add   - Added "Automated Taxes" health item on status page.
+* Fix   - Show error when missing required destination phone for international shipments.
+* Fix   - Prevent PHP notice when a label's `commercial_invoice_url` value is `null`.
+* Fix   - Prevent fatal error when viewing draft order.
+* Tweak - Bump WP tested version to 5.8.
+* Tweak	- Bump WC Tested version to 5.5.
+
+= 1.25.17 - 2021-07-13 =
+* Tweak - Replace Calypso FormCheckbox with CheckboxControl.
+
+= 1.25.16 - 2021-07-09 =
+* Tweak - Replace components with @wordpress/components.
+
+= 1.25.15 - 2021-06-30 =
+* Fix   - Ensure shipping label metabox is displayed to users with the correct capabilities.
+* Add   - Added `wcship_user_can_manage_labels` filter to check permissions to print shipping labels.
+* Add   - Added `wcship_manage_labels` capability to check permissions to print shipping labels.
+
+= 1.25.14 - 2021-06-15 =
+* Fix   - Issue with printing blank label in Safari.
+* Fix   - DHL Express labels - require customs form when shipping to Puerto Rico.
+* Fix   - Update DHL Express pickup link.
+
+= 1.25.13 - 2021-05-20 =
+* Fix   - Prevent new sites from retrying failed connections.
+* Fix   - Data encoding when entities are part of order meta.
+* Tweak - Update WC version support in headers.
+* Fix   - Plugin deletion when WooCommerce core is not present.
+* Tweak - Rename automatic tax names for US.
+* Fix   - Check Jetpack constant defined by name.
+* Fix   - Sometimes taxes charged on shipping when they should not.
+
+= 1.25.12 - 2021-04-21 =
+* Fix   - UPS account connection form retry on invalid submission.
+* Fix   - Fix PHP 5.6 compatibility issue.
+* Tweak - Update plugin author name.
+* Fix   - Removes unnecessary subscription debug error logs.
+
 = 1.25.11 - 2021-04-06 =
 * Fix	- Ensure status page is displayed on new WC navigation menu.
 * Add   - Run phpcbf as a pre-commit rule.
@@ -143,28 +192,3 @@ The source code is freely available [in GitHub](https://github.com/Automattic/wo
 * Fix   - Correct validation for UPS fields in Carrier Account connect form.
 * Tweak - Add message to explain automated tax requires tax-exclusive product pricing.
 * Fix   - Disable USPS refunds for untracked labels only.
-
-= 1.25.2 - 2020-11-10 =
-* Tweak - Add ZIP code validation to UPS(beta) signup form.
-* Fix   - Issue with printing labels in some iOS devices through Safari.
-* Fix   - Prevents warning when using PHP 5.5 or lesser
-* Add   - Add new API end point to retrieve carrier registration requirements.
-* Add   - Add composer command to run PHPUnit.
-* Tweak - Update readme with DHL information.
-
-= 1.25.1 - 2020-10-28 =
-* Tweak - DHL refund days copy adjustment
-* Tweak - Stop using deprecated Jetpack method is_development_mode().
-* Fix   - Update carrier name in tracking notification email
-* Add   - Add pre-commit and pre-push git hooks for linting and unit tests.
-* Add   - Disable refunds for USPS letters.
-
-= 1.25.0 - 2020-10-13 =
-* Fix   - UPS connect redirect prompt
-* Fix   - Allow UPS label purchase without payment method
-* Fix   - PHP implode arguments order
-* Fix   - Validate insurance value as both string and number
-* Tweak - Adjusted messaging on label pointers
-* Tweak - Update carrier logo
-* Tweak - Plugin rename
-* Add   - Link to print the customs form for all shipments that need it

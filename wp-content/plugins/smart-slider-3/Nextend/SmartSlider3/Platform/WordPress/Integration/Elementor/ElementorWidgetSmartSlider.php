@@ -58,7 +58,7 @@ class ElementorWidgetSmartSlider extends Widget_Base {
     public function render_plain_content() {
     }
 
-    protected function _content_template() {
+    protected function content_template() {
         echo Shortcode::renderIframe('{{{settings.smartsliderid}}}');
     }
 }

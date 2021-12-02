@@ -4,8 +4,8 @@ Contributors: dholovnia, berocket
 Donate link: https://berocket.com/product/woocommerce-ajax-products-filter?utm_source=wordpress_org&utm_medium=donate&utm_campaign=ajax_filters
 Tags: filters, product filters, ajax product filters, ajax filter, ajax filter widget, color filter, size filter, product onsale filter, product preview, product category filter, product reset filter, product sort by filter, stock filter, product tag filter, price range filter, price box filter, advanced product filters, woocommerce filters, woocommerce product filters, woocommerce products filter, woocommerce ajax product filters, widget, plugin, woocommerce item filters, filters plugin, ajax filters plugin, filter woocommerce products, filter woocommerce products plugin, wc filters, wc filters products, wc products filters, wc ajax products filters, wc product filters, wc advanced product filters, woocommerce layered nav, woocommerce layered navigation, ajax filtered nav, ajax filtered navigation, price filter, ajax price filter, woocommerce product sorting, sidebar filter, sidebar ajax filter, taxonomy filter, category filter, attribute filter, attributes filter, woocommerce product sort, ajax products filter plugin for woocommerce, rocket, berocket, berocket woocommerce ajax products filter
 Requires at least: 5.0
-Tested up to: 5.7
-Stable tag: 1.5.3
+Tested up to: 5.8
+Stable tag: 1.6.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,95 @@ You can try this plugin's admin side [here](https://berocket.com/product/woocomm
 ---
 
 == Changelog ==
+
+= 1.6.0.2 =
+* Fix - Selected filters options do not work
+* Fix - Link like WooCommerce add-on work incorrect in some cases
+* Fix - Support query with product variations and other post types
+
+= 1.6.0.1 =
+* Fix - Incorrect query when used not default 'wp_' database prefix
+
+= 1.6 =
+* Enhancement - Less database queries
+* Enhancement - Optimization for database queries. Speed up request to database
+* Enhancement - Updated Additional tables for optimized requests and more correct filtering
+* Enhancement - Possibility to filter any products request on the page with help of shortcode [brapf_next_shortcode_apply]
+* Enhancement - Support for some page builders products elements with shortcode [brapf_next_shortcode_apply]
+* Enhancement - Hide reset products button on page load with help of CSS code
+* Enhancement - (DEV) New data for filtered page to get more control on selected elements
+* Enhancement - Removed Deprecated Filters Add-on
+* Fix - Multiple blocks with products in Divi Page Builder, when only single block must be filtered
+* Fix - Stock status "On Backorder" work as "In stock" for filtering
+
+= 1.5.5.4 =
+* Enhancement - Added notice for deprecated filters add-on
+* Enhancement - Prepare for new update
+
+= 1.5.5.4 =
+* Enhancement - Compatibility version: WooCommerce 5.7
+* Enhancement - Compatibility with Aelia Currency Switcher global exchange rate
+* Fix - On some theme plugin use incorrect query for filters
+
+= 1.5.5.3 =
+* Enhancement - Option to load products again when some filters not exist after filtering
+* Fix - Divi Module include not existed style file
+* Fix - Custom CSS style for "Selected value style" do not work for image type
+* Fix - Images do not show on selection for image type
+
+= 1.5.5.2 =
+* Fix - Divi Builder modules for latest version Divi theme
+
+= 1.5.5.1 =
+* Enhancement - Compatibility version: Wordpress 5.8 and WooCommerce 5.5
+* Enhancement - Speed up recount functionality for hierarchical taxonomy
+* Fix - Advanced section empty
+
+= 1.5.5 =
+* Enhancement - Compatibility version: Wordpress 5.8 and WooCommerce 5.5
+
+= 1.5.4.7 =
+* Fix - XSS vulnerability
+* Fix - Additional tables check attribute for terms count
+* Fix - Link like WooCommerce add-on fix
+* Fix - Check Widget type and styles on frontend. Display error for admin
+
+= 1.5.4.6 =
+* Enhancement - Compatibility version: WooCommerce 5.4
+* Enhancement - Price slider with multiple taxonomy page
+* Enhancement - Speed up Additional Tables generation
+* Enhancement - Use WordPress cron for Additional Tables generation
+* Enhancement - Generate more data with single request for Additional Tables generation
+* Fix - Get templates when plugin settings open
+* Fix - Hide selected filters area on page load
+
+= 1.5.4.5 =
+* Enhancement - Remove not needed property from terms cache
+* Fix - Filters can be hidden on custom page with WooCommerce shortcodes
+
+= 1.5.4.4 =
+* Fix - Price slider with older MySQL
+
+= 1.5.4.3 =
+* Enhancement - Compatibility version: WooCommerce 5.3
+* Fix - Price slider with decimal product price
+* Fix - Filter custom scroll work incorrect with some themes
+* Fix - Stock status recount with Additional tables
+
+= 1.5.4.2 =
+* Fix - Issue with query for hierarchical taxonomies
+
+= 1.5.4.1 =
+* Enhancement - Faster table generation for variable products on product save
+* Enhancement - New Checkbox styles
+* Fix - WP Rocket compatibility issue
+
+= 1.5.4 =
+* Enhancement - Flatsome theme compatibility
+* Enhancement - JetWooBuilder compatibility
+* Enhancement - Compatibility version: WooCommerce 5.2
+* Fix - Relevanssi compatibility with price filters
+* Fix - The7 latest version compatibility
 
 = 1.5.3 =
 * Fix - SECURITY ISSUE! Sanitize HTML tags for all settings. Custom JavaScript can be changed only by admin(Super admin for multisite).
