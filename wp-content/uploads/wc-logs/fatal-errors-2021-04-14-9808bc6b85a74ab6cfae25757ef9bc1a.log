@@ -1,6 +1,0 @@
-2021-04-14T12:14:42+00:00 CRITICAL Cannot redeclare xoo_wsc_init() (previously declared in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/side-cart-woocommerce/xoo-wsc-main.php:29) in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/woocommerce-side-cart-premium/xoo-wsc.php on line 74
-
-2021-04-14T12:14:42+00:00 CRITICAL Cannot redeclare xoo_wsc_init() (previously declared in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/side-cart-woocommerce/xoo-wsc-main.php:29) in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/woocommerce-side-cart-premium/xoo-wsc.php on line 74
-
-2021-04-14T12:14:43+00:00 CRITICAL Cannot redeclare xoo_wsc_init() (previously declared in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/side-cart-woocommerce/xoo-wsc-main.php:29) in /home/xbass/Local Sites/solify/app/public/wp-content/plugins/woocommerce-side-cart-premium/xoo-wsc.php on line 74
-

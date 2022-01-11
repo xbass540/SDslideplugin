@@ -1,0 +1,14 @@
+2022-01-07T09:44:36+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:44:48+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:49:56+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:50:15+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:53:13+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:58:33+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+
+2022-01-07T09:59:15+00:00 CRITICAL require_once(): Failed opening required '/home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin//views/sd-slider_metabox.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /home/xbass/Local Sites/plugindev/app/public/wp-content/plugins/sd-slider-plugin/assets/post-types/class.sd-slider-cpt.php on line 53
+

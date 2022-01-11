@@ -425,7 +425,7 @@ function add_some_html (){
 }
 
 add_action('dynamic_sidebar_before','add_some_html',5);
-
+/////end hook 
 
 function modify_content($content){
   $content = $content . 'All right reserved';
